@@ -23,6 +23,16 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+
+    // Apache Commons CSV for CSV file handling
+    implementation 'org.apache.commons:commons-csv:1.9.0'
+    
+    // BCrypt for password hashing
+    implementation("org.mindrot:jbcrypt:0.4")
+    
+    // For testing
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+    
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

@@ -1,4 +1,4 @@
-package sc2002.appointment;
+package sc2002.model.appointment;
 
 public class Appointment {
 }
