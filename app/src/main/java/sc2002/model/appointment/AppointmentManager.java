@@ -1,5 +1,14 @@
 package sc2002.model.appointment;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import sc2002.model.role.Doctor;
+
 // AppointmentManager class to handle appointment-related operations
 class AppointmentManager {
     private Map<String, List<LocalDateTime>> doctorAvailability;
@@ -32,17 +41,19 @@ class AppointmentManager {
             throw new IllegalArgumentException("Appointment not found");
         }
 
-        if (!isSlotAvailable(appointment.getDoctorId(), newDateTime)) {
+        Doctor doctor = appointment.getDoctor()
+
+        if (!isSlotAvailable(doctor.getId(), newDateTime)) {
             throw new IllegalArgumentException("New time slot is not available");
         }
 
         // Add old slot back to availability
-        addAvailableSlot(appointment.getDoctorId(), appointment.getDateTime());
+        addAvailableSlot(doctor.getId(), appointment.getDateTime());
         // Remove new slot from availability
-        removeAvailableSlot(appointment.getDoctorId(), newDateTime);
+        removeAvailableSlot(doctor.getId(), newDateTime);
         // Update appointment
         appointment = new Appointment(appointmentId, appointment.getPatientId(), 
-                                   appointment.getDoctorId(), newDateTime);
+                                   doctor.getId(), newDateTime);
     }
 
     public void cancelAppointment(String appointmentId) {
@@ -52,7 +63,7 @@ class AppointmentManager {
         }
 
         appointment.updateStatus("canceled");
-        addAvailableSlot(appointment.getDoctorId(), appointment.getDateTime());
+        addAvailableSlot(doctor.getId(), appointment.getDateTime());
     }
 
     private Appointment findAppointment(String appointmentId) {

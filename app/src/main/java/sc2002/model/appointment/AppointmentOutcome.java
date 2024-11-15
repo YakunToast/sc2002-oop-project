@@ -1,4 +1,6 @@
 package sc2002.model.appointment;
 
-public class AppointmentOutcome {
+public class AppointmentOutcome extends Appointment {
+    
+
 }
