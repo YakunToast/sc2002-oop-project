@@ -1,5 +1,8 @@
 package hms.model.user;
 
 public enum UserRole {
-    PATIENT, DOCTOR, PHARMACIST, ADMINISTRATOR
+    PATIENT,
+    DOCTOR,
+    PHARMACIST,
+    ADMINISTRATOR
 }

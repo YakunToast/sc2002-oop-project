@@ -54,7 +54,8 @@ public class Schedule implements Serializable {
 
     // Method to remove availability timeslot by matching slots within a date and
     // time range
-    public void removeSlots(LocalDate startDate, LocalDate endDate, LocalTime start, LocalTime end) {
+    public void removeSlots(
+            LocalDate startDate, LocalDate endDate, LocalTime start, LocalTime end) {
         LocalDate currentDate = startDate;
         while (!currentDate.isAfter(endDate)) {
             removeDaySlots(currentDate, start, end);
@@ -66,9 +67,14 @@ public class Schedule implements Serializable {
         LocalDateTime removeStartTime = LocalDateTime.of(date, start);
         LocalDateTime removeEndTime = LocalDateTime.of(date, end);
 
-        timeslots.removeIf(slot -> (slot.getStart().equals(removeStartTime) || slot.getEnd().equals(removeEndTime) ||
-                (slot.getStart().isAfter(removeStartTime) && slot.getStart().isBefore(removeEndTime)) ||
-                (slot.getEnd().isAfter(removeStartTime) && slot.getEnd().isBefore(removeEndTime))));
+        timeslots.removeIf(
+                slot ->
+                        (slot.getStart().equals(removeStartTime)
+                                || slot.getEnd().equals(removeEndTime)
+                                || (slot.getStart().isAfter(removeStartTime)
+                                        && slot.getStart().isBefore(removeEndTime))
+                                || (slot.getEnd().isAfter(removeStartTime)
+                                        && slot.getEnd().isBefore(removeEndTime))));
     }
 
     // Method to mark a time slot as available
@@ -89,9 +95,10 @@ public class Schedule implements Serializable {
     // Private helper method to update the status of a time slot
     private void updateSlotStatus(LocalDateTime start, LocalDateTime end, TimeSlotStatus status) {
         for (TimeSlot slot : timeslots) {
-            if (slot.getStart().equals(start) || slot.getEnd().equals(end) ||
-                    (slot.getStart().isAfter(start) && slot.getStart().isBefore(end)) ||
-                    (slot.getEnd().isAfter(start) && slot.getEnd().isBefore(end))) {
+            if (slot.getStart().equals(start)
+                    || slot.getEnd().equals(end)
+                    || (slot.getStart().isAfter(start) && slot.getStart().isBefore(end))
+                    || (slot.getEnd().isAfter(start) && slot.getEnd().isBefore(end))) {
                 slot.setStatus(status);
             }
         }
@@ -107,5 +114,4 @@ public class Schedule implements Serializable {
         }
         return filteredTimeslots;
     }
-
 }

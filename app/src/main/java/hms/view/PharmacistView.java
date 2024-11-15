@@ -34,19 +34,11 @@ public class PharmacistView {
         }
     }
 
-    void viewAppointmentOutcomeRecords(Scanner sc) {
+    void viewAppointmentOutcomeRecords(Scanner sc) {}
 
-    }
+    void updatePrescriptionStatus(Scanner sc) {}
 
-    void updatePrescriptionStatus(Scanner sc) {
+    void viewMedicationInventory(Scanner sc) {}
 
-    }
-
-    void viewMedicationInventory(Scanner sc) {
-
-    }
-
-    void submitReplenishmentRequest(Scanner sc) {
-
-    }
+    void submitReplenishmentRequest(Scanner sc) {}
 }

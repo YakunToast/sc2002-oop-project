@@ -58,7 +58,8 @@ public class PatientView {
         System.out.println("Patient's Medical Record:");
         System.out.println("---------------------------");
         System.out.printf("Patient ID: %s%n", pc.getPatient().getId());
-        System.out.printf("Name: %s %s%n", pc.getPatient().getFirstName(), pc.getPatient().getLastName());
+        System.out.printf(
+                "Name: %s %s%n", pc.getPatient().getFirstName(), pc.getPatient().getLastName());
         System.out.printf("Date of Birth: %s%n", pc.getPatient().getDateOfBirth());
         System.out.printf("Gender: %s%n", pc.getPatient().getGender());
         System.out.println("Contact Information:");
@@ -118,7 +119,9 @@ public class PatientView {
             for (TimeSlot timeslot : doctor.getSchedule().getSlots()) {
                 if (timeslot.isAvailable()) { // Check if the timeslot is available
                     availableSlotsMap.put(index, timeslot);
-                    System.out.printf("%d. Doctor: %s, Time: %s%n", index, doctor.getName(), timeslot.getStart());
+                    System.out.printf(
+                            "%d. Doctor: %s, Time: %s%n",
+                            index, doctor.getName(), timeslot.getStart());
                     index++;
                 }
             }
@@ -142,19 +145,11 @@ public class PatientView {
         }
     }
 
-    void rescheduleAppointment(Scanner sc) {
+    void rescheduleAppointment(Scanner sc) {}
 
-    }
+    void cancelAppointment(Scanner sc) {}
 
-    void cancelAppointment(Scanner sc) {
+    void viewScheduledAppointments(Scanner sc) {}
 
-    }
-
-    void viewScheduledAppointments(Scanner sc) {
-
-    }
-
-    void viewPastAppointmentOutcomes(Scanner sc) {
-
-    }
+    void viewPastAppointmentOutcomes(Scanner sc) {}
 }

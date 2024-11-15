@@ -18,14 +18,31 @@ public class Patient extends User {
     private String gender; // TODO: Change to Gender enum
     private String bloodType;
 
-    public Patient(String id, String username, String firstName, String lastName, String password, String email, String phoneNumber) {
+    public Patient(
+            String id,
+            String username,
+            String firstName,
+            String lastName,
+            String password,
+            String email,
+            String phoneNumber) {
         super(id, username, firstName, lastName, password, email, phoneNumber, UserRole.PATIENT);
 
         this.medicalRecord = new MedicalRecord(this);
         this.appointments = new ArrayList<>();
     }
 
-    public Patient(String id, String username, String firstName, String lastName, String password, String email, String phoneNumber, String dateOfBirth, String gender, String bloodType) {
+    public Patient(
+            String id,
+            String username,
+            String firstName,
+            String lastName,
+            String password,
+            String email,
+            String phoneNumber,
+            String dateOfBirth,
+            String gender,
+            String bloodType) {
         this(id, username, firstName, lastName, password, email, phoneNumber);
 
         this.setDateOfBirth(dateOfBirth);

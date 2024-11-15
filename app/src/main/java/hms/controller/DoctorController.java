@@ -26,7 +26,10 @@ public class DoctorController extends UserController {
     }
 
     public List<Appointment> getAppointments() {
-        return RepositoryManager.getInstance().getAppointmentRepository().getAllAppointments().stream()
+        return RepositoryManager.getInstance()
+                .getAppointmentRepository()
+                .getAllAppointments()
+                .stream()
                 .filter(a -> a.getDoctor() == doctor)
                 .collect(Collectors.toList());
     }

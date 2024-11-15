@@ -33,14 +33,15 @@ public class PatientController {
     }
 
     public List<Appointment> getAppointments() {
-        return RepositoryManager.getInstance().getAppointmentRepository().getAllAppointments().stream()
+        return RepositoryManager.getInstance()
+                .getAppointmentRepository()
+                .getAllAppointments()
+                .stream()
                 .filter(a -> a.getPatient() == patient)
                 .collect(Collectors.toList());
     }
 
     public List<Doctor> getDoctors() {
-        return this.getAppointments().stream()
-                .map(a -> a.getDoctor())
-                .collect(Collectors.toList());
+        return this.getAppointments().stream().map(a -> a.getDoctor()).collect(Collectors.toList());
     }
 }

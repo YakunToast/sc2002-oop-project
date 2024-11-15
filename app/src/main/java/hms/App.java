@@ -35,19 +35,32 @@ public class App {
         // loadMedicinesFromExcel("Medicine_List.xlsx");
         // loadStaffsFromExcel("Staff_List.xlsx");
 
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            public void run() {
-                // TODO: Find a way to better save all controllers at once
-                // Database.save();
-            }
-        }));
+        Runtime.getRuntime()
+                .addShutdownHook(
+                        new Thread(
+                                new Runnable() {
+                                    public void run() {
+                                        // TODO: Find a way to better save all controllers at once
+                                        // Database.save();
+                                    }
+                                }));
 
         // Create sample users
         Patient p1 = new Patient("P1", "abc", "first", "patient", "pass", "abc@xyz.com", "+1234");
         Doctor d1 = new Doctor("D1", "cba", "first", "doctor", "pass", "cba@xyz.com", "+1234");
-        Appointment a1 = new Appointment(UUID.fromString("00000000-0000-0000-0000-000000000000"), p1, d1, LocalDateTime.of(2024, 11, 19, 10, 0, 0));
+        Appointment a1 =
+                new Appointment(
+                        UUID.fromString("00000000-0000-0000-0000-000000000000"),
+                        p1,
+                        d1,
+                        LocalDateTime.of(2024, 11, 19, 10, 0, 0));
 
-        d1.getSchedule().addSlots(LocalDate.of(2024, 11, 19), LocalDate.of(2024, 11, 19), LocalTime.of(07, 0), LocalTime.of(15, 0));
+        d1.getSchedule()
+                .addSlots(
+                        LocalDate.of(2024, 11, 19),
+                        LocalDate.of(2024, 11, 19),
+                        LocalTime.of(07, 0),
+                        LocalTime.of(15, 0));
 
         // Save sample users
         if (rm.getUserRepository().getUserById("P1").isEmpty()) {
@@ -58,7 +71,9 @@ public class App {
             System.out.println("Creating doctor cba...");
             rm.getUserRepository().addUser(d1);
         }
-        if (rm.getAppointmentRepository().getAppointmentById(UUID.fromString("00000000-0000-0000-0000-000000000000")).isEmpty()) {
+        if (rm.getAppointmentRepository()
+                .getAppointmentById(UUID.fromString("00000000-0000-0000-0000-000000000000"))
+                .isEmpty()) {
             System.out.println("Creating appointment 0...");
             rm.getAppointmentRepository().addAppointment(a1);
         }
@@ -66,7 +81,6 @@ public class App {
         // Initialise view
         MainView mv = new MainView();
         mv.start();
-
     }
 
     public static void loadPatientsFromExcel(String filePath) {
@@ -96,10 +110,22 @@ public class App {
                 String contactInformation = cellIterator.next().getStringCellValue();
 
                 // Create new "Patient"
-                Patient patient = new Patient(patientID, patientID, firstName, lastName, "defaultPassword", contactInformation, contactInformation, dateOfBirth, gender, bloodType);
+                Patient patient =
+                        new Patient(
+                                patientID,
+                                patientID,
+                                firstName,
+                                lastName,
+                                "defaultPassword",
+                                contactInformation,
+                                contactInformation,
+                                dateOfBirth,
+                                gender,
+                                bloodType);
 
                 // Check if exists, if not add
-                if (RepositoryManager.getInstance().getUserRepository().getUserById(patientID) == null) {
+                if (RepositoryManager.getInstance().getUserRepository().getUserById(patientID)
+                        == null) {
                     RepositoryManager.getInstance().getUserRepository().addUser(patient);
                 }
             }

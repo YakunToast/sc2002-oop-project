@@ -1,5 +1,3 @@
 package hms.repository;
 
-public abstract class BaseRepository {
-
-}
+public abstract class BaseRepository {}

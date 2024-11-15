@@ -1,5 +1,3 @@
 package hms.model.medication;
 
-public class ReplenishmentRequest {
-
-}
+public class ReplenishmentRequest {}
