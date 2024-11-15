@@ -15,6 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '21'
+
       - uses: axel-op/googlejavaformat-action@v3
         with:
           args: "--aosp --skip-sorting-imports --replace"
