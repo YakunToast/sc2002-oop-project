@@ -26,9 +26,17 @@ public class MainView {
             String password = sc.nextLine();
 
             // Get user
-            User user = RepositoryManager.getInstance().getUserRepository().getUserById(username).orElse(null);
+            User user =
+                    RepositoryManager.getInstance()
+                            .getUserRepository()
+                            .getUserById(username)
+                            .orElse(null);
             if (user == null) {
-                user = RepositoryManager.getInstance().getUserRepository().getUserByUsername(username).orElse(null);
+                user =
+                        RepositoryManager.getInstance()
+                                .getUserRepository()
+                                .getUserByUsername(username)
+                                .orElse(null);
                 if (user == null) {
                     System.out.println("No such user!");
                     continue;
@@ -76,8 +84,8 @@ public class MainView {
                             System.out.println("Error: User role does not match any known views.");
                         }
                     }
-                    default -> System.out.println("Error: User role does not match any known views.");
-
+                    default ->
+                            System.out.println("Error: User role does not match any known views.");
                 }
             }
         }

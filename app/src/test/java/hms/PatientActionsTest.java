@@ -1,4 +1,3 @@
 package hms;
 
-public class PatientActionsTest {
-}
+public class PatientActionsTest {}

@@ -66,9 +66,13 @@ public class DoctorView {
         System.out.println("Patients");
         System.out.println("========");
         for (Patient patient : patients) {
-            System.out.println("ID: " + patient.getId() +
-                    ", First Name: " + patient.getFirstName() +
-                    ", Last Name: " + patient.getLastName());
+            System.out.println(
+                    "ID: "
+                            + patient.getId()
+                            + ", First Name: "
+                            + patient.getFirstName()
+                            + ", Last Name: "
+                            + patient.getLastName());
         }
         System.out.println("========");
     }
@@ -77,8 +81,12 @@ public class DoctorView {
         printPatients();
         System.out.print("Choose a patient ID: ");
         String patientId = sc.nextLine();
-        Patient patient = (Patient) RepositoryManager.getInstance().getUserRepository().getUserById(patientId)
-                .orElseThrow();
+        Patient patient =
+                (Patient)
+                        RepositoryManager.getInstance()
+                                .getUserRepository()
+                                .getUserById(patientId)
+                                .orElseThrow();
         if (patient == null) {
             System.out.println("Invalid! Try again!");
         }
@@ -190,7 +198,14 @@ public class DoctorView {
                 // Add availability
                 dc.addSlots(startDate, endDate, start, end);
                 System.out.println(
-                        "Availability added: " + startDate + " to " + endDate + " from " + start + " to " + end);
+                        "Availability added: "
+                                + startDate
+                                + " to "
+                                + endDate
+                                + " from "
+                                + start
+                                + " to "
+                                + end);
 
             } catch (DateTimeParseException | IllegalArgumentException e) {
                 System.out.println("Invalid input: " + e.getMessage());

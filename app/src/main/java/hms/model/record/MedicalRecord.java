@@ -18,7 +18,9 @@ public class MedicalRecord implements Serializable {
     private Doctor doctor;
 
     public enum Gender {
-        MALE, FEMALE, OTHER
+        MALE,
+        FEMALE,
+        OTHER
     }
 
     public MedicalRecord(Patient patient) {
@@ -41,8 +43,12 @@ public class MedicalRecord implements Serializable {
         sb.append("Contact Phone: ").append(contactPhone).append("\n");
         sb.append("Email Address: ").append(emailAddress).append("\n");
         sb.append("Doctor: ").append(doctor != null ? doctor.getName() : "None").append("\n");
-        sb.append("Past Diagnoses: ").append(pastDiagnoses.isEmpty() ? "None" : String.join(", ", pastDiagnoses)).append("\n");
-        sb.append("Treatments: ").append(treatments.isEmpty() ? "None" : String.join(", ", treatments)).append("\n");
+        sb.append("Past Diagnoses: ")
+                .append(pastDiagnoses.isEmpty() ? "None" : String.join(", ", pastDiagnoses))
+                .append("\n");
+        sb.append("Treatments: ")
+                .append(treatments.isEmpty() ? "None" : String.join(", ", treatments))
+                .append("\n");
         return sb.toString();
     }
 
