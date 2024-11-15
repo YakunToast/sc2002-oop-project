@@ -17,7 +17,10 @@ public class Appointment implements Serializable {
     private String outcome;
 
     public enum AppointmentStatus {
-        PENDING, CONFIRMED, CANCELLED, COMPLETED
+        PENDING,
+        CONFIRMED,
+        CANCELLED,
+        COMPLETED
     }
 
     public Appointment(UUID appointmentId, Patient patient, Doctor doctor, LocalDateTime dateTime) {
@@ -34,9 +37,13 @@ public class Appointment implements Serializable {
         sb.append("Appointment Details\n");
         sb.append("-------------------\n");
         sb.append("Appointment ID: ").append(appointmentId).append("\n");
-        sb.append("Patient Name: ").append(patient != null ? patient.getName() : "None").append("\n");
+        sb.append("Patient Name: ")
+                .append(patient != null ? patient.getName() : "None")
+                .append("\n");
         sb.append("Doctor Name: ").append(doctor != null ? doctor.getName() : "None").append("\n");
-        sb.append("Date and Time: ").append(dateTime != null ? dateTime.toString() : "Not Scheduled").append("\n");
+        sb.append("Date and Time: ")
+                .append(dateTime != null ? dateTime.toString() : "Not Scheduled")
+                .append("\n");
         sb.append("Status: ").append(status != null ? status.toString() : "Unknown").append("\n");
         sb.append("Outcome: ").append(outcome != null ? outcome : "Not Determined").append("\n");
         return sb.toString();

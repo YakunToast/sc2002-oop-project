@@ -1,5 +1,3 @@
 package hms.controller;
 
-public abstract class UserController {
-
-}
+public abstract class UserController {}

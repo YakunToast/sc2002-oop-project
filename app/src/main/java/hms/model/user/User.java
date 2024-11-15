@@ -16,7 +16,15 @@ public abstract class User implements Serializable {
     private String phoneNumber;
     private UserRole role;
 
-    public User(String id, String username, String firstName, String lastName, String password, String email, String phoneNumber, UserRole role) {
+    public User(
+            String id,
+            String username,
+            String firstName,
+            String lastName,
+            String password,
+            String email,
+            String phoneNumber,
+            UserRole role) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;

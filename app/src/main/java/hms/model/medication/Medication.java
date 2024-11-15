@@ -3,9 +3,7 @@ package hms.model.medication;
 import java.io.Serializable;
 import java.util.UUID;
 
-/**
- * Represents a Medication entity in the hospital management application.
- */
+/** Represents a Medication entity in the hospital management application. */
 public class Medication implements Serializable {
     private UUID id;
     private String name;
@@ -17,28 +15,28 @@ public class Medication implements Serializable {
     // Status (e.g., active, discontinued, recalled)
     private MedicationStatus status;
 
-    /**
-     * Enum for medication status
-     */
+    /** Enum for medication status */
     public enum MedicationStatus {
-        ACTIVE, DISCONTINUED, RECALLED
+        ACTIVE,
+        DISCONTINUED,
+        RECALLED
     }
 
     /**
      * Constructor for creating a new Medication instance
-     * 
-     * @param medicationName
-     *            Name of the medication
-     * @param description
-     *            Description of the medication
-     * @param dosageInstructions
-     *            Dosage instructions
-     * @param sideEffects
-     *            Possible side effects
-     * @param status
-     *            Initial status of the medication
+     *
+     * @param medicationName Name of the medication
+     * @param description Description of the medication
+     * @param dosageInstructions Dosage instructions
+     * @param sideEffects Possible side effects
+     * @param status Initial status of the medication
      */
-    public Medication(String medicationName, String description, String dosageInstructions, MedicationSideEffect[] sideEffects, MedicationStatus status) {
+    public Medication(
+            String medicationName,
+            String description,
+            String dosageInstructions,
+            MedicationSideEffect[] sideEffects,
+            MedicationStatus status) {
         this.name = medicationName;
         this.description = description;
         this.dosageInstructions = dosageInstructions;
@@ -46,10 +44,7 @@ public class Medication implements Serializable {
         this.status = status;
     }
 
-    /**
-     * Getters and Setters for Medication properties
-     */
-
+    /** Getters and Setters for Medication properties */
     public UUID getId() {
         return id;
     }
@@ -100,10 +95,18 @@ public class Medication implements Serializable {
 
     @Override
     public String toString() {
-        return "Medication [medicationId=" + id + ", medicationName=" + name + ", description="
+        return "Medication [medicationId="
+                + id
+                + ", medicationName="
+                + name
+                + ", description="
                 + description
-                + ", dosageInstructions=" + dosageInstructions + ", sideEffects="
+                + ", dosageInstructions="
+                + dosageInstructions
+                + ", sideEffects="
                 + java.util.Arrays.toString(sideEffects)
-                + ", status=" + status + "]";
+                + ", status="
+                + status
+                + "]";
     }
 }
