@@ -3,15 +3,29 @@
  */
 package sc2002;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Iterator;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
 import sc2002.cli.MainView;
 import sc2002.controller.PatientController;
+import sc2002.model.MedicalRecord;
 import sc2002.model.role.Patient;
-import sc2002.model.role.UserRole;
 
 public class HMSApp {
     public static void main(String[] args) {
         // Load
         PatientController.load();
+
+        loadPatientsFromExcel("Patient_List.xlsx");
+        PatientController.save();
 
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
@@ -21,14 +35,58 @@ public class HMSApp {
         }));
 
         // Create sample users
-        if (PatientController.get("abc") == null) {
+        if (PatientController.getById("P1") == null) {
             System.out.println("Creating user abc...");
-            PatientController.add(new Patient("abc", "first", "last", "password", "abc@xyz.com", "+1234141", UserRole.PATIENT));
+            PatientController.add(new Patient("P1", "abc", "first", "last", "password", "abc@xyz.com", "+1234141"));
         }
 
         // Initialise view
         MainView mv = new MainView();
         mv.start();
 
+    }
+
+    public static void loadPatientsFromExcel(String filePath) {
+        try {
+            FileInputStream file = new FileInputStream(new File(filePath));
+            Workbook workbook = WorkbookFactory.create(file);
+            Sheet sheet = workbook.getSheetAt(0);
+
+            Iterator<Row> rowIterator = sheet.iterator();
+
+            // Skip first row
+            rowIterator.next();
+
+            // Loop through all rows
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+
+                Iterator<Cell> cellIterator = row.cellIterator();
+
+                String patientID = cellIterator.next().getStringCellValue();
+                String name = cellIterator.next().getStringCellValue();
+                String firstName = name.split(" ")[0]; // TODO: Naive approach
+                String lastName = name.split(" ")[1];
+                String dateOfBirth = cellIterator.next().getStringCellValue();
+                String gender = cellIterator.next().getStringCellValue();
+                String bloodType = cellIterator.next().getStringCellValue();
+                String contactInformation = cellIterator.next().getStringCellValue();
+
+                // Create new "Patient"
+                Patient patient = new Patient(patientID, patientID, firstName, lastName, "defaultPassword", contactInformation, contactInformation);
+
+                // Check if exists, if not add
+                if (PatientController.getById(patientID) == null) {
+                    PatientController.add(patient);
+                }
+
+                // Add medical record
+                MedicalRecord mr = new MedicalRecord(patient, dateOfBirth, gender, bloodType, contactInformation);
+            }
+            file.close();
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

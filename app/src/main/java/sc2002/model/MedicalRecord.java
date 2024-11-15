@@ -24,6 +24,14 @@ public class MedicalRecord implements Serializable {
         this.treatments = new ArrayList<>();
     }
 
+    public MedicalRecord(Patient patient, String dateOfBirth, String gender, String bloodType, String contactPhone) {
+        this(patient);
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.bloodType = bloodType;
+        this.contactPhone = contactPhone;
+    }
+
     // Only allow updating contact information
     public void updateContactInformation(String phone, String email) {
         this.contactPhone = phone;
@@ -35,28 +43,48 @@ public class MedicalRecord implements Serializable {
         return patient;
     }
 
-    public String getName() {
-        return name;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public String getDateOfBirth() {
         return dateOfBirth;
     }
 
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
     public String getGender() {
         return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getBloodType() {
+        return bloodType;
+    }
+
+    public void setBloodType(String bloodType) {
+        this.bloodType = bloodType;
     }
 
     public String getContactPhone() {
         return contactPhone;
     }
 
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
     public String getEmailAddress() {
         return emailAddress;
     }
 
-    public String getBloodType() {
-        return bloodType;
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     public List<String> getPastDiagnoses() {

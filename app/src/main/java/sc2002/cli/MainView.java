@@ -23,10 +23,13 @@ public class MainView {
             String password = sc.nextLine();
 
             // Get user
-            User user = PatientController.get(username);
+            User user = PatientController.getById(username);
             if (user == null) {
-                System.out.println("No such user!");
-                continue;
+                user = PatientController.getByUsername(username);
+                if (user == null) {
+                    System.out.println("No such user!");
+                    continue;
+                }
             }
 
             // Authenticate user

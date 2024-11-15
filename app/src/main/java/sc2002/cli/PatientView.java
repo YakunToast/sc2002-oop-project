@@ -17,6 +17,7 @@ public class PatientView {
             System.out.println("What would you like to do next?");
             System.out.println("1. View Medical Record");
             System.out.println("2. Update Personal Particulars");
+            System.out.println("3. Schedule Appointment");
             System.out.println("0. Logout");
             System.out.print("Choose an option: ");
             int option = sc.nextInt();
@@ -28,6 +29,9 @@ public class PatientView {
                     break;
                 case 2:
                     updatePersonalParticulars(sc);
+                    break;
+                case 3:
+                    scheduleAppointment(sc);
                     break;
                 case 0:
                     System.out.println("Logging out...");
@@ -88,5 +92,9 @@ public class PatientView {
                 default:
             }
         }
+    }
+
+    void scheduleAppointment(Scanner sc) {
+
     }
 }
