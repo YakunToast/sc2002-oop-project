@@ -1,5 +1,6 @@
 package sc2002.model.appointment;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -7,7 +8,7 @@ import sc2002.model.role.Doctor;
 import sc2002.model.role.Patient;
 
 // Appointment class to manage doctor appointments
-public class Appointment {
+public class Appointment implements Serializable {
     private UUID appointmentId;
     private Patient patient;
     private Doctor doctor;
