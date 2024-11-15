@@ -32,6 +32,16 @@ dependencies {
     
     // BCrypt for password hashing
     implementation("org.mindrot:jbcrypt:0.4")
+
+    // XLSX Reading
+    implementation("org.apache.poi:poi:5.3.0")
+    implementation("org.apache.poi:poi-ooxml:5.3.0")
+
+    // Log4j2 core dependency
+    implementation("org.apache.logging.log4j:log4j-core:2.20.0")
+
+    // Log4j2 API dependency
+    implementation("org.apache.logging.log4j:log4j-api:2.20.0")
     
     // For testing
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.1")
