@@ -1,17 +1,19 @@
 package hms.view;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
-import hms.controller.Database;
+import hms.controller.PatientController;
 import hms.model.record.MedicalRecord;
+import hms.model.schedule.TimeSlot;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 
 public class PatientView {
-    private Patient patient;
+    private final PatientController pc;
 
     public PatientView(Patient patient) {
-        this.patient = patient;
+        this.pc = new PatientController(patient);
     }
 
     void start(Scanner sc) {
@@ -50,18 +52,18 @@ public class PatientView {
 
     void viewMedicalRecord() {
         // Retrieve the patient's medical record
-        MedicalRecord mr = patient.getMedicalRecord();
+        MedicalRecord mr = pc.getMedicalRecord();
 
         // Display the patient's medical record with required details
         System.out.println("Patient's Medical Record:");
         System.out.println("---------------------------");
-        System.out.printf("Patient ID: %s%n", patient.getId());
-        System.out.printf("Name: %s %s%n", patient.getFirstName(), patient.getLastName());
+        System.out.printf("Patient ID: %s%n", pc.getPatient().getId());
+        System.out.printf("Name: %s %s%n", pc.getPatient().getFirstName(), pc.getPatient().getLastName());
         System.out.printf("Date of Birth: %s%n", mr.getDateOfBirth());
         System.out.printf("Gender: %s%n", mr.getGender());
         System.out.println("Contact Information:");
-        System.out.printf(" Phone: %s%n", patient.getPhoneNumber());
-        System.out.printf(" Email: %s%n", patient.getEmail());
+        System.out.printf(" Phone: %s%n", pc.getPatient().getPhoneNumber());
+        System.out.printf(" Email: %s%n", pc.getPatient().getEmail());
         System.out.printf("Blood Type: %s%n", mr.getBloodType());
         System.out.println("Past Diagnoses and Treatments:");
         // TODO:
@@ -87,12 +89,12 @@ public class PatientView {
                 case 1:
                     System.out.print("Email: ");
                     String newEmail = sc.nextLine();
-                    patient.setEmail(newEmail);
+                    pc.setEmail(newEmail);
                     break;
                 case 2:
                     System.out.print("Contact: ");
                     String newPhoneNumber = sc.nextLine();
-                    patient.setPhoneNumber(newPhoneNumber);
+                    pc.setPhoneNumber(newPhoneNumber);
                     break;
                 case 0:
                     return;
@@ -102,13 +104,42 @@ public class PatientView {
     }
 
     void viewAvailableSlots(Scanner sc) {
-        for (Doctor doctor : Database.getDoctors()) {
+        for (Doctor doctor : pc.getDoctors()) {
             System.out.println("Doctor: " + doctor.getName() + " " + doctor.getSchedule());
         }
     }
 
     void scheduleAppointment(Scanner sc) {
+        int index = 1;
+        HashMap<Integer, TimeSlot> availableSlotsMap = new HashMap<>();
 
+        // Build indexed list of available timeslots
+        for (Doctor doctor : pc.getDoctors()) {
+            for (TimeSlot timeslot : doctor.getSchedule().getSlots()) {
+                if (timeslot.isAvailable()) { // Check if the timeslot is available
+                    availableSlotsMap.put(index, timeslot);
+                    System.out.printf("%d. Doctor: %s, Time: %s%n", index, doctor.getName(), timeslot.getStart());
+                    index++;
+                }
+            }
+        }
+
+        if (availableSlotsMap.isEmpty()) {
+            System.out.println("No available timeslots at the moment. Please try again later.");
+            return;
+        }
+
+        System.out.print("Choose a timeslot by entering the corresponding index: ");
+        int chosenIndex = sc.nextInt();
+        sc.nextLine(); // Consume newline left-over
+
+        if (availableSlotsMap.containsKey(chosenIndex)) {
+            TimeSlot selectedSlot = availableSlotsMap.get(chosenIndex);
+            selectedSlot.setPending();
+            System.out.println("Appointment scheduled successfully. Please wait for confirmation.");
+        } else {
+            System.out.println("Invalid selection. Please try again.");
+        }
     }
 
     void rescheduleAppointment(Scanner sc) {

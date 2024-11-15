@@ -33,6 +33,30 @@ public class TimeSlot implements Serializable {
         this.status = status;
     }
 
+    public void setAvailable() {
+        this.status = TimeSlotStatus.AVAILABLE;
+    }
+
+    public void setPending() {
+        this.status = TimeSlotStatus.PENDING;
+    }
+
+    public void setBlocked() {
+        this.status = TimeSlotStatus.BLOCKED;
+    }
+
+    public boolean isAvailable() {
+        return this.status == TimeSlotStatus.AVAILABLE;
+    }
+
+    public boolean isPending() {
+        return this.status == TimeSlotStatus.PENDING;
+    }
+
+    public boolean isBlocked() {
+        return this.status == TimeSlotStatus.BLOCKED;
+    }
+
     @Override
     public String toString() {
         return start + "-" + end + " (" + status + ")";

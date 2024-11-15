@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public abstract class BaseUser implements Serializable {
+public abstract class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String id;
@@ -16,15 +16,15 @@ public abstract class BaseUser implements Serializable {
     private String phoneNumber;
     private UserRole role;
 
-    public BaseUser(String id, String username, String firstName, String lastName, String password, String email, String phoneNumber, UserRole role) {
+    public User(String id, String username, String firstName, String lastName, String password, String email, String phoneNumber, UserRole role) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.setPassword(password);
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.role = role;
+        this.setPassword(password);
     }
 
     public String getId() {
@@ -43,6 +43,7 @@ public abstract class BaseUser implements Serializable {
         return lastName;
     }
 
+    // helper class
     public String getName() {
         return firstName + " " + lastName;
     }

@@ -7,17 +7,18 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
-import hms.controller.Database;
+import hms.controller.DoctorController;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.Appointment.AppointmentStatus;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
+import hms.repository.RepositoryManager;
 
 public class DoctorView {
-    private Doctor doctor;
+    private final DoctorController dc;
 
     public DoctorView(Doctor doctor) {
-        this.doctor = doctor;
+        this.dc = new DoctorController(doctor);
     }
 
     void start(Scanner sc) {
@@ -61,7 +62,7 @@ public class DoctorView {
     }
 
     void printPatients() {
-        List<Patient> patients = Database.getPatientsOfDoctor(this.doctor);
+        List<Patient> patients = dc.getPatients();
         System.out.println("Patients");
         System.out.println("========");
         for (Patient patient : patients) {
@@ -76,7 +77,8 @@ public class DoctorView {
         printPatients();
         System.out.print("Choose a patient ID: ");
         String patientId = sc.nextLine();
-        Patient patient = Database.getPatient(patientId);
+        Patient patient = (Patient) RepositoryManager.getInstance().getUserRepository().getUserById(patientId)
+                .orElseThrow();
         if (patient == null) {
             System.out.println("Invalid! Try again!");
         }
@@ -124,7 +126,10 @@ public class DoctorView {
 
     void viewSchedule(Scanner sc) {
         System.out.println("Doctor's Schedule:");
-        doctor.printAppointments();
+        System.out.println("==================");
+        for (Appointment a : dc.getAppointments()) {
+            System.out.println(a);
+        }
     }
 
     void setAppointmentAvailability(Scanner sc) {
@@ -183,8 +188,9 @@ public class DoctorView {
                 }
 
                 // Add availability
-                doctor.getSchedule().addSlots(startDate, endDate, start, end);
-                System.out.println("Availability added: " + startDate + " to " + endDate + " from " + start + " to " + end);
+                dc.addSlots(startDate, endDate, start, end);
+                System.out.println(
+                        "Availability added: " + startDate + " to " + endDate + " from " + start + " to " + end);
 
             } catch (DateTimeParseException | IllegalArgumentException e) {
                 System.out.println("Invalid input: " + e.getMessage());
@@ -194,27 +200,46 @@ public class DoctorView {
     }
 
     void acceptOrDeclineAppointments(Scanner sc) {
-        // Assume we have a method that can fetch appointment requests
-        List<Appointment> requests = Database.getAppointmentsOfDoctor(doctor);
-        for (Appointment request : requests) {
-            System.out.println("Appointment Request:");
-            System.out.println(request);
-            System.out.print("Accept (A) or Decline (D): ");
-            String decision = sc.nextLine();
-            if (decision.equalsIgnoreCase("A")) {
-                request.setStatus(AppointmentStatus.CONFIRMED);
-                System.out.println("Appointment accepted.");
-            } else if (decision.equalsIgnoreCase("D")) {
-                request.setStatus(AppointmentStatus.CANCELLED);
-                System.out.println("Appointment declined.");
+        List<Appointment> requests = dc.getPendingAppointments();
+        if (requests.isEmpty()) {
+            System.out.println("No pending appointment requests.");
+            return;
+        }
+
+        System.out.println("Pending Appointment Requests:");
+        for (int i = 0; i < requests.size(); i++) {
+            System.out.println(i + 1 + ". " + requests.get(i));
+        }
+        System.out.println("0. Return");
+
+        while (true) {
+            System.out.print("Choose an appointment to handle or 0 to return: ");
+            int choice = sc.nextInt();
+            sc.nextLine(); // Consume newline left-over
+
+            if (choice == 0) {
+                break;
+            } else if (choice >= 1 && choice <= requests.size()) {
+                Appointment request = requests.get(choice - 1);
+                System.out.print("Accept (A) or Decline (D): ");
+                String decision = sc.nextLine();
+                if (decision.equalsIgnoreCase("A")) {
+                    request.setStatus(AppointmentStatus.CONFIRMED);
+                    System.out.println("Appointment accepted.");
+                } else if (decision.equalsIgnoreCase("D")) {
+                    request.setStatus(AppointmentStatus.CANCELLED);
+                    System.out.println("Appointment declined.");
+                } else {
+                    System.out.println("Invalid choice. Please try again.");
+                }
             } else {
-                System.out.println("Invalid choice. Skipping request.");
+                System.out.println("Invalid choice. Please try again.");
             }
         }
     }
 
     void viewUpcomingAppointments(Scanner sc) {
-        List<Appointment> appointments = Database.getAppointmentsOfDoctor(doctor);
+        List<Appointment> appointments = dc.getConfirmedAppointments();
         System.out.println("Upcoming Appointments:");
         for (Appointment appointment : appointments) {
             System.out.println(appointment);
@@ -222,15 +247,38 @@ public class DoctorView {
     }
 
     void recordAppointmentOutcome(Scanner sc) {
-        List<Appointment> pastAppointments = Database.getAppointmentsOfDoctor(doctor);
-        for (Appointment appointment : pastAppointments) {
-            if (appointment.getStatus() == AppointmentStatus.CONFIRMED && !appointment.getOutcome().equals("")) {
-                System.out.println("Appointment Details:");
-                System.out.println(appointment);
-                System.out.print("Enter outcome of the appointment: ");
-                String outcome = sc.nextLine();
+        List<Appointment> pastAppointments = dc.getConfirmedAppointments();
 
-                System.out.println("Outcome recorded successfully.");
+        if (pastAppointments.isEmpty()) {
+            System.out.println("No confirmed appointments to record outcomes for.");
+            return;
+        }
+
+        System.out.println("Confirmed Appointments:");
+        for (int i = 0; i < pastAppointments.size(); i++) {
+            System.out.println(i + 1 + ". " + pastAppointments.get(i));
+        }
+        System.out.println("0. Return");
+
+        while (true) {
+            System.out.print("Choose an appointment to handle or 0 to return: ");
+            int choice = sc.nextInt();
+            sc.nextLine(); // Consume newline left-over
+
+            if (choice == 0) {
+                break;
+            } else if (choice >= 1 && choice <= pastAppointments.size()) {
+                Appointment appointment = pastAppointments.get(choice - 1);
+                if (appointment.getOutcome().equals("")) {
+                    System.out.print("Enter outcome of the appointment: ");
+                    String outcome = sc.nextLine();
+                    appointment.setOutcome(outcome);
+                    System.out.println("Outcome recorded successfully.");
+                } else {
+                    System.out.println("Outcome for this appointment has already been recorded.");
+                }
+            } else {
+                System.out.println("Invalid choice. Please try again.");
             }
         }
     }

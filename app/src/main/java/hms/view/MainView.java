@@ -2,13 +2,13 @@ package hms.view;
 
 import java.util.Scanner;
 
-import hms.controller.Database;
 import hms.model.user.Administrator;
-import hms.model.user.BaseUser;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 import hms.model.user.Pharmacist;
+import hms.model.user.User;
 import hms.model.user.UserRole;
+import hms.repository.RepositoryManager;
 
 public class MainView {
     public void start() {
@@ -26,9 +26,9 @@ public class MainView {
             String password = sc.nextLine();
 
             // Get user
-            BaseUser user = Database.getUserById(username);
+            User user = RepositoryManager.getInstance().getUserRepository().getUserById(username).orElse(null);
             if (user == null) {
-                user = Database.getUserByUsername(username);
+                user = RepositoryManager.getInstance().getUserRepository().getUserByUsername(username).orElse(null);
                 if (user == null) {
                     System.out.println("No such user!");
                     continue;

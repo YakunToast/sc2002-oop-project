@@ -22,6 +22,31 @@ public class PharmacistView {
             System.out.print("Choose an option: ");
             int option = sc.nextInt();
             sc.nextLine(); // Consume
+
+            switch (option) {
+                case 1 -> viewAppointmentOutcomeRecords(sc);
+                case 2 -> updatePrescriptionStatus(sc);
+                case 3 -> viewMedicationInventory(sc);
+                case 4 -> submitReplenishmentRequest(sc);
+                case 0 -> System.out.println("Logging out...");
+                default -> System.out.println("Invalid option! Please try again.");
+            }
         }
+    }
+
+    void viewAppointmentOutcomeRecords(Scanner sc) {
+
+    }
+
+    void updatePrescriptionStatus(Scanner sc) {
+
+    }
+
+    void viewMedicationInventory(Scanner sc) {
+
+    }
+
+    void submitReplenishmentRequest(Scanner sc) {
+
     }
 }

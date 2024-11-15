@@ -10,7 +10,7 @@ import hms.model.appointment.Appointment;
 import hms.model.record.MedicalRecord;
 
 // Patient class to manage patient operations
-public class Patient extends BaseUser {
+public class Patient extends User {
     private MedicalRecord medicalRecord;
     private List<Appointment> appointments;
 

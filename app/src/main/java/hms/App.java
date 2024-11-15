@@ -18,23 +18,27 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-import hms.controller.Database;
 import hms.model.appointment.Appointment;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
+import hms.repository.RepositoryManager;
 import hms.view.MainView;
 
 public class App {
+    public static RepositoryManager rm;
+
     public static void main(String[] args) {
-        // Load
-        Database.load();
+        // Prepare repositories
+        rm = RepositoryManager.getInstance();
 
         loadPatientsFromExcel("Patient_List.xlsx");
+        // loadMedicinesFromExcel("Medicine_List.xlsx");
+        // loadStaffsFromExcel("Staff_List.xlsx");
 
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
                 // TODO: Find a way to better save all controllers at once
-                Database.save();
+                // Database.save();
             }
         }));
 
@@ -46,17 +50,17 @@ public class App {
         d1.getSchedule().addSlots(LocalDate.of(2024, 11, 19), LocalDate.of(2024, 11, 19), LocalTime.of(07, 0), LocalTime.of(15, 0));
 
         // Save sample users
-        if (Database.getPatient("P1") == null) {
+        if (rm.getUserRepository().getUserById("P1").isEmpty()) {
             System.out.println("Creating patient abc...");
-            Database.add(p1);
+            rm.getUserRepository().addUser(p1);
         }
-        if (Database.getDoctor("D1") == null) {
-            System.out.println("Creating doctor abc...");
-            Database.add(d1);
+        if (rm.getUserRepository().getUserById("D1").isEmpty()) {
+            System.out.println("Creating doctor cba...");
+            rm.getUserRepository().addUser(d1);
         }
-        if (Database.getAppointment(UUID.fromString("00000000-0000-0000-0000-000000000000")) == null) {
+        if (rm.getAppointmentRepository().getAppointmentById(UUID.fromString("00000000-0000-0000-0000-000000000000")).isEmpty()) {
             System.out.println("Creating appointment 0...");
-            Database.add(a1);
+            rm.getAppointmentRepository().addAppointment(a1);
         }
 
         // Initialise view
@@ -95,8 +99,8 @@ public class App {
                 Patient patient = new Patient(patientID, patientID, firstName, lastName, "defaultPassword", contactInformation, contactInformation, dateOfBirth, gender, bloodType);
 
                 // Check if exists, if not add
-                if (Database.getPatient(patientID) == null) {
-                    Database.add(patient);
+                if (RepositoryManager.getInstance().getUserRepository().getUserById(patientID) == null) {
+                    RepositoryManager.getInstance().getUserRepository().addUser(patient);
                 }
             }
             file.close();
@@ -105,4 +109,107 @@ public class App {
             e.printStackTrace();
         }
     }
+
+    // public static void loadMedicines(String filePath) {
+    // try {
+    // FileInputStream file = new FileInputStream(new File(filePath));
+    // Workbook workbook = WorkbookFactory.create(file);
+    // Sheet sheet = workbook.getSheetAt(0);
+
+    // Iterator<Row> rowIterator = sheet.iterator();
+
+    // // Skip first row
+    // rowIterator.next();
+
+    // // Loop through all rows
+    // while (rowIterator.hasNext()) {
+    // Row row = rowIterator.next();
+
+    // Iterator<Cell> cellIterator = row.cellIterator();
+
+    // String name = cellIterator.next().getStringCellValue();
+    // double initialStock = cellIterator.next().getNumericCellValue();
+    // double lowStock = cellIterator.next().getNumericCellValue();
+
+    // // Create new "Patient"
+    // Medication medication = new Medication(name, "", "", null, null);
+
+    // // Check if exists, if not add
+    // if (Database.getPatient(patientID) == null) {
+    // Database.add(patient);
+    // }
+    // }
+    // file.close();
+    // workbook.close();
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // }
+    // }
+
+    // public static void loadStaffsFromExcel(String filePath) {
+    // try {
+    // FileInputStream file = new FileInputStream(new File(filePath));
+    // Workbook workbook = WorkbookFactory.create(file);
+    // Sheet sheet = workbook.getSheetAt(0);
+
+    // Iterator<Row> rowIterator = sheet.iterator();
+
+    // // Skip first row
+    // rowIterator.next();
+
+    // // Loop through all rows
+    // while (rowIterator.hasNext()) {
+    // Row row = rowIterator.next();
+
+    // Iterator<Cell> cellIterator = row.cellIterator();
+
+    // String staffId = cellIterator.next().getStringCellValue();
+    // String name = cellIterator.next().getStringCellValue();
+    // String firstName = name.split(" ")[0]; // TODO: Naive approach
+    // String lastName = name.split(" ")[1];
+    // String role = cellIterator.next().getStringCellValue();
+    // String gender = cellIterator.next().getStringCellValue();
+    // int age = (int) cellIterator.next().getNumericCellValue();
+
+    // // TODO: need to somehow solid this
+    // switch (role) {
+    // case "Doctor" -> {
+    // Doctor doctor = new Doctor(staffId, staffId, firstName, lastName, "pass",
+    // "null@email", "");
+
+    // // Check if exists, if not add
+    // if (Database.getDoctor(staffId) == null) {
+    // Database.add(doctor);
+    // }
+
+    // }
+    // case "Pharmacist" -> {
+    // Pharmacist pharmacist = new Pharmacist(staffId, staffId, firstName, lastName,
+    // "pass", "null@email", "");
+
+    // // Check if exists, if not add
+    // if (Database.getPharmacist(staffId) == null) {
+    // Database.add(Pharmacist);
+    // }
+
+    // }
+    // case "Administrator" -> {
+    // Administrator administrator = new Administrator(staffId, staffId, firstName,
+    // lastName, "pass", "null@email", "");
+
+    // // Check if exists, if not add
+    // if (Database.getAdministrator(staffId) == null) {
+    // Database.add(administrator);
+    // }
+
+    // }
+    // }
+
+    // }
+    // file.close();
+    // workbook.close();
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // }
+    // }
 }

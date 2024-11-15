@@ -69,6 +69,22 @@ public class Appointment implements Serializable {
         return outcome;
     }
 
+    public boolean isPending() {
+        return this.status == AppointmentStatus.PENDING;
+    }
+
+    public boolean isConfirmed() {
+        return this.status == AppointmentStatus.CONFIRMED;
+    }
+
+    public boolean isCancelled() {
+        return this.status == AppointmentStatus.CANCELLED;
+    }
+
+    public boolean isCompleted() {
+        return this.status == AppointmentStatus.COMPLETED;
+    }
+
     // Getters
     public UUID getId() {
         return appointmentId;

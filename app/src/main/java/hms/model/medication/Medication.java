@@ -7,21 +7,12 @@ import java.util.UUID;
  * Represents a Medication entity in the hospital management application.
  */
 public class Medication implements Serializable {
-
-    // Unique identifier for the medication
-    private UUID medicationId;
-
-    // Name of the medication
-    private String medicationName;
-
-    // Description of the medication (e.g., purpose, dosage form)
+    private UUID id;
+    private String name;
     private String description;
-
-    // Dosage instructions (e.g., frequency, amount)
     private String dosageInstructions;
 
-    // Possible side effects
-    private String[] sideEffects;
+    private MedicationSideEffect[] sideEffects;
 
     // Status (e.g., active, discontinued, recalled)
     private MedicationStatus status;
@@ -47,9 +38,8 @@ public class Medication implements Serializable {
      * @param status
      *            Initial status of the medication
      */
-    public Medication(String medicationName, String description, String dosageInstructions, String[] sideEffects,
-            MedicationStatus status) {
-        this.medicationName = medicationName;
+    public Medication(String medicationName, String description, String dosageInstructions, MedicationSideEffect[] sideEffects, MedicationStatus status) {
+        this.name = medicationName;
         this.description = description;
         this.dosageInstructions = dosageInstructions;
         this.sideEffects = sideEffects;
@@ -60,20 +50,20 @@ public class Medication implements Serializable {
      * Getters and Setters for Medication properties
      */
 
-    public UUID getMedicationId() {
-        return medicationId;
+    public UUID getId() {
+        return id;
     }
 
-    public void setMedicationId(UUID medicationId) {
-        this.medicationId = medicationId;
+    public void setId(UUID medicationId) {
+        this.id = medicationId;
     }
 
-    public String getMedicationName() {
-        return medicationName;
+    public String getName() {
+        return name;
     }
 
-    public void setMedicationName(String medicationName) {
-        this.medicationName = medicationName;
+    public void setName(String medicationName) {
+        this.name = medicationName;
     }
 
     public String getDescription() {
@@ -92,11 +82,11 @@ public class Medication implements Serializable {
         this.dosageInstructions = dosageInstructions;
     }
 
-    public String[] getSideEffects() {
+    public MedicationSideEffect[] getSideEffects() {
         return sideEffects;
     }
 
-    public void setSideEffects(String[] sideEffects) {
+    public void setSideEffects(MedicationSideEffect[] sideEffects) {
         this.sideEffects = sideEffects;
     }
 
@@ -110,7 +100,7 @@ public class Medication implements Serializable {
 
     @Override
     public String toString() {
-        return "Medication [medicationId=" + medicationId + ", medicationName=" + medicationName + ", description="
+        return "Medication [medicationId=" + id + ", medicationName=" + name + ", description="
                 + description
                 + ", dosageInstructions=" + dosageInstructions + ", sideEffects="
                 + java.util.Arrays.toString(sideEffects)
