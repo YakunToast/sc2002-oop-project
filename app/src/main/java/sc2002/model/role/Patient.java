@@ -59,6 +59,14 @@ public class Patient extends User {
         medicalRecord.setGender(gender);
     }
 
+    public Doctor getDoctor() {
+        return medicalRecord.getDoctor();
+    }
+
+    public void setDoctor(Doctor doctor) {
+        medicalRecord.setDoctor(doctor);
+    }
+
     public String getBloodType() {
         return medicalRecord.getBloodType();
     }

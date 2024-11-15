@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import sc2002.model.role.Doctor;
 import sc2002.model.role.Patient;
 
 public class MedicalRecord implements Serializable {
     private Patient patient;
-    private String name;
     private String dateOfBirth;
     private String gender;
     private String contactPhone;
@@ -17,6 +17,8 @@ public class MedicalRecord implements Serializable {
     private String bloodType;
     private List<String> pastDiagnoses;
     private List<String> treatments;
+
+    private Doctor doctor;
 
     public MedicalRecord(Patient patient) {
         this.patient = patient;
@@ -109,5 +111,13 @@ public class MedicalRecord implements Serializable {
 
     public List<String> getTreatments() {
         return Collections.unmodifiableList(treatments);
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 }
