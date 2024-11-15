@@ -37,11 +37,13 @@ public class HMSApp {
         // Create sample users
         if (Database.getPatient("P1") == null) {
             System.out.println("Creating user abc...");
-            Database.add(new Patient("P1", "abc", "first", "patient", "pass", "abc@xyz.com", "+1234"));
+            Patient p1 = new Patient("P1", "abc", "first", "patient", "pass", "abc@xyz.com", "+1234");
+            Database.add(p1);
         }
         if (Database.getDoctor("D1") == null) {
             System.out.println("Creating user abc...");
-            Database.add(new Doctor("D1", "cba", "first", "doctor", "pass", "cba@xyz.com", "+1234"));
+            Doctor d1 = new Doctor("D1", "cba", "first", "doctor", "pass", "cba@xyz.com", "+1234");
+            Database.add(d1);
         }
 
         // Initialise view
