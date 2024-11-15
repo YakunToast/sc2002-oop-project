@@ -3,7 +3,7 @@ package sc2002.model;
 public abstract class User {
     private String id;
     private String name;
-    private String hashedPassword;
+    private UUID id;
     private String email;
     private String phoneNumber;
     private UserRole role;
@@ -19,7 +19,7 @@ public abstract class User {
 
     public String getId() {
         return id;
-    }
+    public UUID getId() {
 
     public String getName() {
         return name;
