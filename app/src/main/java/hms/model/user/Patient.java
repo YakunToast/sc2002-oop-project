@@ -15,7 +15,7 @@ public class Patient extends User {
     private List<Appointment> appointments;
 
     private String dateOfBirth;
-    private String gender; // TODO: Change to Gender enum
+    private Gender gender;
     private String bloodType;
 
     public Patient(String id, String username, String firstName, String lastName, String password, String email, String phoneNumber) {
@@ -57,12 +57,18 @@ public class Patient extends User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return this.gender;
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+        if ("M".equals(gender)) {
+            this.gender = Gender.MALE;
+        } 
+        else if ("F".equals(gender)) { 
+            this.gender = Gender.FEMALE;
+        }
+        
     }
 
     public String getBloodType() {
