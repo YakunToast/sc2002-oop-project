@@ -38,6 +38,22 @@ public class MedicalRecord implements Serializable {
         this.emailAddress = email;
     }
 
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Medical Record\n");
+        sb.append("---------------\n");
+        sb.append("Patient Name: ").append(patient.getName()).append("\n");
+        sb.append("Date of Birth: ").append(dateOfBirth).append("\n");
+        sb.append("Gender: ").append(gender).append("\n");
+        sb.append("Blood Type: ").append(bloodType).append("\n");
+        sb.append("Contact Phone: ").append(contactPhone).append("\n");
+        sb.append("Email Address: ").append(emailAddress).append("\n");
+        sb.append("Doctor: ").append(doctor != null ? doctor.getName() : "None").append("\n");
+        sb.append("Past Diagnoses: ").append(pastDiagnoses.isEmpty() ? "None" : String.join(", ", pastDiagnoses)).append("\n");
+        sb.append("Treatments: ").append(treatments.isEmpty() ? "None" : String.join(", ", treatments)).append("\n");
+        return sb.toString();
+    }
+
     // Getters for all fields (medical information is read-only)
     public Patient getPatient() {
         return patient;
