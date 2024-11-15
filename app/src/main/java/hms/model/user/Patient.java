@@ -85,6 +85,9 @@ public class Patient extends User {
         else if ("F".equals(gender)) { 
             this.gender = Gender.FEMALE;
         }
+        else {
+            this.gender = Gender.NULL;
+        }
         
     }
 
