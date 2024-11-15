@@ -16,6 +16,7 @@ public class PatientView {
         while (true) {
             System.out.println("What would you like to do next?");
             System.out.println("1. View Medical Record");
+            System.out.println("2. Update Personal Particulars");
             System.out.println("0. Logout");
             System.out.print("Choose an option: ");
             int option = sc.nextInt();
@@ -24,6 +25,9 @@ public class PatientView {
             switch (option) {
                 case 1:
                     getMedicalRecord();
+                    break;
+                case 2:
+                    updatePersonalParticulars(sc);
                     break;
                 case 0:
                     System.out.println("Logging out...");
@@ -56,5 +60,33 @@ public class PatientView {
         // mr.getPastDiagnoses().get(i).getTreatment());
         // }
         System.out.println("---------------------------");
+    }
+
+    void updatePersonalParticulars(Scanner sc) {
+        while (true) {
+            System.out.println("What would you like to do next?");
+            System.out.println("1. Update email address");
+            System.out.println("2. Update contact number");
+            System.out.println("0. Exit");
+            System.out.print("Choose an option: ");
+            int option = sc.nextInt();
+            sc.nextLine(); // Consume newline left-over
+
+            switch (option) {
+                case 1:
+                    System.out.print("Email: ");
+                    String newEmail = sc.nextLine();
+                    patient.setEmail(newEmail);
+                    break;
+                case 2:
+                    System.out.print("Contact: ");
+                    String newPhoneNumber = sc.nextLine();
+                    patient.setPhoneNumber(newPhoneNumber);
+                    break;
+                case 0:
+                    return;
+                default:
+            }
+        }
     }
 }

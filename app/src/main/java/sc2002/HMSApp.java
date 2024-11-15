@@ -10,11 +10,25 @@ import sc2002.model.role.UserRole;
 
 public class HMSApp {
     public static void main(String[] args) {
+        // Load
+        PatientController.load();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            public void run() {
+                // TODO: Find a way to better save all controllers at once
+                PatientController.save();
+            }
+        }));
+
         // Create sample users
-        PatientController.add(new Patient("abc", "first", "last", "password", "abc@xyz.com", "+1234141", UserRole.PATIENT));
+        if (PatientController.get("abc") == null) {
+            System.out.println("Creating user abc...");
+            PatientController.add(new Patient("abc", "first", "last", "password", "abc@xyz.com", "+1234141", UserRole.PATIENT));
+        }
 
         // Initialise view
         MainView mv = new MainView();
         mv.start();
+
     }
 }
