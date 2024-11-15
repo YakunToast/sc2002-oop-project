@@ -2,7 +2,9 @@ package hms.view;
 
 import java.util.Scanner;
 
+import hms.controller.Database;
 import hms.model.record.MedicalRecord;
+import hms.model.user.Doctor;
 import hms.model.user.Patient;
 
 public class PatientView {
@@ -29,35 +31,19 @@ public class PatientView {
             sc.nextLine(); // Consume newline left-over
 
             switch (option) {
-                case 1:
-                    viewMedicalRecord();
-                    break;
-                case 2:
-                    updatePersonalInformation(sc);
-                    break;
-                case 3:
-                    viewAvailableSlots(sc);
-                    break;
-                case 4:
-                    scheduleAppointment(sc);
-                    break;
-                case 5:
-                    rescheduleAppointment(sc);
-                    break;
-                case 6:
-                    cancelAppointment(sc);
-                    break;
-                case 7:
-                    viewScheduledAppointments(sc);
-                    break;
-                case 8:
-                    viewPastAppointmentOutcomes(sc);
-                    break;
-                case 0:
+                case 1 -> viewMedicalRecord();
+                case 2 -> updatePersonalInformation(sc);
+                case 3 -> viewAvailableSlots(sc);
+                case 4 -> scheduleAppointment(sc);
+                case 5 -> rescheduleAppointment(sc);
+                case 6 -> cancelAppointment(sc);
+                case 7 -> viewScheduledAppointments(sc);
+                case 8 -> viewPastAppointmentOutcomes(sc);
+                case 0 -> {
                     System.out.println("Logging out...");
                     return;
-                default:
-                    System.out.println("Invalid option. Please try again.");
+                }
+                default -> System.out.println("Invalid option. Please try again.");
             }
         }
     }
@@ -116,7 +102,9 @@ public class PatientView {
     }
 
     void viewAvailableSlots(Scanner sc) {
-
+        for (Doctor doctor : Database.getDoctors()) {
+            System.out.println("Doctor: " + doctor.getName() + " " + doctor.getSchedule());
+        }
     }
 
     void scheduleAppointment(Scanner sc) {

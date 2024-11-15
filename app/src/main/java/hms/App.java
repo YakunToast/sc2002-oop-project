@@ -43,15 +43,15 @@ public class App {
         Doctor d1 = new Doctor("D1", "cba", "first", "doctor", "pass", "cba@xyz.com", "+1234");
         Appointment a1 = new Appointment(UUID.fromString("00000000-0000-0000-0000-000000000000"), p1, d1, LocalDateTime.of(2024, 11, 19, 10, 0, 0));
 
-        d1.getSchedule().add(LocalDate.of(2024, 11, 19), LocalDate.of(2024, 11, 19), LocalTime.of(07, 0), LocalTime.of(15, 0));
+        d1.getSchedule().addSlots(LocalDate.of(2024, 11, 19), LocalDate.of(2024, 11, 19), LocalTime.of(07, 0), LocalTime.of(15, 0));
 
         // Save sample users
         if (Database.getPatient("P1") == null) {
-            System.out.println("Creating user abc...");
+            System.out.println("Creating patient abc...");
             Database.add(p1);
         }
         if (Database.getDoctor("D1") == null) {
-            System.out.println("Creating user abc...");
+            System.out.println("Creating doctor abc...");
             Database.add(d1);
         }
         if (Database.getAppointment(UUID.fromString("00000000-0000-0000-0000-000000000000")) == null) {

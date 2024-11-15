@@ -5,6 +5,8 @@ import java.io.Serializable;
 import org.mindrot.jbcrypt.BCrypt;
 
 public abstract class BaseUser implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String id;
     private String username;
     private String firstName;

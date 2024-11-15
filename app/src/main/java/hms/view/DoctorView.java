@@ -37,38 +37,25 @@ public class DoctorView {
 
             Patient patient;
             switch (option) {
-                case 1:
+                case 1 -> {
                     patient = getPatientChoice(sc);
                     if (patient != null) {
                         viewPatientMedicalRecord(sc, patient);
                     }
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     patient = getPatientChoice(sc);
                     if (patient != null) {
                         updatePatientMedicalRecord(sc, patient);
                     }
-                    break;
-                case 3:
-                    viewSchedule(sc);
-                    break;
-                case 4:
-                    setAppointmentAvailability(sc);
-                    break;
-                case 5:
-                    acceptOrDeclineAppointments(sc);
-                    break;
-                case 6:
-                    viewUpcomingAppointments(sc);
-                    break;
-                case 7:
-                    recordAppointmentOutcome(sc);
-                    break;
-                case 0:
-                    System.out.println("Logging out...");
-                    return;
-                default:
-                    System.out.println("Invalid option! Please try again.");
+                }
+                case 3 -> viewSchedule(sc);
+                case 4 -> setAppointmentAvailability(sc);
+                case 5 -> acceptOrDeclineAppointments(sc);
+                case 6 -> viewUpcomingAppointments(sc);
+                case 7 -> recordAppointmentOutcome(sc);
+                case 0 -> System.out.println("Logging out...");
+                default -> System.out.println("Invalid option! Please try again.");
             }
         }
     }
@@ -196,7 +183,7 @@ public class DoctorView {
                 }
 
                 // Add availability
-                doctor.getSchedule().add(startDate, endDate, start, end);
+                doctor.getSchedule().addSlots(startDate, endDate, start, end);
                 System.out.println("Availability added: " + startDate + " to " + endDate + " from " + start + " to " + end);
 
             } catch (DateTimeParseException | IllegalArgumentException e) {

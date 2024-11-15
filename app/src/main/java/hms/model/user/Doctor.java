@@ -3,8 +3,8 @@ package hms.model.user;
 import java.util.List;
 
 import hms.controller.Database;
-import hms.model.Schedule;
 import hms.model.appointment.Appointment;
+import hms.model.schedule.Schedule;
 
 public class Doctor extends Staff {
     private Schedule schedule;

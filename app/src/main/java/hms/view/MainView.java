@@ -44,40 +44,39 @@ public class MainView {
 
                 // Open correct role
                 switch (ur) {
-                    case PATIENT:
+                    case PATIENT -> {
                         if (user instanceof Patient) {
                             Patient patient = (Patient) user;
                             new PatientView(patient).start(sc);
                         } else {
                             System.out.println("Error: User role does not match any known views.");
                         }
-                        break;
-                    case DOCTOR:
+                    }
+                    case DOCTOR -> {
                         if (user instanceof Doctor) {
                             Doctor doctor = (Doctor) user;
                             new DoctorView(doctor).start(sc);
                         } else {
                             System.out.println("Error: User role does not match any known views.");
                         }
-                        break;
-                    case PHARMACIST:
+                    }
+                    case PHARMACIST -> {
                         if (user instanceof Pharmacist) {
                             Pharmacist pharmacist = (Pharmacist) user;
                             new PharmacistView(pharmacist).start(sc);
                         } else {
                             System.out.println("Error: User role does not match any known views.");
                         }
-                        break;
-                    case ADMINISTRATOR:
+                    }
+                    case ADMINISTRATOR -> {
                         if (user instanceof Doctor) {
                             Administrator administrator = (Administrator) user;
                             new AdministratorView(administrator).start(sc);
                         } else {
                             System.out.println("Error: User role does not match any known views.");
                         }
-                        break;
-                    default:
-                        System.out.println("Error: User role does not match any known views.");
+                    }
+                    default -> System.out.println("Error: User role does not match any known views.");
 
                 }
             }

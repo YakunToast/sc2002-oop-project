@@ -18,9 +18,9 @@ import hms.model.user.Doctor;
 import hms.model.user.Patient;
 
 public class Database implements Serializable {
-    private static Database database;
-
     private static final long serialVersionUID = 1L;
+
+    private static Database database;
 
     private Map<String, Patient> patients;
     private Map<String, Doctor> doctors;
@@ -129,6 +129,11 @@ public class Database implements Serializable {
                 .map(a -> (Appointment) a)
                 .filter(a -> a.getPatient() != null)
                 .filter(a -> a.getPatient().equals(patient))
+                .collect(Collectors.toList());
+    }
+
+    public static List<Doctor> getDoctors() {
+        return database.doctors.values().stream()
                 .collect(Collectors.toList());
     }
 }
