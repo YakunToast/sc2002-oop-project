@@ -56,13 +56,13 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "sc2002.HMSApp"
+    mainClass = "hms.App"
 }
 
 tasks.withType<Jar>() {
 
     manifest {
-        attributes["Main-Class"] = "sc2002.HMSApp"
+        attributes["Main-Class"] = "hms.App"
     }
     
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
