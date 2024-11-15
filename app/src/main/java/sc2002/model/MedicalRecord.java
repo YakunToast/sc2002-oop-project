@@ -1,12 +1,13 @@
 package sc2002.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import sc2002.model.role.Patient;
 
-public class MedicalRecord {
+public class MedicalRecord implements Serializable {
     private Patient patient;
     private String name;
     private String dateOfBirth;
@@ -17,11 +18,8 @@ public class MedicalRecord {
     private List<String> pastDiagnoses;
     private List<String> treatments;
 
-    public MedicalRecord(Patient patient, String name, String dateOfBirth, String gender) {
+    public MedicalRecord(Patient patient) {
         this.patient = patient;
-        this.name = name;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
         this.pastDiagnoses = new ArrayList<>();
         this.treatments = new ArrayList<>();
     }

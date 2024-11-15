@@ -15,13 +15,14 @@ public class Patient extends User {
     private MedicalRecord medicalRecord;
     private List<Appointment> appointments;
 
-    public Patient(String name, String dateOfBirth, String gender) {
-        this(UUID.randomUUID(), name, dateOfBirth, gender);
+    public Patient(UUID id, String username, String firstName, String lastName, String password, String email, String phoneNumber, UserRole role) {
+        super(id, username, firstName, lastName, password, email, phoneNumber, role);
+        this.medicalRecord = new MedicalRecord(this);
+        this.appointments = new ArrayList<>();
     }
 
-    public Patient(UUID patientId, String name, String dateOfBirth, String gender) {
-        this.medicalRecord = new MedicalRecord(this, name, dateOfBirth, gender);
-        this.appointments = new ArrayList<>();
+    public Patient(String username, String firstName, String lastName, String password, String email, String phoneNumber, UserRole role) {
+        this(UUID.randomUUID(), username, firstName, lastName, password, email, phoneNumber, role);
     }
 
     public void updateContactInformation(String phone, String email) {

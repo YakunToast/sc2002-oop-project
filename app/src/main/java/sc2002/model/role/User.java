@@ -1,35 +1,49 @@
 package sc2002.model.role;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public abstract class User {
-    private String id;
-    private String name;
+public abstract class User implements Serializable {
     private UUID id;
+    private String username;
+    private String firstName;
+    private String lastName;
+    private String hashedPassword;
     private String email;
     private String phoneNumber;
     private UserRole role;
 
-    public User() {
-    }
-
-    public User(UUID id, String name, String password, String email, String phoneNumber, UserRole role) {
+    public User(UUID id, String username, String firstName, String lastName, String password, String email, String phoneNumber, UserRole role) {
         this.id = id;
-        this.name = name;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.setPassword(password);
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.role = role;
     }
 
-    public String getId() {
-        return id;
-    public UUID getId() {
+    public User(String username, String firstName, String lastName, String password, String email, String phoneNumber, UserRole role) {
+        this(UUID.randomUUID(), username, firstName, lastName, password, email, phoneNumber, role);
+    }
 
-    public String getName() {
-        return name;
+    public UUID getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getEmail() {

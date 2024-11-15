@@ -1,11 +1,12 @@
 package sc2002.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  * Represents a Medication entity in the hospital management application.
  */
-public class Medication {
+public class Medication implements Serializable {
 
     // Unique identifier for the medication
     private UUID medicationId;
