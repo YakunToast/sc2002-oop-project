@@ -15,29 +15,33 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import sc2002.cli.MainView;
-import sc2002.controller.PatientController;
-import sc2002.model.MedicalRecord;
+import sc2002.controller.Database;
+import sc2002.model.role.Doctor;
 import sc2002.model.role.Patient;
 
 public class HMSApp {
     public static void main(String[] args) {
         // Load
-        PatientController.load();
+        Database.load();
 
         loadPatientsFromExcel("Patient_List.xlsx");
-        PatientController.save();
+        Database.save();
 
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
                 // TODO: Find a way to better save all controllers at once
-                PatientController.save();
+                Database.save();
             }
         }));
 
         // Create sample users
-        if (PatientController.getById("P1") == null) {
+        if (Database.getPatient("P1") == null) {
             System.out.println("Creating user abc...");
-            PatientController.add(new Patient("P1", "abc", "first", "last", "password", "abc@xyz.com", "+1234141"));
+            Database.add(new Patient("P1", "abc", "first", "patient", "pass", "abc@xyz.com", "+1234"));
+        }
+        if (Database.getDoctor("D1") == null) {
+            System.out.println("Creating user abc...");
+            Database.add(new Doctor("D1", "cba", "first", "doctor", "pass", "cba@xyz.com", "+1234"));
         }
 
         // Initialise view
@@ -73,15 +77,12 @@ public class HMSApp {
                 String contactInformation = cellIterator.next().getStringCellValue();
 
                 // Create new "Patient"
-                Patient patient = new Patient(patientID, patientID, firstName, lastName, "defaultPassword", contactInformation, contactInformation);
+                Patient patient = new Patient(patientID, patientID, firstName, lastName, "defaultPassword", contactInformation, contactInformation, dateOfBirth, gender, bloodType);
 
                 // Check if exists, if not add
-                if (PatientController.getById(patientID) == null) {
-                    PatientController.add(patient);
+                if (Database.getPatient(patientID) == null) {
+                    Database.add(patient);
                 }
-
-                // Add medical record
-                MedicalRecord mr = new MedicalRecord(patient, dateOfBirth, gender, bloodType, contactInformation);
             }
             file.close();
             workbook.close();

@@ -36,7 +36,7 @@ public class Appointment {
     }
 
     // Getters
-    public UUID getAppointmentId() {
+    public UUID getId() {
         return appointmentId;
     }
 

@@ -71,7 +71,7 @@ public class AppointmentManager {
 
     private Appointment findAppointment(UUID appointmentId) {
         return appointments.stream()
-                .filter(a -> a.getAppointmentId().equals(appointmentId))
+                .filter(a -> a.getId().equals(appointmentId))
                 .findFirst()
                 .orElse(null);
     }

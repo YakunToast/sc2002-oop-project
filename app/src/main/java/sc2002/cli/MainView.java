@@ -2,7 +2,7 @@ package sc2002.cli;
 
 import java.util.Scanner;
 
-import sc2002.controller.PatientController;
+import sc2002.controller.Database;
 import sc2002.model.role.Patient;
 import sc2002.model.role.User;
 import sc2002.model.role.UserRole;
@@ -23,9 +23,9 @@ public class MainView {
             String password = sc.nextLine();
 
             // Get user
-            User user = PatientController.getById(username);
+            User user = Database.getUserById(username);
             if (user == null) {
-                user = PatientController.getByUsername(username);
+                user = Database.getUserByUsername(username);
                 if (user == null) {
                     System.out.println("No such user!");
                     continue;
@@ -36,7 +36,8 @@ public class MainView {
             if (user.verifyPassword(password)) {
                 UserRole ur = user.getRole();
 
-                System.out.println("Login successful! Welcome, " + ur + ": " + username + "!"); // TODO: use firstname lastname?
+                // TODO: use firstname lastname?
+                System.out.println("Login successful! Welcome, " + ur + ": " + username + "!");
 
                 // Open correct role
                 switch (ur) {

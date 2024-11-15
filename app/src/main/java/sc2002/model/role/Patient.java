@@ -22,7 +22,9 @@ public class Patient extends User {
 
     public Patient(String id, String username, String firstName, String lastName, String password, String email, String phoneNumber, String dateOfBirth, String gender, String bloodType) {
         this(id, username, firstName, lastName, password, email, phoneNumber);
-
+        this.setDateOfBirth(dateOfBirth);
+        this.setGender(gender);
+        this.setBloodType(bloodType);
     }
 
     public MedicalRecord getMedicalRecord() {
