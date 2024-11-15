@@ -1,20 +1,25 @@
 package sc2002.model.appointment;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import sc2002.model.role.Doctor;
 import sc2002.model.role.Patient;
 
 // Appointment class to manage doctor appointments
-class Appointment {
-    private int appointmentId;
+public class Appointment {
+    private UUID appointmentId;
     private Patient patient;
     private Doctor doctor;
     private LocalDateTime dateTime;
     private AppointmentStatus status; // confirmed, canceled, completed
     private String outcome;
 
-    public Appointment(int appointmentId, Patient patient, Doctor doctor, LocalDateTime dateTime) {
+    public Appointment() {
+
+    }
+
+    public Appointment(UUID appointmentId, Patient patient, Doctor doctor, LocalDateTime dateTime) {
         this.appointmentId = appointmentId;
         this.patient = patient;
         this.doctor = doctor;
@@ -31,7 +36,7 @@ class Appointment {
     }
 
     // Getters
-    public int getAppointmentId() {
+    public UUID getAppointmentId() {
         return appointmentId;
     }
 

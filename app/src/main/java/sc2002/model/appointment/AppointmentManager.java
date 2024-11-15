@@ -8,10 +8,11 @@ import java.util.Map;
 import java.util.UUID;
 
 import sc2002.model.role.Doctor;
+import sc2002.model.role.Patient;
 
 // AppointmentManager class to handle appointment-related operations
-class AppointmentManager {
-    private Map<String, List<LocalDateTime>> doctorAvailability;
+public class AppointmentManager {
+    private Map<Doctor, List<LocalDateTime>> doctorAvailability;
     private List<Appointment> appointments;
 
     public AppointmentManager() {
@@ -19,74 +20,72 @@ class AppointmentManager {
         this.appointments = new ArrayList<>();
     }
 
-    public List<LocalDateTime> getAvailableSlots(String doctorId) {
-        return doctorAvailability.getOrDefault(doctorId, new ArrayList<>());
+    public List<LocalDateTime> getAvailableSlots(Doctor doctor) {
+        return doctorAvailability.getOrDefault(doctor, new ArrayList<>());
     }
 
-    public Appointment scheduleAppointment(String patientId, String doctorId, LocalDateTime dateTime) {
-        if (!isSlotAvailable(doctorId, dateTime)) {
+    public Appointment scheduleAppointment(Patient patient, Doctor doctor, LocalDateTime dateTime) {
+        if (!isSlotAvailable(doctor, dateTime)) {
             throw new IllegalArgumentException("Selected time slot is not available");
         }
 
-        String appointmentId = generateAppointmentId();
-        Appointment appointment = new Appointment(appointmentId, patientId, doctorId, dateTime);
+        UUID appointmentId = UUID.randomUUID();
+        Appointment appointment = new Appointment(appointmentId, patient, doctor, dateTime);
         appointments.add(appointment);
-        removeAvailableSlot(doctorId, dateTime);
+        removeAvailableSlot(doctor, dateTime);
         return appointment;
     }
 
-    public void rescheduleAppointment(String appointmentId, LocalDateTime newDateTime) {
+    public void rescheduleAppointment(UUID appointmentId, LocalDateTime newDateTime) {
         Appointment appointment = findAppointment(appointmentId);
         if (appointment == null) {
             throw new IllegalArgumentException("Appointment not found");
         }
 
-        Doctor doctor = appointment.getDoctor()
+        Doctor doctor = appointment.getDoctor();
 
-        if (!isSlotAvailable(doctor.getId(), newDateTime)) {
+        if (!isSlotAvailable(doctor, newDateTime)) {
             throw new IllegalArgumentException("New time slot is not available");
         }
 
         // Add old slot back to availability
-        addAvailableSlot(doctor.getId(), appointment.getDateTime());
+        addAvailableSlot(doctor, appointment.getDateTime());
         // Remove new slot from availability
-        removeAvailableSlot(doctor.getId(), newDateTime);
+        removeAvailableSlot(doctor, newDateTime);
         // Update appointment
-        appointment = new Appointment(appointmentId, appointment.getPatientId(), 
-                                   doctor.getId(), newDateTime);
+        appointment = new Appointment(appointmentId, appointment.getPatient(),
+                doctor, newDateTime);
     }
 
-    public void cancelAppointment(String appointmentId) {
+    public void cancelAppointment(UUID appointmentId) {
         Appointment appointment = findAppointment(appointmentId);
         if (appointment == null) {
             throw new IllegalArgumentException("Appointment not found");
         }
 
-        appointment.updateStatus("canceled");
-        addAvailableSlot(doctor.getId(), appointment.getDateTime());
+        Doctor doctor = appointment.getDoctor();
+
+        appointment.updateStatus(AppointmentStatus.CANCELLED);
+        addAvailableSlot(doctor, appointment.getDateTime());
     }
 
-    private Appointment findAppointment(String appointmentId) {
+    private Appointment findAppointment(UUID appointmentId) {
         return appointments.stream()
                 .filter(a -> a.getAppointmentId().equals(appointmentId))
                 .findFirst()
                 .orElse(null);
     }
 
-    private boolean isSlotAvailable(String doctorId, LocalDateTime dateTime) {
-        List<LocalDateTime> availableSlots = doctorAvailability.get(doctorId);
+    private boolean isSlotAvailable(Doctor doctor, LocalDateTime dateTime) {
+        List<LocalDateTime> availableSlots = doctorAvailability.get(doctor);
         return availableSlots != null && availableSlots.contains(dateTime);
     }
 
-    private void removeAvailableSlot(String doctorId, LocalDateTime dateTime) {
-        doctorAvailability.get(doctorId).remove(dateTime);
+    private void removeAvailableSlot(Doctor doctor, LocalDateTime dateTime) {
+        doctorAvailability.get(doctor).remove(dateTime);
     }
 
-    private void addAvailableSlot(String doctorId, LocalDateTime dateTime) {
-        doctorAvailability.computeIfAbsent(doctorId, k -> new ArrayList<>()).add(dateTime);
-    }
-
-    private String generateAppointmentId() {
-        return UUID.randomUUID().toString();
+    private void addAvailableSlot(Doctor doctor, LocalDateTime dateTime) {
+        doctorAvailability.computeIfAbsent(doctor, k -> new ArrayList<>()).add(dateTime);
     }
 }

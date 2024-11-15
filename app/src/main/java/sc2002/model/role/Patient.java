@@ -1,12 +1,26 @@
-package sc2002.model;
+package sc2002.model.role;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import sc2002.model.MedicalRecord;
+import sc2002.model.appointment.Appointment;
 
 // Patient class to manage patient operations
-class Patient {
+public class Patient extends User {
     private MedicalRecord medicalRecord;
     private List<Appointment> appointments;
 
-    public Patient(String patientId, String name, String dateOfBirth, String gender) {
-        this.medicalRecord = new MedicalRecord(patientId, name, dateOfBirth, gender);
+    public Patient(String name, String dateOfBirth, String gender) {
+        this(UUID.randomUUID(), name, dateOfBirth, gender);
+    }
+
+    public Patient(UUID patientId, String name, String dateOfBirth, String gender) {
+        this.medicalRecord = new MedicalRecord(this, name, dateOfBirth, gender);
         this.appointments = new ArrayList<>();
     }
 

@@ -1,4 +1,8 @@
-package sc2002.model;
+package sc2002.model.role;
+
+import java.util.UUID;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 public abstract class User {
     private String id;
@@ -8,7 +12,10 @@ public abstract class User {
     private String phoneNumber;
     private UserRole role;
 
-    public User(String id, String name, String password, String email, String phoneNumber, UserRole role) {
+    public User() {
+    }
+
+    public User(UUID id, String name, String password, String email, String phoneNumber, UserRole role) {
         this.id = id;
         this.name = name;
         this.setPassword(password);

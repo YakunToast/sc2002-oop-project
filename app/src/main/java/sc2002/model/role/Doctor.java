@@ -1,5 +1,7 @@
-package sc2002.model;
+package sc2002.model.role;
 
-public class Doctor {
+public class Doctor extends Staff {
+    public Doctor() {
+    }
 
 }

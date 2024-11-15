@@ -3,11 +3,12 @@
  */
 package sc2002;
 
-import sc2002.view.MainView;
+import sc2002.cli.MainView;
 
 public class HMSApp {
     public static void main(String[] args) {
         // Initialise view
         MainView mv = new MainView();
+        mv.start();
     }
 }
