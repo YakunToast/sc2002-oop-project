@@ -102,4 +102,20 @@ public class Database implements Serializable {
     public static Appointment getAppointment(UUID id) {
         return database.appointments.get(id);
     }
+
+    public static List<Appointment> getAppointmentsOfDoctor(Doctor doctor) {
+        return database.appointments.values().stream()
+                .map(a -> (Appointment) a)
+                .filter(a -> a.getDoctor() != null)
+                .filter(a -> a.getDoctor().equals(doctor))
+                .collect(Collectors.toList());
+    }
+
+    public static List<Appointment> getAppointmentsOfPatient(Patient patient) {
+        return database.appointments.values().stream()
+                .map(a -> (Appointment) a)
+                .filter(a -> a.getPatient() != null)
+                .filter(a -> a.getPatient().equals(patient))
+                .collect(Collectors.toList());
+    }
 }
