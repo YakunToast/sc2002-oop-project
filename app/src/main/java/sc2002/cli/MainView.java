@@ -3,7 +3,10 @@ package sc2002.cli;
 import java.util.Scanner;
 
 import sc2002.controller.Database;
+import sc2002.model.role.Administrator;
+import sc2002.model.role.Doctor;
 import sc2002.model.role.Patient;
+import sc2002.model.role.Pharmacist;
 import sc2002.model.role.User;
 import sc2002.model.role.UserRole;
 
@@ -50,11 +53,29 @@ public class MainView {
                             System.out.println("Error: User role does not match any known views.");
                         }
                         break;
-                    case ADMINISTRATOR:
+                    case DOCTOR:
+                        if (user instanceof Doctor) {
+                            Doctor doctor = (Doctor) user;
+                            new DoctorView(doctor).start(sc);
+                        } else {
+                            System.out.println("Error: User role does not match any known views.");
+                        }
                         break;
                     case PHARMACIST:
+                        if (user instanceof Pharmacist) {
+                            Pharmacist pharmacist = (Pharmacist) user;
+                            new PharmacistView(pharmacist).start(sc);
+                        } else {
+                            System.out.println("Error: User role does not match any known views.");
+                        }
                         break;
-                    case DOCTOR:
+                    case ADMINISTRATOR:
+                        if (user instanceof Doctor) {
+                            Administrator administrator = (Administrator) user;
+                            new AdministratorView(administrator).start(sc);
+                        } else {
+                            System.out.println("Error: User role does not match any known views.");
+                        }
                         break;
                     default:
                         System.out.println("Error: User role does not match any known views.");

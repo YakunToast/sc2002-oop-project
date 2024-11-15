@@ -1,5 +1,7 @@
 package sc2002.cli;
 
+import java.util.Scanner;
+
 import sc2002.model.role.Administrator;
 
 public class AdministratorView {
@@ -9,4 +11,6 @@ public class AdministratorView {
         this.administrator = administrator;
     }
 
+    void start(Scanner sc) {
+    }
 }

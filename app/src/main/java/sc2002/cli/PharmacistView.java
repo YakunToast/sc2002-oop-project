@@ -1,5 +1,7 @@
 package sc2002.cli;
 
+import java.util.Scanner;
+
 import sc2002.model.role.Pharmacist;
 
 public class PharmacistView {
@@ -9,4 +11,6 @@ public class PharmacistView {
         this.pharmacist = pharmacist;
     }
 
+    void start(Scanner sc) {
+    }
 }
