@@ -99,7 +99,7 @@ public class Database implements Serializable {
         save();
     }
 
-    public static Appointment getAppointment(String id) {
+    public static Appointment getAppointment(UUID id) {
         return database.appointments.get(id);
     }
 }
