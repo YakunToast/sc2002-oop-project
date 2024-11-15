@@ -14,14 +14,20 @@ public class Patient extends User {
     private MedicalRecord medicalRecord;
     private List<Appointment> appointments;
 
+    private String dateOfBirth;
+    private String gender; // TODO: Change to Gender enum
+    private String bloodType;
+
     public Patient(String id, String username, String firstName, String lastName, String password, String email, String phoneNumber) {
         super(id, username, firstName, lastName, password, email, phoneNumber, UserRole.PATIENT);
+
         this.medicalRecord = new MedicalRecord(this);
         this.appointments = new ArrayList<>();
     }
 
     public Patient(String id, String username, String firstName, String lastName, String password, String email, String phoneNumber, String dateOfBirth, String gender, String bloodType) {
         this(id, username, firstName, lastName, password, email, phoneNumber);
+
         this.setDateOfBirth(dateOfBirth);
         this.setGender(gender);
         this.setBloodType(bloodType);
@@ -44,35 +50,27 @@ public class Patient extends User {
     }
 
     public String getDateOfBirth() {
-        return medicalRecord.getDateOfBirth();
+        return this.dateOfBirth;
     }
 
     public void setDateOfBirth(String dateOfBirth) {
-        medicalRecord.setDateOfBirth(dateOfBirth);
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getGender() {
-        return medicalRecord.getGender();
+        return this.gender;
     }
 
     public void setGender(String gender) {
-        medicalRecord.setGender(gender);
-    }
-
-    public Doctor getDoctor() {
-        return medicalRecord.getDoctor();
-    }
-
-    public void setDoctor(Doctor doctor) {
-        medicalRecord.setDoctor(doctor);
+        this.gender = gender;
     }
 
     public String getBloodType() {
-        return medicalRecord.getBloodType();
+        return this.bloodType;
     }
 
     public void setBloodType(String bloodType) {
-        medicalRecord.setBloodType(bloodType);
+        this.bloodType = bloodType;
     }
 
     public List<Appointment> getPastAppointments() {

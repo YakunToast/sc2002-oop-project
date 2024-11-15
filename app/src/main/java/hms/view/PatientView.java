@@ -59,12 +59,12 @@ public class PatientView {
         System.out.println("---------------------------");
         System.out.printf("Patient ID: %s%n", pc.getPatient().getId());
         System.out.printf("Name: %s %s%n", pc.getPatient().getFirstName(), pc.getPatient().getLastName());
-        System.out.printf("Date of Birth: %s%n", mr.getDateOfBirth());
-        System.out.printf("Gender: %s%n", mr.getGender());
+        System.out.printf("Date of Birth: %s%n", pc.getPatient().getDateOfBirth());
+        System.out.printf("Gender: %s%n", pc.getPatient().getGender());
         System.out.println("Contact Information:");
         System.out.printf(" Phone: %s%n", pc.getPatient().getPhoneNumber());
         System.out.printf(" Email: %s%n", pc.getPatient().getEmail());
-        System.out.printf("Blood Type: %s%n", mr.getBloodType());
+        System.out.printf("Blood Type: %s%n", pc.getPatient().getBloodType());
         System.out.println("Past Diagnoses and Treatments:");
         // TODO:
         // for (int i = 0; i < mr.getPastDiagnoses().size(); i++) {
