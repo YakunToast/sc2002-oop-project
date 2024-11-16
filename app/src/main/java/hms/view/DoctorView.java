@@ -109,25 +109,25 @@ public class DoctorView {
             sc.nextLine(); // Consume newline left-over
 
             switch (option) {
-                case 1:
+                case 1 -> {
                     System.out.print("Enter new date of birth (YYYY-MM-DD): ");
                     String newDateOfBirth = sc.nextLine();
                     patient.setDateOfBirth(newDateOfBirth);
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     System.out.print("Enter new gender (M/F/Other): ");
                     String newGender = sc.nextLine();
                     patient.setGender(newGender);
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     System.out.print("Enter new blood type: ");
                     String newBloodType = sc.nextLine();
                     patient.setBloodType(newBloodType);
-                    break;
-                case 0:
+                }
+                case 0 -> {
                     return;
-                default:
-                    System.out.println("Invalid option! Please try again.");
+                }
+                default -> System.out.println("Invalid option! Please try again.");
             }
         }
     }

@@ -87,19 +87,20 @@ public class PatientView {
             sc.nextLine(); // Consume newline left-over
 
             switch (option) {
-                case 1:
+                case 1 -> {
                     System.out.print("Email: ");
                     String newEmail = sc.nextLine();
                     pc.setEmail(newEmail);
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     System.out.print("Contact: ");
                     String newPhoneNumber = sc.nextLine();
                     pc.setPhoneNumber(newPhoneNumber);
-                    break;
-                case 0:
+                }
+                case 0 -> {
                     return;
-                default:
+                }
+                default -> System.out.println("Invalid option! Please try again.");
             }
         }
     }
