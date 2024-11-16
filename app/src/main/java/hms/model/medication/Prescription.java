@@ -1,16 +1,22 @@
 package hms.model.medication;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Prescription implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private PrescriptionStatus status;
-    private Medication[] medication;
+    private List<Medication> medications;
 
-    public Prescription(PrescriptionStatus status, Medication[] medication) {
+    public Prescription(List<Medication> medications) {
+        this.medications = medications;
+        this.status = PrescriptionStatus.PENDING;
+    }
+
+    public Prescription(List<Medication> medications, PrescriptionStatus status) {
+        this(medications);
         this.status = status;
-        this.medication = medication;
     }
 
     public PrescriptionStatus getPrescriptionStatus() {
@@ -43,18 +49,18 @@ public class Prescription implements Serializable {
         return this.status == PrescriptionStatus.CANCELLED;
     }
 
-    public Medication[] getMedication() {
-        return this.medication;
+    public List<Medication> getMedications() {
+        return this.medications;
     }
 
-    public void setMedication(Medication[] medication) {
-        this.medication = medication;
+    public void setMedications(List<Medication> medication) {
+        this.medications = medication;
     }
 
     public void printMedication() {
         System.out.println("Prescribed medication: ");
-        for (int i = 0; i < this.medication.length; i++) {
-            System.out.println(this.medication[i]);
+        for (int i = 0; i < this.medications.size(); i++) {
+            System.out.println(this.medications.get(i));
         }
     }
 }
