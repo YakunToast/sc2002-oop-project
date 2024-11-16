@@ -22,6 +22,10 @@ public class AppointmentOutcome implements Serializable {
         return appointment;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public Optional<Prescription> getPrescription() {
         return Optional.of(this.prescription);
     }
