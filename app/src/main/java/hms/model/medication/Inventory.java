@@ -11,7 +11,7 @@ public class Inventory implements Serializable {
     private Map<String, Medication> medications;
 
     public Inventory() {
-        medications = new HashMap<>();
+        this.medications = new HashMap<>();
     }
 
     public void addMedication(Medication medication) {

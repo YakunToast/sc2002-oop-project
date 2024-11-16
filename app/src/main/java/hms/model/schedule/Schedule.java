@@ -16,7 +16,7 @@ public class Schedule implements Serializable {
     private List<TimeSlot> timeslots;
 
     public Schedule(User owner) {
-        timeslots = new ArrayList<>();
+        this.timeslots = new ArrayList<>();
         this.owner = owner;
     }
 

@@ -10,8 +10,8 @@ import hms.repository.RepositoryManager;
 public class InventoryController {
     private final Inventory inventory;
 
-    public InventoryController(Inventory i) {
-        inventory = i;
+    public InventoryController(Inventory inventory) {
+        this.inventory = inventory;
     }
 
     public Inventory getInventory() {
