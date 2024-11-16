@@ -5,9 +5,13 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import hms.controller.appointment.AppointmentManager;
 import hms.controller.inventory.InventoryManager;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.Appointment.AppointmentStatus;
+import hms.model.appointment.AppointmentOutcome;
+import hms.model.medication.Inventory;
+import hms.model.medication.Medication;
 import hms.model.medication.ReplenishmentRequest;
 import hms.model.user.Administrator;
 import hms.model.user.Doctor;
@@ -18,7 +22,7 @@ import hms.repository.AppointmentRepository;
 import hms.repository.RepositoryManager;
 import hms.repository.UserRepository;
 
-public class AdministratorController implements InventoryManager {
+public class AdministratorController implements InventoryManager, AppointmentManager {
     private final Administrator administrator;
 
     private final UserRepository ur;
@@ -77,18 +81,26 @@ public class AdministratorController implements InventoryManager {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public List<Appointment> getAppointments() {
         return this.ar.getAllAppointments();
     }
 
+    @Override
     public List<Appointment> getAppointmentsByStatus(AppointmentStatus as) {
         return this.getAppointments().stream()
                 .filter(ap -> ap.getStatus() == as)
                 .collect(Collectors.toList());
     }
 
+    @Override
     public Optional<Appointment> getAppointmentById(UUID id) {
         return this.ar.getAppointmentById(id);
+    }
+
+    @Override
+    public AppointmentOutcome getAppointmentOutcome(Appointment ap) {
+        return ap.getOutcome();
     }
 
     @Override

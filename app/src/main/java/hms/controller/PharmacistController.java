@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import hms.controller.inventory.InventoryUser;
 import hms.model.appointment.AppointmentOutcome;
 import hms.model.medication.Inventory;
 import hms.model.medication.Medication;

@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import hms.controller.appointment.AppointmentDoctor;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentOutcome;
 import hms.model.medication.Prescription;
@@ -16,7 +17,7 @@ import hms.model.user.Patient;
 import hms.model.user.UserRole;
 import hms.repository.RepositoryManager;
 
-public class DoctorController extends UserController {
+public class DoctorController implements AppointmentDoctor {
     private final Doctor doctor;
 
     public DoctorController(Doctor doctor) {
@@ -83,6 +84,7 @@ public class DoctorController extends UserController {
         return true;
     }
 
+    @Override
     public boolean acceptAppointment(Appointment ap) {
         if (ap.getDoctor() != doctor) {
             return false;
@@ -90,6 +92,7 @@ public class DoctorController extends UserController {
         return new AppointmentController(ap).accept();
     }
 
+    @Override
     public boolean declineAppointment(Appointment ap) {
         if (ap.getDoctor() != doctor) {
             return false;
@@ -97,12 +100,14 @@ public class DoctorController extends UserController {
         return new AppointmentController(ap).decline();
     }
 
+    @Override
     public boolean addAppointmentOutcome(Appointment ap, String description, Prescription pr) {
         AppointmentOutcome ao = new AppointmentOutcome(ap, description, pr);
         RepositoryManager.getInstance().getAppointmentRepository().addAppointmentOutcome(ao);
         return true;
     }
 
+    @Override
     public AppointmentOutcome getAppointmentOutcome(Appointment ap) {
         return ap.getOutcome();
     }
