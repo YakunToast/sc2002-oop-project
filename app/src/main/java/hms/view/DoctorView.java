@@ -287,7 +287,8 @@ public class DoctorView {
                 if (appointment.getOutcome().equals("")) {
                     System.out.print("Enter outcome of the appointment: ");
                     String outcome = sc.nextLine();
-                    appointment.setOutcome(outcome);
+                    // TODO: Handle!
+                    // appointment.setOutcome(AppointmentOutcome);;
                     System.out.println("Outcome recorded successfully.");
                 } else {
                     System.out.println("Outcome for this appointment has already been recorded.");

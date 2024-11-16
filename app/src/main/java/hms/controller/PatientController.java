@@ -59,8 +59,9 @@ public class PatientController {
 
     public Appointment rescheduleAppointment(Appointment ap, List<TimeSlot> ts) {
         Doctor doctor = ap.getDoctor();
+        AppointmentController ac = new AppointmentController(ap);
 
-        AppointmentController.cancelAppointment(ap);
+        ac.cancelAppointment();
 
         return this.scheduleAppointment(doctor, ts);
     }

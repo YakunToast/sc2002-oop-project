@@ -13,6 +13,7 @@ public class TimeSlot implements Serializable {
     private final LocalDateTime start;
     private final LocalDateTime end;
     private final User owner;
+    private Appointment appointment;
     private TimeSlotStatus status;
 
     public TimeSlot(User owner, LocalDateTime start, LocalDateTime end) {
@@ -25,6 +26,7 @@ public class TimeSlot implements Serializable {
     }
 
     public TimeSlot(User owner, LocalDateTime start, LocalDateTime end, Appointment appointment) {
+        this(owner, start, end);
         this.appointment = appointment;
     }
 
