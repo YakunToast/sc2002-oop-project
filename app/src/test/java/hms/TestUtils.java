@@ -66,8 +66,7 @@ public class TestUtils {
 
     public static Medication createTestMedication() {
         MedicationSideEffect[] sideEffects = {
-            new MedicationSideEffect("Common Side Effect 1", "Description of common side effect 1"),
-            new MedicationSideEffect("Common Side Effect 2", "Description of common side effect 2")
+            MedicationSideEffect.ANXIETY, MedicationSideEffect.BLURRED_VISION
         };
 
         Medication medication =
@@ -75,8 +74,7 @@ public class TestUtils {
                         "Test Medication",
                         "Test medication description",
                         "Take one tablet by mouth once daily.",
-                        sideEffects,
-                        Medication.MedicationStatus.ACTIVE);
+                        Arrays.asList(sideEffects));
         medication.setId(UUID.randomUUID());
         return medication;
 
