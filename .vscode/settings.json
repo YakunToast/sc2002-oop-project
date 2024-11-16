@@ -4,7 +4,7 @@
   },
   "java.compile.nullAnalysis.mode": "automatic",
   "java.configuration.updateBuildConfiguration": "automatic",
-  "java.format.settings.google.extra": "--aosp",
+  "java.format.settings.google.extra": "--aosp --skip-sorting-imports",
   "java.project.sourcePaths": [
     "app/src/main/java"
   ]
