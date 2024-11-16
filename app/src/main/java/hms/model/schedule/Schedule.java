@@ -7,13 +7,21 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import hms.model.user.User;
+
 public class Schedule implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private final User owner;
     private List<TimeSlot> timeslots;
 
-    public Schedule() {
+    public Schedule(User owner) {
         timeslots = new ArrayList<>();
+        this.owner = owner;
+    }
+
+    public User getOwner() {
+        return this.owner;
     }
 
     public String toString() {
@@ -47,7 +55,7 @@ public class Schedule implements Serializable {
 
         while (slotStartTime.isBefore(slotEndTime)) {
             LocalDateTime nextHour = slotStartTime.plusHours(1);
-            timeslots.add(new TimeSlot(slotStartTime, nextHour));
+            timeslots.add(new TimeSlot(this.owner, slotStartTime, nextHour));
             slotStartTime = nextHour;
         }
     }

@@ -3,20 +3,32 @@ package hms.model.schedule;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import hms.model.user.User;
+
 // Inner class to represent a time slot of 10 minutes
 public class TimeSlot implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final LocalDateTime start;
     private final LocalDateTime end;
+    private final User owner;
     private TimeSlotStatus status;
 
-    public TimeSlot(LocalDateTime start, LocalDateTime end) {
+    public TimeSlot(User owner, LocalDateTime start, LocalDateTime end) {
         this.start = start.withSecond(0).withNano(0).plusMinutes((90 - start.getMinute()) % 30);
         ;
         this.end = end.withSecond(0).withNano(0).plusMinutes((90 - end.getMinute()) % 30);
         ;
         this.status = TimeSlotStatus.AVAILABLE; // Default status
+        this.owner = owner;
+    }
+
+    public TimeSlot(User owner, LocalDateTime start, LocalDateTime end, Appointment appointment) {
+        this.appointment = appointment;
+    }
+
+    public User getOwner() {
+        return this.owner;
     }
 
     public LocalDateTime getStart() {

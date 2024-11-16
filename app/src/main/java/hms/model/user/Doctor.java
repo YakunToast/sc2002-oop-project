@@ -15,7 +15,7 @@ public class Doctor extends Staff {
             String phoneNumber) {
         super(id, username, firstName, lastName, password, email, phoneNumber, UserRole.DOCTOR);
 
-        this.schedule = new Schedule();
+        this.schedule = new Schedule(this);
     }
 
     public Schedule getSchedule() {
