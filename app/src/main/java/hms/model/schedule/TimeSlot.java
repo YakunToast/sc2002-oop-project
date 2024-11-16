@@ -18,9 +18,7 @@ public class TimeSlot implements Serializable {
 
     public TimeSlot(User owner, LocalDateTime start, LocalDateTime end) {
         this.start = start.withSecond(0).withNano(0).plusMinutes((90 - start.getMinute()) % 30);
-        ;
         this.end = end.withSecond(0).withNano(0).plusMinutes((90 - end.getMinute()) % 30);
-        ;
         this.status = TimeSlotStatus.AVAILABLE; // Default status
         this.owner = owner;
     }
