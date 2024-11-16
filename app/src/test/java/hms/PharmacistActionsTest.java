@@ -22,10 +22,11 @@ class PharmacistActionsTest {
     @DisplayName("Test Case 16: View Appointment Outcome Record")
     void testViewAppointmentOutcomeRecord() {
         var outcomes = pharmacistController.getAppointmentOutcomesWithPrescriptions();
-        
+
         assertNotNull(outcomes);
-        assertTrue(outcomes.stream()
-            .allMatch(outcome -> !outcome.getPrescribedMedications().isEmpty()));
+        assertTrue(
+                outcomes.stream()
+                        .allMatch(outcome -> !outcome.getPrescribedMedications().isEmpty()));
     }
 
     @Test
@@ -33,22 +34,22 @@ class PharmacistActionsTest {
     void testUpdatePrescriptionStatus() {
         // Get a prescription that needs to be dispensed
         var prescription = pharmacistController.getPendingPrescriptions().get(0);
-        
-        boolean updated = pharmacistController.updatePrescriptionStatus(
-            prescription.getId(),
-            PrescriptionStatus.DISPENSED
-        );
-        
+
+        boolean updated =
+                pharmacistController.updatePrescriptionStatus(
+                        prescription.getId(), PrescriptionStatus.DISPENSED);
+
         assertTrue(updated);
-        assertEquals(PrescriptionStatus.DISPENSED,
-            pharmacistController.getPrescription(prescription.getId()).getStatus());
+        assertEquals(
+                PrescriptionStatus.DISPENSED,
+                pharmacistController.getPrescription(prescription.getId()).getStatus());
     }
 
     @Test
     @DisplayName("Test Case 18: View Medication Inventory")
     void testViewMedicationInventory() {
         var inventory = pharmacistController.getInventory();
-        
+
         assertNotNull(inventory);
         assertFalse(inventory.getMedications().isEmpty());
     }
@@ -58,12 +59,11 @@ class PharmacistActionsTest {
     void testSubmitReplenishmentRequest() {
         var medication = pharmacistController.getInventory().getMedications().get(0);
         int requestQuantity = 100;
-        
-        ReplenishmentRequest request = pharmacistController.createReplenishmentRequest(
-            medication.getId(),
-            requestQuantity
-        );
-        
+
+        ReplenishmentRequest request =
+                pharmacistController.createReplenishmentRequest(
+                        medication.getId(), requestQuantity);
+
         assertNotNull(request);
         assertEquals(medication.getId(), request.getMedicationId());
         assertEquals(requestQuantity, request.getRequestedQuantity());

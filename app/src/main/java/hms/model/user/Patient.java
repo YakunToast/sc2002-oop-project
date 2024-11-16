@@ -81,14 +81,11 @@ public class Patient extends User {
     public void setGender(String gender) {
         if ("M".equals(gender)) {
             this.gender = Gender.MALE;
-        } 
-        else if ("F".equals(gender)) { 
+        } else if ("F".equals(gender)) {
             this.gender = Gender.FEMALE;
-        }
-        else {
+        } else {
             this.gender = Gender.NULL;
         }
-        
     }
 
     public String getBloodType() {
