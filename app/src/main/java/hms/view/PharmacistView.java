@@ -28,7 +28,10 @@ public class PharmacistView {
                 case 2 -> updatePrescriptionStatus(sc);
                 case 3 -> viewMedicationInventory(sc);
                 case 4 -> submitReplenishmentRequest(sc);
-                case 0 -> System.out.println("Logging out...");
+                case 0 -> { 
+                    System.out.println("Logging out...");
+                    return;
+                }
                 default -> System.out.println("Invalid option! Please try again.");
             }
         }

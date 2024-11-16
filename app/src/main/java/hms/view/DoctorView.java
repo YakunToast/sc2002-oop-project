@@ -55,7 +55,10 @@ public class DoctorView {
                 case 5 -> acceptOrDeclineAppointments(sc);
                 case 6 -> viewUpcomingAppointments(sc);
                 case 7 -> recordAppointmentOutcome(sc);
-                case 0 -> System.out.println("Logging out...");
+                case 0 -> {
+                    System.out.println("Logging out...");
+                    return;
+                }
                 default -> System.out.println("Invalid option! Please try again.");
             }
         }
