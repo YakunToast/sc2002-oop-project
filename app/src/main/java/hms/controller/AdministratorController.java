@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import hms.controller.inventory.InventoryManager;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.Appointment.AppointmentStatus;
 import hms.model.medication.ReplenishmentRequest;
@@ -17,17 +18,21 @@ import hms.repository.AppointmentRepository;
 import hms.repository.RepositoryManager;
 import hms.repository.UserRepository;
 
-public class AdministratorController extends InventoryController {
+public class AdministratorController implements InventoryManager {
     private final Administrator administrator;
 
     private final UserRepository ur;
     private final AppointmentRepository ar;
+
+    private final InventoryController inventoryController;
 
     public AdministratorController(Administrator administrator) {
         this.administrator = administrator;
 
         this.ur = RepositoryManager.getInstance().getUserRepository();
         this.ar = RepositoryManager.getInstance().getAppointmentRepository();
+
+        this.inventoryController = new InventoryController();
     }
 
     public boolean addUser(User user) {
@@ -86,15 +91,27 @@ public class AdministratorController extends InventoryController {
         return this.ar.getAppointmentById(id);
     }
 
+    @Override
+    public Inventory getInventory() {
+        return this.inventoryController.getInventory();
+    }
+
+    @Override
+    public List<Medication> getMedications() {
+        return this.inventoryController.getMedications();
+    }
+
+    @Override
     public boolean approveReplenishmentRequest(ReplenishmentRequest rr) {
         // Add stock
-        this.addMedicationStock(rr.getMedication(), rr.getRequestedQuantity());
+        this.inventoryController.addMedicationStock(rr.getMedication(), rr.getRequestedQuantity());
 
         // Mark as approved
         rr.setApproved();
         return true;
     }
 
+    @Override
     public List<ReplenishmentRequest> getPendingReplenishmentRequests() {
         return RepositoryManager.getInstance()
                 .getInventoryRepository()

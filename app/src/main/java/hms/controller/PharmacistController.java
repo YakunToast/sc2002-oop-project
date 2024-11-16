@@ -13,7 +13,7 @@ import hms.model.medication.PrescriptionStatus;
 import hms.model.medication.ReplenishmentRequest;
 import hms.model.user.Pharmacist;
 
-public class PharmacistController extends UserController {
+public class PharmacistController implements InventoryUser {
     private final Pharmacist pharmacist;
     private final InventoryController inventoryController;
 
@@ -43,14 +43,17 @@ public class PharmacistController extends UserController {
         return true;
     }
 
+    @Override
     public Inventory getInventory() {
         return this.inventoryController.getInventory();
     }
 
+    @Override
     public List<Medication> getMedications() {
         return this.inventoryController.getMedications();
     }
 
+    @Override
     public ReplenishmentRequest createReplenishmentRequest(Medication m, int qty) {
         ReplenishmentRequest rr =
                 new ReplenishmentRequest(m, qty, LocalDateTime.now(), this.pharmacist);
