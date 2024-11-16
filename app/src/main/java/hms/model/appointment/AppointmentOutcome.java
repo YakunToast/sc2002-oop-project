@@ -1,6 +1,7 @@
 package hms.model.appointment;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 import hms.model.medication.Prescription;
 
@@ -19,5 +20,9 @@ public class AppointmentOutcome implements Serializable {
 
     public Appointment getAppointment() {
         return appointment;
+    }
+
+    public Optional<Prescription> getPrescription() {
+        return Optional.of(this.prescription);
     }
 }

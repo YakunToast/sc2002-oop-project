@@ -1,10 +1,19 @@
 package hms;
 
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
-import hms.model.user.*;
-import hms.model.medication.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+
 import hms.controller.PharmacistController;
+import hms.model.medication.PrescriptionStatus;
+import hms.model.medication.ReplenishmentRequest;
+import hms.model.user.Pharmacist;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PharmacistActionsTest {
@@ -21,12 +30,10 @@ class PharmacistActionsTest {
     @Test
     @DisplayName("Test Case 16: View Appointment Outcome Record")
     void testViewAppointmentOutcomeRecord() {
-        var outcomes = pharmacistController.getAppointmentOutcomesWithPrescriptions();
+        var outcomes = pharmacistController.getAppointmentOutcomes();
 
         assertNotNull(outcomes);
-        assertTrue(
-                outcomes.stream()
-                        .allMatch(outcome -> !outcome.getPrescribedMedications().isEmpty()));
+        assertTrue(outcomes.stream().allMatch(outcome -> !outcome.getPrescription().isEmpty()));
     }
 
     @Test
@@ -37,12 +44,10 @@ class PharmacistActionsTest {
 
         boolean updated =
                 pharmacistController.updatePrescriptionStatus(
-                        prescription.getId(), PrescriptionStatus.DISPENSED);
+                        prescription, PrescriptionStatus.DISPENSED);
 
         assertTrue(updated);
-        assertEquals(
-                PrescriptionStatus.DISPENSED,
-                pharmacistController.getPrescription(prescription.getId()).getStatus());
+        assertTrue(prescription.isDispensed());
     }
 
     @Test
@@ -57,15 +62,14 @@ class PharmacistActionsTest {
     @Test
     @DisplayName("Test Case 19: Submit Replenishment Request")
     void testSubmitReplenishmentRequest() {
-        var medication = pharmacistController.getInventory().getMedications().get(0);
+        var medication = pharmacistController.getMedications().get(0);
         int requestQuantity = 100;
 
         ReplenishmentRequest request =
-                pharmacistController.createReplenishmentRequest(
-                        medication.getId(), requestQuantity);
+                pharmacistController.createReplenishmentRequest(medication, requestQuantity);
 
         assertNotNull(request);
-        assertEquals(medication.getId(), request.getMedicationId());
+        assertEquals(medication, request.getMedication());
         assertEquals(requestQuantity, request.getRequestedQuantity());
     }
 }
