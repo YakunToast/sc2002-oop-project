@@ -66,6 +66,11 @@ class PatientActionsTest {
         assertTrue(slots.stream().flatMap(List::stream).allMatch(slot -> slot.isAvailable()));
     }
 
+    // TODO: For the appointment endpoints,
+    // Create a doctor
+    // Add slots to doctor
+    // and feed it to scheduleAppointment
+    // e.g. cheduleAppointment(Doctor doctor, List<TimeSlot> ts)
     @Test
     @DisplayName("Test Case 4: Schedule an Appointment")
     void testScheduleAppointment() {

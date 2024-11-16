@@ -51,4 +51,16 @@ public class PatientController {
                 .map(e -> e.getSchedule().getSlots())
                 .collect(Collectors.toList());
     }
+
+    public Appointment scheduleAppointment(Doctor doctor, List<TimeSlot> ts) {
+        return AppointmentController.createAppointment(doctor, patient, ts);
+    }
+
+    public Appointment rescheduleAppointment(Appointment ap, List<TimeSlot> ts) {
+        Doctor doctor = ap.getDoctor();
+
+        AppointmentController.cancelAppointment(ap);
+
+        return this.scheduleAppointment(doctor, ts);
+    }
 }
