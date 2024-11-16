@@ -117,7 +117,7 @@ public class PatientView {
 
         // Build indexed list of available timeslots
         for (Doctor doctor : pc.getDoctors()) {
-            for (TimeSlot timeslot : doctor.getSchedule().getSlots()) {
+            for (TimeSlot timeslot : doctor.getSchedule().getTimeSlots()) {
                 if (timeslot.isAvailable()) { // Check if the timeslot is available
                     availableSlotsMap.put(index, timeslot);
                     System.out.printf(
