@@ -1,11 +1,22 @@
 package hms;
 
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
-import hms.model.user.*;
-import hms.model.appointment.*;
-import hms.controller.PatientController;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.LocalDateTime;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+
+import hms.controller.PatientController;
+import hms.model.appointment.Appointment.AppointmentStatus;
+import hms.model.user.Doctor;
+import hms.model.user.Patient;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PatientActionsTest {
@@ -52,7 +63,7 @@ class PatientActionsTest {
 
         assertNotNull(slots);
         assertFalse(slots.isEmpty());
-        assertTrue(slots.stream().allMatch(slot -> !slot.isBooked()));
+        assertTrue(slots.stream().flatMap(List::stream).allMatch(slot -> slot.isAvailable()));
     }
 
     @Test

@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import hms.model.appointment.Appointment;
 import hms.model.record.MedicalRecord;
+import hms.model.schedule.TimeSlot;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 import hms.repository.RepositoryManager;
@@ -43,5 +44,11 @@ public class PatientController {
 
     public List<Doctor> getDoctors() {
         return this.getAppointments().stream().map(a -> a.getDoctor()).collect(Collectors.toList());
+    }
+
+    public List<List<TimeSlot>> getAvailableAppointmentSlots() {
+        return this.getDoctors().stream()
+                .map(e -> e.getSchedule().getSlots())
+                .collect(Collectors.toList());
     }
 }
