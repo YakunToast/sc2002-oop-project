@@ -1,9 +1,11 @@
 package hms.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import hms.model.appointment.Appointment;
 import hms.model.appointment.Appointment.AppointmentStatus;
+import hms.model.appointment.AppointmentOutcome;
 import hms.model.schedule.TimeSlot;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
@@ -61,5 +63,15 @@ public class AppointmentController {
     public boolean decline() {
         appointment.setStatus(AppointmentStatus.CANCELLED);
         return true;
+    }
+
+    public static List<AppointmentOutcome> getAppointmentOutcomes() {
+        return RepositoryManager.getInstance()
+                .getAppointmentRepository()
+                .getAllAppointments()
+                .stream()
+                .filter(ap -> ap.isCompleted())
+                .map(ap -> ap.getOutcome())
+                .collect(Collectors.toList());
     }
 }
