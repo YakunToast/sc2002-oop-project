@@ -94,4 +94,14 @@ public class DoctorController extends UserController {
         }
         return new AppointmentController(ap).decline();
     }
+
+    public boolean addAppointmentOutcome(Appointment ap, String description, Prescription pr) {
+        AppointmentOutcome ao = new AppointmentOutcome(ap, description, pr);
+        RepositoryManager.getInstance().getAppointmentRepository().addAppointmentOutcome(ao);
+        return true;
+    }
+
+    public AppointmentOutcome getAppointmentOutcome(Appointment ap) {
+        return ap.getOutcome();
+    }
 }
