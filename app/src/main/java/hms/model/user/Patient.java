@@ -18,6 +18,12 @@ public class Patient extends User {
     private Gender gender;
     private String bloodType;
 
+    public enum Gender {
+        MALE,
+        FEMALE,
+        OTHER
+    }
+
     public Patient(
             String id,
             String username,
@@ -84,7 +90,7 @@ public class Patient extends User {
         } else if ("F".equals(gender)) {
             this.gender = Gender.FEMALE;
         } else {
-            this.gender = Gender.NULL;
+            this.gender = Gender.OTHER;
         }
     }
 
