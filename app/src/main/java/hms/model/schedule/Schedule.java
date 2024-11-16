@@ -32,7 +32,7 @@ public class Schedule implements Serializable {
         return sb.toString();
     }
 
-    public List<TimeSlot> getSlots() {
+    public List<TimeSlot> getTimeSlots() {
         return timeslots;
     }
 

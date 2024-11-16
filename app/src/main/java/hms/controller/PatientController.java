@@ -49,7 +49,7 @@ public class PatientController {
 
     public List<List<TimeSlot>> getAvailableAppointmentSlots() {
         return this.getDoctors().stream()
-                .map(e -> e.getSchedule().getSlots())
+                .map(e -> e.getSchedule().getTimeSlots())
                 .collect(Collectors.toList());
     }
 

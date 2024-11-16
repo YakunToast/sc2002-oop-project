@@ -1,12 +1,24 @@
 package hms;
 
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
-import hms.model.user.*;
-import hms.model.appointment.*;
-import hms.controller.DoctorController;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.LocalDateTime;
 import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+
+import hms.controller.DoctorController;
+import hms.model.appointment.Appointment;
+import hms.model.appointment.Appointment.AppointmentStatus;
+import hms.model.appointment.AppointmentOutcome;
+import hms.model.user.Doctor;
+import hms.model.user.Patient;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class DoctorActionsTest {
@@ -15,6 +27,7 @@ class DoctorActionsTest {
     private Patient testPatient;
 
     private Appointment createTestAppointment() {
+        // TODO: Cannot create appointment from doctor
         return doctorController.createAppointment(
                 testPatient.getId(), LocalDateTime.now().plusDays(1));
     }
@@ -30,10 +43,10 @@ class DoctorActionsTest {
     @Test
     @DisplayName("Test Case 9: View Patient Medical Records")
     void testViewPatientMedicalRecords() {
-        var medicalRecord = doctorController.viewPatientMedicalRecord(testPatient.getId());
+        var medicalRecord = doctorController.getPatientMedicalRecord(testPatient);
 
         assertNotNull(medicalRecord);
-        assertEquals(testPatient.getId(), medicalRecord.getPatientId());
+        assertEquals(testPatient.getMedicalRecord(), medicalRecord);
     }
 
     @Test
@@ -43,11 +56,10 @@ class DoctorActionsTest {
         String treatment = "Prescribed medication and lifestyle changes";
 
         boolean updated =
-                doctorController.updatePatientMedicalRecord(
-                        testPatient.getId(), diagnosis, treatment);
+                doctorController.updatePatientMedicalRecord(testPatient, diagnosis, treatment);
 
         assertTrue(updated);
-        var medicalRecord = doctorController.viewPatientMedicalRecord(testPatient.getId());
+        var medicalRecord = doctorController.getPatientMedicalRecord(testPatient);
         assertTrue(medicalRecord.getPastDiagnoses().contains(diagnosis));
     }
 
@@ -78,18 +90,14 @@ class DoctorActionsTest {
     void testHandleAppointmentRequests() {
         var appointment = createTestAppointment();
 
-        boolean accepted = doctorController.acceptAppointment(appointment.getId());
+        boolean accepted = doctorController.acceptAppointment(appointment);
         assertTrue(accepted);
-        assertEquals(
-                AppointmentStatus.CONFIRMED,
-                doctorController.getAppointment(appointment.getId()).getStatus());
+        assertEquals(AppointmentStatus.CONFIRMED, appointment.getStatus());
 
         appointment = createTestAppointment();
-        boolean declined = doctorController.declineAppointment(appointment.getId());
+        boolean declined = doctorController.declineAppointment(appointment);
         assertTrue(declined);
-        assertEquals(
-                AppointmentStatus.CANCELLED,
-                doctorController.getAppointment(appointment.getId()).getStatus());
+        assertEquals(AppointmentStatus.CANCELLED, appointment.getStatus());
     }
 
     @Test
@@ -99,13 +107,11 @@ class DoctorActionsTest {
         createTestAppointment();
         createTestAppointment();
 
-        var appointments = doctorController.getUpcomingAppointments();
+        var appointments = doctorController.getConfirmedAppointments();
 
         assertNotNull(appointments);
         assertFalse(appointments.isEmpty());
-        assertTrue(
-                appointments.stream()
-                        .allMatch(appt -> appt.getDoctorId().equals(testDoctor.getId())));
+        assertTrue(appointments.stream().allMatch(appt -> appt.getDoctor().equals(testDoctor)));
     }
 
     @Test

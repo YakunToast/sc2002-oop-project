@@ -10,12 +10,18 @@ import hms.model.user.Patient;
 import hms.repository.RepositoryManager;
 
 public class AppointmentController {
-    public static void cancelAppointment(Appointment ap) {
+    private final Appointment appointment;
+
+    public AppointmentController(Appointment ap) {
+        this.appointment = ap;
+    }
+
+    public void cancelAppointment() {
         // Mark all slots appointment as free
-        ap.getTimeSlots().stream().forEach(ts -> ts.setAvailable());
+        appointment.getTimeSlots().stream().forEach(ts -> ts.setAvailable());
 
         // Mark as cancelled
-        ap.setStatus(AppointmentStatus.CANCELLED);
+        appointment.setStatus(AppointmentStatus.CANCELLED);
 
         // Remove from database
         RepositoryManager.getInstance().getAppointmentRepository().removeAppointment(ap);
@@ -45,5 +51,15 @@ public class AppointmentController {
 
         // Return the newly created appointment
         return ap;
+    }
+
+    public boolean accept() {
+        appointment.setStatus(AppointmentStatus.CONFIRMED);
+        return true;
+    }
+
+    public boolean decline() {
+        appointment.setStatus(AppointmentStatus.CANCELLED);
+        return true;
     }
 }
