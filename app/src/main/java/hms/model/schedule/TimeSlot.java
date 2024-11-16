@@ -3,6 +3,7 @@ package hms.model.schedule;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import hms.model.appointment.Appointment;
 import hms.model.user.User;
 
 // Inner class to represent a time slot of 10 minutes

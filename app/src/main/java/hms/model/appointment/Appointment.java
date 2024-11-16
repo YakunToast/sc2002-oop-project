@@ -2,8 +2,11 @@ package hms.model.appointment;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
+import hms.model.schedule.TimeSlot;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 
@@ -13,6 +16,7 @@ public class Appointment implements Serializable {
     private Patient patient;
     private Doctor doctor;
     private LocalDateTime dateTime;
+    private List<TimeSlot> timeSlots;
     private AppointmentStatus status; // confirmed, canceled, completed
     private String outcome;
 
@@ -29,6 +33,10 @@ public class Appointment implements Serializable {
         this.doctor = doctor;
         this.dateTime = dateTime;
         this.status = AppointmentStatus.PENDING;
+    }
+
+    public Appointment(Patient patient, Doctor doctor, LocalDateTime dateTime) {
+        this(UUID.randomUUID(), patient, doctor, dateTime);
     }
 
     @Override
@@ -58,6 +66,14 @@ public class Appointment implements Serializable {
                 dateTime != null ? dateTime.toString() : "Not Scheduled",
                 status != null ? status.toString() : "Unknown",
                 outcome != null ? outcome : "Not Determined");
+    }
+
+    public void setTimeslots(List<TimeSlot> ts) {
+        this.timeSlots = ts;
+    }
+
+    public List<TimeSlot> getTimeSlots() {
+        return Collections.unmodifiableList(this.timeSlots);
     }
 
     public void setStatus(AppointmentStatus newStatus) {
