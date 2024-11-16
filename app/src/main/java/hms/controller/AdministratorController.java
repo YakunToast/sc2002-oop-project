@@ -1,3 +1,106 @@
 package hms.controller;
 
-public class AdministratorController {}
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import hms.model.appointment.Appointment;
+import hms.model.appointment.Appointment.AppointmentStatus;
+import hms.model.medication.ReplenishmentRequest;
+import hms.model.user.Administrator;
+import hms.model.user.Doctor;
+import hms.model.user.Patient;
+import hms.model.user.Staff;
+import hms.model.user.User;
+import hms.repository.AppointmentRepository;
+import hms.repository.RepositoryManager;
+import hms.repository.UserRepository;
+
+public class AdministratorController extends InventoryController {
+    private final Administrator administrator;
+
+    private final UserRepository ur;
+    private final AppointmentRepository ar;
+
+    public AdministratorController(Administrator administrator) {
+        this.administrator = administrator;
+
+        this.ur = RepositoryManager.getInstance().getUserRepository();
+        this.ar = RepositoryManager.getInstance().getAppointmentRepository();
+    }
+
+    public boolean addUser(User user) {
+        if (this.ur.getUserById(user.getId()).isPresent()) {
+            return false;
+        }
+        if (this.ur.getUserByUsername(user.getUsername()).isPresent()) {
+            return false;
+        }
+
+        this.ur.addUser(user);
+
+        return true;
+    }
+
+    public boolean removeUser(User user) {
+        return this.ur.removeUser(user);
+    }
+
+    public List<User> getUsers() {
+        return this.ur.getAllUsers();
+    }
+
+    public List<Staff> getStaffs() {
+        return this.getUsers().stream()
+                .filter(u -> u instanceof Staff)
+                .map(u -> (Staff) u)
+                .collect(Collectors.toList());
+    }
+
+    public List<Patient> getPatients() {
+        return this.getUsers().stream()
+                .filter(u -> u instanceof Patient)
+                .map(u -> (Patient) u)
+                .collect(Collectors.toList());
+    }
+
+    public List<Doctor> getDoctors() {
+        return this.getUsers().stream()
+                .filter(u -> u instanceof Doctor)
+                .map(u -> (Doctor) u)
+                .collect(Collectors.toList());
+    }
+
+    public List<Appointment> getAppointments() {
+        return this.ar.getAllAppointments();
+    }
+
+    public List<Appointment> getAppointmentsByStatus(AppointmentStatus as) {
+        return this.getAppointments().stream()
+                .filter(ap -> ap.getStatus() == as)
+                .collect(Collectors.toList());
+    }
+
+    public Optional<Appointment> getAppointmentById(UUID id) {
+        return this.ar.getAppointmentById(id);
+    }
+
+    public boolean approveReplenishmentRequest(ReplenishmentRequest rr) {
+        // Add stock
+        this.addMedicationStock(rr.getMedication(), rr.getRequestedQuantity());
+
+        // Mark as approved
+        rr.setApproved();
+        return true;
+    }
+
+    public List<ReplenishmentRequest> getPendingReplenishmentRequests() {
+        return RepositoryManager.getInstance()
+                .getInventoryRepository()
+                .getReplenishmentRequests()
+                .stream()
+                .filter(rr -> rr.isPending())
+                .collect(Collectors.toList());
+    }
+}

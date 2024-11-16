@@ -29,7 +29,7 @@ class AdministratorActionsTest {
     void testManageHospitalStaff() {
         // Test adding new staff
         Doctor newDoctor = TestUtils.createTestDoctor();
-        boolean added = adminController.addStaffMember(newDoctor);
+        boolean added = adminController.addUser(newDoctor);
         assertTrue(added);
 
         // Test updating staff
@@ -39,7 +39,7 @@ class AdministratorActionsTest {
         // assertTrue(updated);
 
         // Test removing staff
-        boolean removed = adminController.removeStaffMember(newDoctor.getId());
+        boolean removed = adminController.removeUser(newDoctor);
         assertTrue(removed);
 
         // TODO: Not sure why this is needed
@@ -58,7 +58,7 @@ class AdministratorActionsTest {
     @DisplayName("Test Case 21: View Appointments Details")
     void testViewAppointmentsDetails() {
         // Get all appointments
-        var allAppointments = adminController.getAllAppointments();
+        var allAppointments = adminController.getAppointments();
         assertNotNull(allAppointments);
 
         // Test filtering appointments by status
@@ -70,12 +70,12 @@ class AdministratorActionsTest {
                         .allMatch(appt -> appt.getStatus() == AppointmentStatus.CONFIRMED));
 
         // Test getting appointment details
-        var appointment = allAppointments.get(0);
-        var details = adminController.getAppointmentDetails(appointment.getId());
+        Appointment appointment = allAppointments.get(0);
+        var details = adminController.getAppointmentById(appointment.getId()).orElseThrow();
         assertNotNull(details);
         assertEquals(appointment.getId(), details.getId());
-        assertNotNull(details.getPatientId());
-        assertNotNull(details.getDoctorId());
+        assertNotNull(details.getPatient());
+        assertNotNull(details.getDoctor());
     }
 
     @Test
@@ -86,28 +86,26 @@ class AdministratorActionsTest {
                 new Medication(
                         "TEST001",
                         "Test Medication",
-                        100,
-                        20, // low stock alert level
-                        "Description",
+                        "100mg",
                         List.of(MedicationSideEffect.DROWSINESS));
         boolean added = adminController.addMedication(newMed);
         assertTrue(added);
 
         // Test updating medication stock
-        boolean updated = adminController.updateMedicationStock(newMed.getId(), 150);
+        boolean updated = adminController.addMedicationStock(newMed, 150);
         assertTrue(updated);
 
         // Test updating low stock alert level
-        boolean alertUpdated = adminController.updateLowStockAlertLevel(newMed.getId(), 30);
+        boolean alertUpdated = adminController.setMedicationStockAlert(newMed, 30);
         assertTrue(alertUpdated);
 
         // Test getting medication inventory
-        var inventory = adminController.getMedicationInventory();
+        var inventory = adminController.getInventory();
         assertNotNull(inventory);
         assertFalse(inventory.getMedications().isEmpty());
 
         // Test removing medication
-        boolean removed = adminController.removeMedication(newMed.getId());
+        boolean removed = adminController.removeMedication(newMed);
         assertTrue(removed);
     }
 
@@ -115,20 +113,18 @@ class AdministratorActionsTest {
     @DisplayName("Test Case 23: Approve Replenishment Requests")
     void testApproveReplenishmentRequests() {
         // Create a test replenishment request
-        var medication = adminController.getMedicationInventory().getMedications().get(0);
+        var medication = adminController.getInventory().getMedications().get(0);
+        var medicationStock = adminController.getMedicationStock(medication);
         ReplenishmentRequest request =
-                new ReplenishmentRequest(
-                        medication.getId(), 100, LocalDateTime.now(), testPharmacist.getId());
+                new ReplenishmentRequest(medication, 100, LocalDateTime.now(), testPharmacist);
 
         // Test approving request
-        boolean approved = adminController.approveReplenishmentRequest(request.getId());
+        boolean approved = adminController.approveReplenishmentRequest(request);
         assertTrue(approved);
 
         // Verify inventory is updated
-        var updatedMedication = adminController.getMedication(medication.getId());
-        assertEquals(
-                medication.getStock() + request.getRequestedQuantity(),
-                updatedMedication.getStock());
+        var updatedMedicationStock = adminController.getMedicationStock(medication);
+        assertEquals(medicationStock + request.getRequestedQuantity(), updatedMedicationStock);
 
         // Test getting pending requests
         var pendingRequests = adminController.getPendingReplenishmentRequests();

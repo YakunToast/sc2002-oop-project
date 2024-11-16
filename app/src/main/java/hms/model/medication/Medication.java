@@ -38,12 +38,20 @@ public class Medication implements Serializable {
             String medicationName,
             String description,
             String dosageInstructions,
-            List<MedicationSideEffect> sideEffects,
-            MedicationStatus status) {
+            List<MedicationSideEffect> sideEffects) {
         this.name = medicationName;
         this.description = description;
         this.dosageInstructions = dosageInstructions;
         this.sideEffects = sideEffects;
+    }
+
+    public Medication(
+            String medicationName,
+            String description,
+            String dosageInstructions,
+            List<MedicationSideEffect> sideEffects,
+            MedicationStatus status) {
+        this(medicationName, description, dosageInstructions, sideEffects);
         this.status = status;
     }
 

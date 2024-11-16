@@ -9,20 +9,69 @@ public class Inventory implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Map<String, Medication> medications;
+    private Map<String, Integer> alert;
+    private Map<String, Integer> stock;
 
     public Inventory() {
         this.medications = new HashMap<>();
+        this.stock = new HashMap<>();
+        this.alert = new HashMap<>();
     }
 
-    public void addMedication(Medication medication) {
+    public boolean addMedication(Medication medication) {
+        if (medications.containsKey(medication.getName())) {
+            return false;
+        }
         medications.put(medication.getName(), medication);
+        return true;
     }
 
-    public void removeMedication(Medication medication) {
+    public boolean addMedicationStock(Medication medication, int qty) {
+        if (qty < 0) {
+            return false;
+        }
+        stock.merge(medication.getName(), qty, Integer::sum);
+        return true;
+    }
+
+    public boolean removeMedication(Medication medication) {
+        if (!medications.containsKey(medication.getName())) {
+            return false;
+        }
         medications.remove(medication.getName());
+        return true;
+    }
+
+    public boolean removeMedicationStock(Medication medication, int qty) {
+        if (qty > 0) {
+            return false;
+        }
+
+        // Make sure we cannot remove more than what's left
+        int currentStock = stock.get(medication.getName());
+        int delta = Integer.min(currentStock, qty);
+
+        stock.merge(medication.getName(), -delta, Integer::sum);
+        return true;
+    }
+
+    public boolean setMedicationStockAlert(Medication medication, int qty) {
+        if (qty <= 0) {
+            return false;
+        }
+        this.alert.put(medication.getName(), qty);
+        return true;
+    }
+
+    public int getMedicationStockAlert(Medication medication) {
+        return this.alert.get(medication.getName());
     }
 
     public List<Medication> getMedications() {
         return List.copyOf(this.medications.values());
+    }
+
+    public int getMedicationStock(Medication medication) {
+        return this.stock.get(medication.getName());
     }
 }
