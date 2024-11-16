@@ -14,8 +14,8 @@ import hms.repository.RepositoryManager;
 public class AppointmentController {
     private final Appointment appointment;
 
-    public AppointmentController(Appointment ap) {
-        this.appointment = ap;
+    public AppointmentController(Appointment appointment) {
+        this.appointment = appointment;
     }
 
     public void cancelAppointment() {

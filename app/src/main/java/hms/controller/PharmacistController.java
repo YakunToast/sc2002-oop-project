@@ -1,5 +1,6 @@
 package hms.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -11,7 +12,6 @@ import hms.model.medication.Prescription;
 import hms.model.medication.PrescriptionStatus;
 import hms.model.medication.ReplenishmentRequest;
 import hms.model.user.Pharmacist;
-import hms.repository.RepositoryManager;
 
 public class PharmacistController extends UserController {
     private final Pharmacist pharmacist;
@@ -19,9 +19,7 @@ public class PharmacistController extends UserController {
 
     public PharmacistController(Pharmacist pharmacist) {
         this.pharmacist = pharmacist;
-        this.inventoryController =
-                new InventoryController(
-                        RepositoryManager.getInstance().getInventoryRepository().getInventory());
+        this.inventoryController = new InventoryController();
     }
 
     public List<AppointmentOutcome> getAppointmentOutcomes() {
@@ -54,7 +52,8 @@ public class PharmacistController extends UserController {
     }
 
     public ReplenishmentRequest createReplenishmentRequest(Medication m, int qty) {
-        ReplenishmentRequest rr = new ReplenishmentRequest(m, qty);
+        ReplenishmentRequest rr =
+                new ReplenishmentRequest(m, qty, LocalDateTime.now(), this.pharmacist);
         this.inventoryController.addReplenishmentRequest(rr);
         return rr;
     }
