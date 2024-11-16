@@ -47,8 +47,7 @@ public class MainView {
             if (user.verifyPassword(password)) {
                 UserRole ur = user.getRole();
 
-                // TODO: use firstname lastname?
-                System.out.println("Login successful! Welcome, " + ur + ": " + username + "!");
+                System.out.println("Login successful! Welcome " + ur + " " + user.getFirstName() + " " + user.getLastName() + ".");
 
                 // Open correct role
                 switch (ur) {
