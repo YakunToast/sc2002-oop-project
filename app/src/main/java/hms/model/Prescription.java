@@ -1,8 +1,12 @@
 package hms.model;
 
+import java.io.Serializable;
+
 import hms.model.medication.Medication;
 
-public class Prescription {
+public class Prescription implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private PrescriptionStatus status;
     private Medication[] medication;
 

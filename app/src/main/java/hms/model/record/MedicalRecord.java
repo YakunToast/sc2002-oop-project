@@ -9,6 +9,8 @@ import hms.model.user.Doctor;
 import hms.model.user.Patient;
 
 public class MedicalRecord implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Patient patient;
     private String contactPhone;
     private String emailAddress;

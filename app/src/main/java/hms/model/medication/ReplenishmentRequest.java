@@ -1,3 +1,7 @@
 package hms.model.medication;
 
-public class ReplenishmentRequest {}
+import java.io.Serializable;
+
+public class ReplenishmentRequest implements Serializable {
+    private static final long serialVersionUID = 1L;
+}

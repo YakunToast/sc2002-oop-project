@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Inventory implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Map<String, Medication> medications;
 
     public Inventory() {

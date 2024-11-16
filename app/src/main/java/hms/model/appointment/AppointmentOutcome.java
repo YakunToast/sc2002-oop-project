@@ -1,3 +1,7 @@
 package hms.model.appointment;
 
-public class AppointmentOutcome {}
+import java.io.Serializable;
+
+public class AppointmentOutcome implements Serializable {
+    private static final long serialVersionUID = 1L;
+}

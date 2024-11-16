@@ -12,6 +12,8 @@ import hms.model.user.Patient;
 
 // Appointment class to manage doctor appointments
 public class Appointment implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private UUID appointmentId;
     private Patient patient;
     private Doctor doctor;
