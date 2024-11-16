@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 
 // Inner class to represent a time slot of 10 minutes
 public class TimeSlot implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private final LocalDateTime start;
     private final LocalDateTime end;
     private TimeSlotStatus status;
