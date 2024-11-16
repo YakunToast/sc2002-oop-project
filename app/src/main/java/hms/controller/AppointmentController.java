@@ -24,7 +24,7 @@ public class AppointmentController {
         appointment.setStatus(AppointmentStatus.CANCELLED);
 
         // Remove from database
-        RepositoryManager.getInstance().getAppointmentRepository().removeAppointment(ap);
+        RepositoryManager.getInstance().getAppointmentRepository().removeAppointment(appointment);
     }
 
     public static Appointment createAppointment(Doctor d, Patient p, List<TimeSlot> ts) {
