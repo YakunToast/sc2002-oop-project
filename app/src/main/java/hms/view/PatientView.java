@@ -1,5 +1,6 @@
 package hms.view;
 
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -114,6 +115,7 @@ public class PatientView {
     void scheduleAppointment(Scanner sc) {
         int index = 1;
         HashMap<Integer, TimeSlot> availableSlotsMap = new HashMap<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
         // Build indexed list of available timeslots
         for (Doctor doctor : pc.getDoctors()) {
@@ -122,7 +124,7 @@ public class PatientView {
                     availableSlotsMap.put(index, timeslot);
                     System.out.printf(
                             "%d. Doctor: %s, Time: %s%n",
-                            index, doctor.getName(), timeslot.getStart());
+                            index, doctor.getName(), timeslot.getStart().format(formatter));
                     index++;
                 }
             }
