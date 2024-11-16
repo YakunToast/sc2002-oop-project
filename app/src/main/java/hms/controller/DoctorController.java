@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import hms.model.appointment.Appointment;
+import hms.model.appointment.AppointmentOutcome;
+import hms.model.medication.Prescription;
 import hms.model.record.MedicalRecord;
 import hms.model.schedule.Schedule;
 import hms.model.user.Doctor;
