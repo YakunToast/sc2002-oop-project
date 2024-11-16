@@ -83,8 +83,16 @@ public class MedicalRecord implements Serializable {
         return Collections.unmodifiableList(pastDiagnoses);
     }
 
+    public void addDiagnosis(String diagnosis) {
+        this.pastDiagnoses.add(diagnosis);
+    }
+
     public List<String> getTreatments() {
         return Collections.unmodifiableList(treatments);
+    }
+
+    public void addTreatment(String treatment) {
+        this.treatments.add(treatment);
     }
 
     public Doctor getDoctor() {
