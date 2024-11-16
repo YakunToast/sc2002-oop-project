@@ -20,7 +20,7 @@ public class Appointment implements Serializable {
     private LocalDateTime dateTime;
     private List<TimeSlot> timeSlots;
     private AppointmentStatus status; // confirmed, canceled, completed
-    private String outcome;
+    private AppointmentOutcome outcome;
 
     public enum AppointmentStatus {
         PENDING,
@@ -86,11 +86,11 @@ public class Appointment implements Serializable {
         return status;
     }
 
-    public void setOutcome(String outcome) {
+    public void setOutcome(AppointmentOutcome outcome) {
         this.outcome = outcome;
     }
 
-    public String getOutcome() {
+    public AppointmentOutcome getOutcome() {
         return outcome;
     }
 
