@@ -12,11 +12,13 @@ public class RepositoryManager implements Serializable {
 
     private UserRepository userRepository;
     private AppointmentRepository appointmentRepository;
+    private InventoryRepository inventoryRepository;
 
     private RepositoryManager() {
         // Dynamically initialize repositories
         this.userRepository = new UserRepository();
         this.appointmentRepository = new AppointmentRepository();
+        this.inventoryRepository = new InventoryRepository();
     }
 
     public static RepositoryManager getInstance() {
@@ -48,5 +50,9 @@ public class RepositoryManager implements Serializable {
 
     public AppointmentRepository getAppointmentRepository() {
         return appointmentRepository;
+    }
+
+    public InventoryRepository getInventoryRepository() {
+        return inventoryRepository;
     }
 }
