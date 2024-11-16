@@ -1,31 +1,34 @@
 package hms.model.medication;
 
-import java.io.Serializable;
+public enum MedicationSideEffect {
+    DROWSINESS("Drowsiness"),
+    NAUSEA("Nausea"),
+    VOMITING("Vomiting"),
+    HEADACHE("Headache"),
+    DIARRHEA("Diarrhea"),
+    CONSTIPATION("Constipation"),
+    FATIGUE("Fatigue"),
+    BLURRED_VISION("Blurred Vision"),
+    DIZZINESS("Dizziness"),
+    JOINT_PAIN("Joint Pain"),
+    MUSCLE_PAIN("Muscle Pain"),
+    RASH("Rash"),
+    ITCHING("Itching"),
+    DRY_MOUTH("Dry Mouth"),
+    STOMACH_PAIN("Stomach Pain"),
+    INSOMNIA("Insomnia"),
+    WEIGHT_GAIN("Weight Gain"),
+    WEIGHT_LOSS("Weight Loss"),
+    CHOLESTEOLINEMIA("High Cholesterol"),
+    ANXIETY("Anxiety");
 
-public class MedicationSideEffect implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private final String description;
 
-    private final String shortDescription;
-    private String fullDescription;
-
-    public MedicationSideEffect(String shortDescription) {
-        this.shortDescription = shortDescription;
+    MedicationSideEffect(String description) {
+        this.description = description;
     }
 
-    public MedicationSideEffect(String shortDescription, String fullDescription) {
-        this(shortDescription);
-        this.fullDescription = fullDescription;
-    }
-
-    @Override
-    public String toString() {
-        if (fullDescription == null || fullDescription.isEmpty()) {
-            return shortDescription;
-        } else {
-            return new StringBuilder(this.shortDescription)
-                    .append(": ")
-                    .append(this.fullDescription)
-                    .toString();
-        }
+    public String getDescription() {
+        return description;
     }
 }

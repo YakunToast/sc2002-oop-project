@@ -1,6 +1,7 @@
 package hms.model.medication;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 /** Represents a Medication entity in the hospital management application. */
@@ -12,7 +13,7 @@ public class Medication implements Serializable {
     private String description;
     private String dosageInstructions;
 
-    private MedicationSideEffect[] sideEffects;
+    private List<MedicationSideEffect> sideEffects;
 
     // Status (e.g., active, discontinued, recalled)
     private MedicationStatus status;
@@ -37,7 +38,7 @@ public class Medication implements Serializable {
             String medicationName,
             String description,
             String dosageInstructions,
-            MedicationSideEffect[] sideEffects,
+            List<MedicationSideEffect> sideEffects,
             MedicationStatus status) {
         this.name = medicationName;
         this.description = description;
@@ -79,11 +80,11 @@ public class Medication implements Serializable {
         this.dosageInstructions = dosageInstructions;
     }
 
-    public MedicationSideEffect[] getSideEffects() {
+    public List<MedicationSideEffect> getSideEffects() {
         return sideEffects;
     }
 
-    public void setSideEffects(MedicationSideEffect[] sideEffects) {
+    public void setSideEffects(List<MedicationSideEffect> sideEffects) {
         this.sideEffects = sideEffects;
     }
 
@@ -106,7 +107,7 @@ public class Medication implements Serializable {
                 + ", dosageInstructions="
                 + dosageInstructions
                 + ", sideEffects="
-                + java.util.Arrays.toString(sideEffects)
+                + sideEffects
                 + ", status="
                 + status
                 + "]";
