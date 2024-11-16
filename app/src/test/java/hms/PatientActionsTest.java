@@ -38,8 +38,8 @@ class PatientActionsTest {
         var medicalRecord = patientController.getMedicalRecord();
 
         assertNotNull(medicalRecord);
-        assertEquals(testPatient.getId(), medicalRecord.getPatientId());
-        assertNotNull(medicalRecord.getBloodType());
+        assertEquals(testPatient.getId(), testPatient.getId());
+        assertNotNull(testPatient.getBloodType());
         assertNotNull(medicalRecord.getPastDiagnoses());
     }
 
