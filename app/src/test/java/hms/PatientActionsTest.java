@@ -25,7 +25,7 @@ class PatientActionsTest {
     @DisplayName("Test Case 1: View Medical Record")
     void testViewMedicalRecord() {
         var medicalRecord = patientController.getMedicalRecord();
-        
+
         assertNotNull(medicalRecord);
         assertEquals(testPatient.getId(), medicalRecord.getPatientId());
         assertNotNull(medicalRecord.getBloodType());
@@ -37,10 +37,10 @@ class PatientActionsTest {
     void testUpdatePersonalInfo() {
         String newEmail = "updated@example.com";
         String newPhone = "9999999999";
-        
+
         patientController.setEmail(newEmail);
         patientController.setPhoneNumber(newPhone);
-        
+
         assertEquals(newEmail, testPatient.getEmail());
         assertEquals(newPhone, testPatient.getPhoneNumber());
     }
@@ -49,7 +49,7 @@ class PatientActionsTest {
     @DisplayName("Test Case 3: View Available Appointment Slots")
     void testViewAvailableSlots() {
         var slots = patientController.getAvailableAppointmentSlots();
-        
+
         assertNotNull(slots);
         assertFalse(slots.isEmpty());
         assertTrue(slots.stream().allMatch(slot -> !slot.isBooked()));
@@ -59,8 +59,9 @@ class PatientActionsTest {
     @DisplayName("Test Case 4: Schedule an Appointment")
     void testScheduleAppointment() {
         LocalDateTime appointmentTime = LocalDateTime.now().plusDays(1);
-        var appointment = patientController.scheduleAppointment(testDoctor.getId(), appointmentTime);
-        
+        var appointment =
+                patientController.scheduleAppointment(testDoctor.getId(), appointmentTime);
+
         assertNotNull(appointment);
         assertEquals(AppointmentStatus.CONFIRMED, appointment.getStatus());
         assertEquals(testPatient.getId(), appointment.getPatientId());
@@ -72,11 +73,11 @@ class PatientActionsTest {
     void testRescheduleAppointment() {
         LocalDateTime originalTime = LocalDateTime.now().plusDays(1);
         var appointment = patientController.scheduleAppointment(testDoctor.getId(), originalTime);
-        
+
         LocalDateTime newTime = LocalDateTime.now().plusDays(2);
-        var rescheduledAppointment = patientController.rescheduleAppointment(
-            appointment.getId(), newTime);
-        
+        var rescheduledAppointment =
+                patientController.rescheduleAppointment(appointment.getId(), newTime);
+
         assertNotNull(rescheduledAppointment);
         assertEquals(newTime, rescheduledAppointment.getDateTime());
         assertEquals(AppointmentStatus.CONFIRMED, rescheduledAppointment.getStatus());
@@ -86,10 +87,11 @@ class PatientActionsTest {
     @DisplayName("Test Case 6: Cancel an Appointment")
     void testCancelAppointment() {
         LocalDateTime appointmentTime = LocalDateTime.now().plusDays(1);
-        var appointment = patientController.scheduleAppointment(testDoctor.getId(), appointmentTime);
-        
+        var appointment =
+                patientController.scheduleAppointment(testDoctor.getId(), appointmentTime);
+
         boolean cancelled = patientController.cancelAppointment(appointment.getId());
-        
+
         assertTrue(cancelled);
         var cancelledAppointment = patientController.getAppointment(appointment.getId());
         assertEquals(AppointmentStatus.CANCELLED, cancelledAppointment.getStatus());
@@ -100,22 +102,27 @@ class PatientActionsTest {
     void testViewScheduledAppointments() {
         patientController.scheduleAppointment(testDoctor.getId(), LocalDateTime.now().plusDays(1));
         patientController.scheduleAppointment(testDoctor.getId(), LocalDateTime.now().plusDays(2));
-        
+
         var appointments = patientController.getScheduledAppointments();
-        
+
         assertNotNull(appointments);
         assertFalse(appointments.isEmpty());
-        assertTrue(appointments.stream()
-            .allMatch(appt -> appt.getPatientId().equals(testPatient.getId())));
+        assertTrue(
+                appointments.stream()
+                        .allMatch(appt -> appt.getPatientId().equals(testPatient.getId())));
     }
 
     @Test
     @DisplayName("Test Case 8: View Past Appointment Outcome Records")
     void testViewPastAppointmentOutcomes() {
         var outcomes = patientController.getPastAppointmentOutcomes();
-        
+
         assertNotNull(outcomes);
-        assertTrue(outcomes.stream()
-            .allMatch(outcome -> outcome.getAppointment().getStatus() == AppointmentStatus.COMPLETED));
+        assertTrue(
+                outcomes.stream()
+                        .allMatch(
+                                outcome ->
+                                        outcome.getAppointment().getStatus()
+                                                == AppointmentStatus.COMPLETED));
     }
 }

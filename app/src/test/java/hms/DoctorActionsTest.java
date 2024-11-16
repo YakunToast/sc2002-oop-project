@@ -16,10 +16,9 @@ class DoctorActionsTest {
 
     private Appointment createTestAppointment() {
         return doctorController.createAppointment(
-            testPatient.getId(),
-            LocalDateTime.now().plusDays(1)
-        );
+                testPatient.getId(), LocalDateTime.now().plusDays(1));
     }
+
     @BeforeEach
     void setup() {
         TestUtils.setupTestRepositories();
@@ -32,7 +31,7 @@ class DoctorActionsTest {
     @DisplayName("Test Case 9: View Patient Medical Records")
     void testViewPatientMedicalRecords() {
         var medicalRecord = doctorController.viewPatientMedicalRecord(testPatient.getId());
-        
+
         assertNotNull(medicalRecord);
         assertEquals(testPatient.getId(), medicalRecord.getPatientId());
     }
@@ -42,13 +41,11 @@ class DoctorActionsTest {
     void testUpdatePatientMedicalRecords() {
         String diagnosis = "Hypertension";
         String treatment = "Prescribed medication and lifestyle changes";
-        
-        boolean updated = doctorController.updatePatientMedicalRecord(
-            testPatient.getId(),
-            diagnosis,
-            treatment
-        );
-        
+
+        boolean updated =
+                doctorController.updatePatientMedicalRecord(
+                        testPatient.getId(), diagnosis, treatment);
+
         assertTrue(updated);
         var medicalRecord = doctorController.viewPatientMedicalRecord(testPatient.getId());
         assertTrue(medicalRecord.getPastDiagnoses().contains(diagnosis));
@@ -58,7 +55,7 @@ class DoctorActionsTest {
     @DisplayName("Test Case 11: View Personal Schedule")
     void testViewPersonalSchedule() {
         var schedule = doctorController.getPersonalSchedule();
-        
+
         assertNotNull(schedule);
         assertNotNull(schedule.getTimeSlots());
     }
@@ -68,9 +65,9 @@ class DoctorActionsTest {
     void testSetAvailability() {
         LocalDateTime startTime = LocalDateTime.now().plusDays(1);
         LocalDateTime endTime = startTime.plusHours(8);
-        
+
         boolean availabilitySet = doctorController.setAvailability(startTime, endTime);
-        
+
         assertTrue(availabilitySet);
         var schedule = doctorController.getPersonalSchedule();
         assertFalse(schedule.getTimeSlots().isEmpty());
@@ -80,17 +77,19 @@ class DoctorActionsTest {
     @DisplayName("Test Case 13: Accept or Decline Appointment Requests")
     void testHandleAppointmentRequests() {
         var appointment = createTestAppointment();
-        
+
         boolean accepted = doctorController.acceptAppointment(appointment.getId());
         assertTrue(accepted);
-        assertEquals(AppointmentStatus.CONFIRMED, 
-            doctorController.getAppointment(appointment.getId()).getStatus());
-        
+        assertEquals(
+                AppointmentStatus.CONFIRMED,
+                doctorController.getAppointment(appointment.getId()).getStatus());
+
         appointment = createTestAppointment();
         boolean declined = doctorController.declineAppointment(appointment.getId());
         assertTrue(declined);
-        assertEquals(AppointmentStatus.CANCELLED, 
-            doctorController.getAppointment(appointment.getId()).getStatus());
+        assertEquals(
+                AppointmentStatus.CANCELLED,
+                doctorController.getAppointment(appointment.getId()).getStatus());
     }
 
     @Test
@@ -99,13 +98,14 @@ class DoctorActionsTest {
         // Create some test appointments
         createTestAppointment();
         createTestAppointment();
-        
+
         var appointments = doctorController.getUpcomingAppointments();
-        
+
         assertNotNull(appointments);
         assertFalse(appointments.isEmpty());
-        assertTrue(appointments.stream()
-            .allMatch(appt -> appt.getDoctorId().equals(testDoctor.getId())));
+        assertTrue(
+                appointments.stream()
+                        .allMatch(appt -> appt.getDoctorId().equals(testDoctor.getId())));
     }
 
     @Test
@@ -113,16 +113,16 @@ class DoctorActionsTest {
     void testRecordAppointmentOutcome() {
         var appointment = createTestAppointment();
         appointment.setStatus(AppointmentStatus.COMPLETED);
-        
-        AppointmentOutcome outcome = new AppointmentOutcome(
-            appointment,
-            "Regular checkup",
-            List.of("Aspirin 100mg"),
-            "Patient is stable"
-        );
-        
+
+        AppointmentOutcome outcome =
+                new AppointmentOutcome(
+                        appointment,
+                        "Regular checkup",
+                        List.of("Aspirin 100mg"),
+                        "Patient is stable");
+
         boolean recorded = doctorController.recordAppointmentOutcome(outcome);
-        
+
         assertTrue(recorded);
         var savedOutcome = doctorController.getAppointmentOutcome(appointment.getId());
         assertNotNull(savedOutcome);
