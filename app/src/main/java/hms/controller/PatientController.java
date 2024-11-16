@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import hms.model.appointment.Appointment;
+import hms.model.appointment.AppointmentOutcome;
 import hms.model.record.MedicalRecord;
 import hms.model.schedule.TimeSlot;
 import hms.model.user.Doctor;
@@ -62,5 +63,17 @@ public class PatientController {
         AppointmentController.cancelAppointment(ap);
 
         return this.scheduleAppointment(doctor, ts);
+    }
+
+    public List<Appointment> getScheduledAppointments() {
+        // TODO: Filter by date or status?
+        return this.getAppointments().stream().collect(Collectors.toList());
+    }
+
+    public List<AppointmentOutcome> getPastAppointmentOutcomes() {
+        return this.getAppointments().stream()
+                .filter(ap -> ap.getOutcome() != null)
+                .map(ap -> ap.getOutcome())
+                .collect(Collectors.toList());
     }
 }
