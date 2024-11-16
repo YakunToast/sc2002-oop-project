@@ -64,6 +64,24 @@ public class TestUtils {
         return admin;
     }
 
+    public static Medication createTestMedication() {
+        MedicationSideEffect[] sideEffects = {
+            new MedicationSideEffect("Common Side Effect 1", "Description of common side effect 1"),
+            new MedicationSideEffect("Common Side Effect 2", "Description of common side effect 2")
+        };
+
+        Medication medication =
+                new Medication(
+                        "Test Medication",
+                        "Test medication description",
+                        "Take one tablet by mouth once daily.",
+                        sideEffects,
+                        Medication.MedicationStatus.ACTIVE);
+        medication.setId(UUID.randomUUID());
+        return medication;
+
+    }
+
     public static void setupTestRepositories() {
         UserRepository userRepo = new UserRepository();
         AppointmentRepository apptRepo = new AppointmentRepository();
