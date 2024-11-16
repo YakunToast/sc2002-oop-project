@@ -7,5 +7,6 @@
   "java.format.settings.google.extra": "--aosp --skip-sorting-imports",
   "java.project.sourcePaths": [
     "app/src/main/java"
-  ]
+  ],
+  "editor.formatOnSave": true
 }
