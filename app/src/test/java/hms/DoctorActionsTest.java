@@ -16,7 +16,8 @@ import org.junit.jupiter.api.TestInstance;
 import hms.controller.DoctorController;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.Appointment.AppointmentStatus;
-import hms.model.appointment.AppointmentOutcome;
+import hms.model.medication.Medication;
+import hms.model.medication.Prescription;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 
@@ -25,6 +26,7 @@ class DoctorActionsTest {
     private DoctorController doctorController;
     private Doctor testDoctor;
     private Patient testPatient;
+    private Medication testMedication;
 
     private Appointment createTestAppointment() {
         // TODO: Cannot create appointment from doctor
@@ -37,6 +39,7 @@ class DoctorActionsTest {
         TestUtils.setupTestRepositories();
         testDoctor = TestUtils.createTestDoctor();
         testPatient = TestUtils.createTestPatient();
+        testMedication = TestUtils.createTestMedication();
         doctorController = new DoctorController(testDoctor);
     }
 
@@ -120,18 +123,13 @@ class DoctorActionsTest {
         var appointment = createTestAppointment();
         appointment.setStatus(AppointmentStatus.COMPLETED);
 
-        AppointmentOutcome outcome =
-                new AppointmentOutcome(
-                        appointment,
-                        "Regular checkup",
-                        List.of("Aspirin 100mg"),
-                        "Patient is stable");
-
-        boolean recorded = doctorController.recordAppointmentOutcome(outcome);
+        boolean recorded =
+                doctorController.addAppointmentOutcome(
+                        appointment, "Regular Checkup", new Prescription(List.of(testMedication)));
 
         assertTrue(recorded);
-        var savedOutcome = doctorController.getAppointmentOutcome(appointment.getId());
+        var savedOutcome = doctorController.getAppointmentOutcome(appointment);
         assertNotNull(savedOutcome);
-        assertEquals("Regular checkup", savedOutcome.getServiceProvided());
+        assertEquals("Regular checkup", savedOutcome.getDescription());
     }
 }
