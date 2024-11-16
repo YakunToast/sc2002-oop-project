@@ -1,4 +1,4 @@
-package hms.model;
+package hms.model.medication;
 
 public enum PrescriptionStatus {
     PENDING,

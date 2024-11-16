@@ -1,8 +1,6 @@
-package hms.model;
+package hms.model.medication;
 
 import java.io.Serializable;
-
-import hms.model.medication.Medication;
 
 public class Prescription implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -19,20 +17,34 @@ public class Prescription implements Serializable {
         return this.status;
     }
 
-    public Medication[] getMedication() {
-        return this.medication;
-    }
-
-    public void setPending(PrescriptionStatus status) {
+    public void setPending() {
         this.status = PrescriptionStatus.PENDING;
+        // TODO: Remove from inventory
     }
 
-    public void setDispensed(PrescriptionStatus status) {
+    public boolean isPending() {
+        return this.status == PrescriptionStatus.PENDING;
+    }
+
+    public void setDispensed() {
         this.status = PrescriptionStatus.DISPENSED;
     }
 
-    public void setCancelled(PrescriptionStatus status) {
+    public boolean isDispensed() {
+        return this.status == PrescriptionStatus.DISPENSED;
+    }
+
+    public void setCancelled() {
         this.status = PrescriptionStatus.CANCELLED;
+        // TODO: Add back to inventory
+    }
+
+    public boolean isCancelled() {
+        return this.status == PrescriptionStatus.CANCELLED;
+    }
+
+    public Medication[] getMedication() {
+        return this.medication;
     }
 
     public void setMedication(Medication[] medication) {
