@@ -10,8 +10,6 @@ public interface InventoryManager extends InventoryBase {
 
     List<ReplenishmentRequest> getPendingReplenishmentRequests();
 
-    int getMedicationStock(Medication medication);
-
     boolean addMedication(Medication medication);
 
     boolean addMedicationStock(Medication medication, int qty);
@@ -23,6 +21,4 @@ public interface InventoryManager extends InventoryBase {
     boolean removeMedicationStock(Medication medication, int qty);
 
     boolean setMedicationStockAlert(Medication medication, int alertQty);
-
-    int getMedicationStockAlert(Medication medication);
 }

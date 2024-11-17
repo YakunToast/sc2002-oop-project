@@ -78,6 +78,16 @@ public class PharmacistController implements InventoryUser {
     }
 
     @Override
+    public int getMedicationStock(Medication medication) {
+        return this.inventoryController.getMedicationStock(medication);
+    }
+
+    @Override
+    public int getMedicationStockAlert(Medication medication) {
+        return this.inventoryController.getMedicationStockAlert(medication);
+    }
+
+    @Override
     public List<Medication> getMedications() {
         return this.inventoryController.getMedications();
     }

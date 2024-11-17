@@ -8,6 +8,8 @@ import hms.model.medication.Inventory;
 import hms.model.medication.Medication;
 
 public interface InventoryBase {
+    Inventory getInventory();
+
     List<Medication> getMedications();
 
     Optional<Medication> getMedicationByName(String name);
@@ -16,5 +18,7 @@ public interface InventoryBase {
 
     Optional<Medication> getMedicationByUUID(String uuid);
 
-    Inventory getInventory();
+    int getMedicationStock(Medication medication);
+
+    int getMedicationStockAlert(Medication medication);
 }
