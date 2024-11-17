@@ -22,6 +22,10 @@ public class ReplenishmentRequest implements Serializable {
         this.pharmacist = pharmacist;
     }
 
+    public Pharmacist getPharmacist() {
+        return this.pharmacist;
+    }
+
     public void setPending() {
         this.status = ReplenishmentRequestStatus.PENDING;
     }

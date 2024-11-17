@@ -1,6 +1,8 @@
 package hms.controller;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import hms.model.medication.Inventory;
 import hms.model.medication.Medication;
@@ -22,6 +24,18 @@ public class InventoryController {
         return inventory.getMedications();
     }
 
+    public Optional<Medication> getMedicationByName(String name) {
+        return inventory.getMedicationByName(name);
+    }
+
+    public Optional<Medication> getMedicationByUUID(UUID uuid) {
+        return inventory.getMedicationByUUID(uuid);
+    }
+
+    public Optional<Medication> getMedicationByUUID(String uuid) {
+        return inventory.getMedicationByUUID(UUID.fromString(uuid));
+    }
+
     public boolean addReplenishmentRequest(ReplenishmentRequest rr) {
         RepositoryManager.getInstance().getInventoryRepository().addReplenishmentRequest(rr);
         return true;
@@ -37,6 +51,10 @@ public class InventoryController {
 
     public boolean addMedicationStock(Medication medication, int qty) {
         return this.inventory.addMedicationStock(medication, qty);
+    }
+
+    public boolean setMedicationStock(Medication medication, int qty) {
+        return this.inventory.setMedicationStock(medication, qty);
     }
 
     public boolean removeMedication(Medication medication) {

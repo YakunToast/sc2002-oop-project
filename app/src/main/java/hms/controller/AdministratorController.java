@@ -16,6 +16,7 @@ import hms.model.medication.ReplenishmentRequest;
 import hms.model.user.Administrator;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
+import hms.model.user.Pharmacist;
 import hms.model.user.Staff;
 import hms.model.user.User;
 import hms.repository.AppointmentRepository;
@@ -154,6 +155,21 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     @Override
+    public Optional<Medication> getMedicationByName(String name) {
+        return this.inventoryController.getMedicationByName(name);
+    }
+
+    @Override
+    public Optional<Medication> getMedicationByUUID(UUID uuid) {
+        return this.inventoryController.getMedicationByUUID(uuid);
+    }
+
+    @Override
+    public Optional<Medication> getMedicationByUUID(String uuid) {
+        return this.inventoryController.getMedicationByUUID(uuid);
+    }
+
+    @Override
     public boolean approveReplenishmentRequest(ReplenishmentRequest rr) {
         // Add stock
         this.inventoryController.addMedicationStock(rr.getMedication(), rr.getRequestedQuantity());
@@ -186,6 +202,11 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     @Override
     public boolean addMedicationStock(Medication medication, int qty) {
         return this.inventoryController.addMedicationStock(medication, qty);
+    }
+
+    @Override
+    public boolean setMedicationStock(Medication medication, int qty) {
+        return this.inventoryController.setMedicationStock(medication, qty);
     }
 
     @Override

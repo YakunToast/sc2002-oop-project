@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 public class Inventory implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -38,6 +40,14 @@ public class Inventory implements Serializable {
             return false;
         }
         stock.merge(medication.getName(), qty, Integer::sum);
+        return true;
+    }
+
+    public boolean setMedicationStock(Medication medication, int qty) {
+        if (qty < 0) {
+            return false;
+        }
+        stock.put(medication.getName(), qty);
         return true;
     }
 
@@ -82,6 +92,14 @@ public class Inventory implements Serializable {
 
     public List<Medication> getMedications() {
         return List.copyOf(this.medications.values());
+    }
+
+    public Optional<Medication> getMedicationByName(String name) {
+        return Optional.ofNullable(this.medications.get(name));
+    }
+
+    public Optional<Medication> getMedicationByUUID(UUID id) {
+        return this.medications.values().stream().filter(m -> m.getId() == id).findFirst();
     }
 
     public int getMedicationStock(Medication medication) {

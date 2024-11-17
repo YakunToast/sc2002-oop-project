@@ -16,6 +16,8 @@ public interface InventoryManager extends InventoryBase {
 
     boolean addMedicationStock(Medication medication, int qty);
 
+    boolean setMedicationStock(Medication medication, int qty);
+
     boolean removeMedication(Medication medication);
 
     boolean removeMedicationStock(Medication medication, int qty);
