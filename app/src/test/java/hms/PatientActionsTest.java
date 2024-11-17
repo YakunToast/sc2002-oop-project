@@ -5,13 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import hms.controller.DoctorController;
 import hms.controller.PatientController;
 import hms.model.appointment.Appointment.AppointmentStatus;
 import hms.model.user.Doctor;
@@ -21,6 +24,7 @@ import hms.model.user.Patient;
 class PatientActionsTest {
     private PatientController patientController;
     private Patient testPatient;
+    private DoctorController doctorController;
     private Doctor testDoctor;
 
     @BeforeEach
@@ -29,6 +33,10 @@ class PatientActionsTest {
         testPatient = TestUtils.createTestPatient();
         testDoctor = TestUtils.createTestDoctor();
         patientController = new PatientController(testPatient);
+        doctorController = new DoctorController(testDoctor);
+
+        doctorController.addAppointmentDay(
+                LocalDate.of(2024, 11, 19), LocalTime.of(07, 00), LocalTime.of(19, 00));
     }
 
     @Test
@@ -78,7 +86,7 @@ class PatientActionsTest {
         patientController.scheduleAppointment(appointment);
 
         assertNotNull(appointment);
-        assertEquals(AppointmentStatus.CONFIRMED, appointment.getStatus());
+        assertEquals(AppointmentStatus.PENDING, appointment.getStatus());
         assertEquals(testPatient, appointment.getPatient());
         assertEquals(testDoctor, appointment.getDoctor());
     }
@@ -86,18 +94,16 @@ class PatientActionsTest {
     @Test
     @DisplayName("Test Case 5: Reschedule an Appointment")
     void testRescheduleAppointment() {
-        LocalDateTime originalTime = LocalDateTime.now().plusDays(1);
         var appointment = patientController.getAvailableAppointmentSlots().get(0);
+        assertNotNull(appointment);
         patientController.scheduleAppointment(appointment);
 
-        LocalDateTime newTime = LocalDateTime.now().plusDays(2);
         var newAppointment = patientController.getAvailableAppointmentSlots().get(0);
-        var rescheduledAppointment =
-                patientController.rescheduleAppointment(appointment, newAppointment);
+        assertNotNull(newAppointment);
+        patientController.rescheduleAppointment(appointment, newAppointment);
 
-        assertNotNull(rescheduledAppointment);
-        assertEquals(newTime, newAppointment.getStart());
-        assertEquals(AppointmentStatus.CONFIRMED, newAppointment.getStatus());
+        assertEquals(appointment.getStatus(), AppointmentStatus.FREE);
+        assertEquals(newAppointment.getStatus(), AppointmentStatus.PENDING);
     }
 
     @Test
@@ -118,7 +124,11 @@ class PatientActionsTest {
     @DisplayName("Test Case 7: View Scheduled Appointments")
     void testViewScheduledAppointments() {
         var appointment1 = patientController.getAvailableAppointmentSlots().get(0);
-        var appointment2 = patientController.getAvailableAppointmentSlots().get(0);
+        var appointment2 = patientController.getAvailableAppointmentSlots().get(1);
+
+        assertNotNull(appointment1);
+        assertNotNull(appointment2);
+
         patientController.scheduleAppointment(appointment1);
         patientController.scheduleAppointment(appointment2);
 

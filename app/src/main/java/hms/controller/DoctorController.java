@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import hms.controller.appointment.AppointmentDoctor;
 import hms.model.appointment.Appointment;
+import hms.model.appointment.Appointment.AppointmentStatus;
 import hms.model.appointment.AppointmentOutcome;
 import hms.model.appointment.Schedule;
 import hms.model.medication.Prescription;
@@ -112,8 +113,12 @@ public class DoctorController implements AppointmentDoctor {
 
     @Override
     public boolean addAppointmentOutcome(Appointment ap, String description, Prescription pr) {
+        // Save appointment outcome
         AppointmentOutcome ao = new AppointmentOutcome(ap, description, pr);
+        ap.setOutcome(ao);
+        ap.setStatus(AppointmentStatus.COMPLETED);
         RepositoryManager.getInstance().getAppointmentRepository().addAppointmentOutcome(ao);
+
         return true;
     }
 

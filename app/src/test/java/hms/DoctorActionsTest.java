@@ -33,22 +33,25 @@ class DoctorActionsTest {
     private Medication testMedication;
 
     private Appointment createTestAppointment() {
-        // Add appointments
+        // Add appointment by doctors
         doctorController.addAppointmentDay(
                 LocalDate.of(2024, 11, 19), LocalTime.of(07, 00), LocalTime.of(15, 00));
 
-        // Get appointments
+        // Get appointments from patient and get first available
         List<Appointment> appointments = patientController.getAvailableAppointmentSlots();
         Appointment appointment = appointments.get(0);
 
+        // Schedule the appointment
         patientController.scheduleAppointment(appointment);
 
+        // Return the appointment
         return appointment;
     }
 
     @BeforeEach
     void setup() {
         TestUtils.setupTestRepositories();
+
         testDoctor = TestUtils.createTestDoctor();
         testPatient = TestUtils.createTestPatient();
         testMedication = TestUtils.createTestMedication();
@@ -106,6 +109,7 @@ class DoctorActionsTest {
     @DisplayName("Test Case 13: Accept or Decline Appointment Requests")
     void testHandleAppointmentRequests() {
         var appointment = createTestAppointment();
+        assertEquals(appointment.getDoctor(), testDoctor);
 
         boolean accepted = doctorController.acceptAppointment(appointment);
         assertTrue(accepted);
@@ -121,10 +125,12 @@ class DoctorActionsTest {
     @DisplayName("Test Case 14: View Upcoming Appointments")
     void testViewUpcomingAppointments() {
         // Create some test appointments
-        createTestAppointment();
-        createTestAppointment();
+        var appointment1 = createTestAppointment();
+        var appointment2 = createTestAppointment();
+        assertNotNull(appointment1);
+        assertNotNull(appointment2);
 
-        var appointments = doctorController.getConfirmedAppointments();
+        var appointments = doctorController.getPendingAppointments();
 
         assertNotNull(appointments);
         assertFalse(appointments.isEmpty());
@@ -139,7 +145,7 @@ class DoctorActionsTest {
 
         boolean recorded =
                 doctorController.addAppointmentOutcome(
-                        appointment, "Regular Checkup", new Prescription(List.of(testMedication)));
+                        appointment, "Regular checkup", new Prescription(List.of(testMedication)));
 
         assertTrue(recorded);
         var savedOutcome = doctorController.getAppointmentOutcome(appointment);

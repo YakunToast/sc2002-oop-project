@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hms.model.user.Doctor;
+import hms.repository.RepositoryManager;
 
 public class Schedule implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -43,7 +44,12 @@ public class Schedule implements Serializable {
 
         while (startDateTime.isBefore(endDateTime)) {
             LocalDateTime nextHour = startDateTime.plusHours(1);
-            appointments.add(new Appointment(this.doctor, startDateTime, nextHour));
+
+            Appointment appointment = new Appointment(this.doctor, startDateTime, nextHour);
+
+            appointments.add(appointment);
+            RepositoryManager.getInstance().getAppointmentRepository().addAppointment(appointment);
+
             startDateTime = nextHour;
         }
     }
@@ -62,18 +68,9 @@ public class Schedule implements Serializable {
         }
     }
 
-    private void removeAppointment(LocalDate date, LocalTime start, LocalTime end) {
-        LocalDateTime removeStartTime = LocalDateTime.of(date, start);
-        LocalDateTime removeEndTime = LocalDateTime.of(date, end);
-
-        appointments.removeIf(
-                slot ->
-                        (slot.getStart().equals(removeStartTime)
-                                || slot.getEnd().equals(removeEndTime)
-                                || (slot.getStart().isAfter(removeStartTime)
-                                        && slot.getStart().isBefore(removeEndTime))
-                                || (slot.getEnd().isAfter(removeStartTime)
-                                        && slot.getEnd().isBefore(removeEndTime))));
+    private void removeAppointment(Appointment ap) {
+        appointments.remove(ap);
+        RepositoryManager.getInstance().getAppointmentRepository().removeAppointment(ap);
     }
 
     // Method to remove availability timeslot by matching slots within a date and

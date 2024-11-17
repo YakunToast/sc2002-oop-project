@@ -38,16 +38,6 @@ public class PatientController implements AppointmentUser {
     }
 
     @Override
-    public List<Appointment> getPersonalAppointments() {
-        return RepositoryManager.getInstance()
-                .getAppointmentRepository()
-                .getAllAppointments()
-                .stream()
-                .filter(a -> a.getPatient() == patient)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<Doctor> getAllDoctors() {
         return RepositoryManager.getInstance().getUserRepository().getAllUsers().stream()
                 .filter(u -> u instanceof Doctor)
@@ -59,6 +49,16 @@ public class PatientController implements AppointmentUser {
     public List<Doctor> getPersonalDoctors() {
         return this.getPersonalAppointments().stream()
                 .map(a -> a.getDoctor())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Appointment> getPersonalAppointments() {
+        return RepositoryManager.getInstance()
+                .getAppointmentRepository()
+                .getAllAppointments()
+                .stream()
+                .filter(a -> a.getPatient() == patient)
                 .collect(Collectors.toList());
     }
 

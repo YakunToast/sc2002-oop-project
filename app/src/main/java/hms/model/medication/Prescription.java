@@ -9,6 +9,11 @@ public class Prescription implements Serializable {
     private PrescriptionStatus status;
     private List<Medication> medications;
 
+    public Prescription(Medication... medications) {
+        this.medications = List.of(medications);
+        this.status = PrescriptionStatus.PENDING;
+    }
+
     public Prescription(List<Medication> medications) {
         this.medications = medications;
         this.status = PrescriptionStatus.PENDING;
