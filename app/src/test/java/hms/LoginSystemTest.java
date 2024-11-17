@@ -34,23 +34,22 @@ class LoginSystemTest {
     @DisplayName("Test Case 25: First-Time Login and Password Change")
     void testFirstTimeLoginAndPasswordChange() {
         // Test first-time login with default password
-        User user = userController.login(testPatient.getId(), "password");
+        User user = userController.login(testPatient.getId(), "password").orElse(null);
         assertNotNull(user);
         assertTrue(user instanceof Patient);
 
         // Test password change
         String newPassword = "newSecurePassword123";
-        boolean changed =
-                userController.changePassword(testPatient.getId(), "password", newPassword);
+        boolean changed = userController.changePassword("password", newPassword);
         assertTrue(changed);
 
         // Test login with new password
-        user = userController.login(testPatient.getId(), newPassword);
+        user = userController.login(testPatient.getId(), newPassword).orElse(null);
         assertNotNull(user);
         assertEquals(testPatient.getId(), user.getId());
 
         // Test login with old password (should fail)
-        User failedLogin = userController.login(testPatient.getId(), "password");
+        User failedLogin = userController.login(testPatient.getId(), "password").orElse(null);
         assertNull(failedLogin);
     }
 
@@ -58,11 +57,11 @@ class LoginSystemTest {
     @DisplayName("Test Case 26: Login with Incorrect Credentials")
     void testLoginWithIncorrectCredentials() {
         // Test login with incorrect password
-        User failedLogin = userController.login(testPatient.getId(), "wrongpassword");
+        User failedLogin = userController.login(testPatient.getId(), "wrongpassword").orElse(null);
         assertNull(failedLogin);
 
         // Test login with non-existent user ID
-        failedLogin = userController.login("nonexistentID", "password");
+        failedLogin = userController.login("nonexistentID", "password").orElse(null);
         assertNull(failedLogin);
 
         // Test login with null credentials
@@ -72,7 +71,7 @@ class LoginSystemTest {
                 () -> userController.login(testPatient.getId(), null));
 
         // Test login with empty credentials
-        User emptyLogin = userController.login("", "");
+        User emptyLogin = userController.login("", "").orElse(null);
         assertNull(emptyLogin);
     }
 }
