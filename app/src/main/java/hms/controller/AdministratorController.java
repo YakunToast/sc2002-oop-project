@@ -60,6 +60,39 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.ur.getAllUsers();
     }
 
+    public Optional<Staff> getStaffById(String id) {
+        return this.ur.getUserById(id).filter(u -> u instanceof Staff).map(u -> (Staff) u);
+    }
+
+    public Optional<Staff> getStaffByUsername(String username) {
+        return this.ur
+                .getUserByUsername(username)
+                .filter(u -> u instanceof Staff)
+                .map(u -> (Staff) u);
+    }
+
+    public Optional<Patient> getPatientById(String id) {
+        return this.ur.getUserById(id).filter(u -> u instanceof Patient).map(u -> (Patient) u);
+    }
+
+    public Optional<Patient> getPatientByUsername(String username) {
+        return this.ur
+                .getUserByUsername(username)
+                .filter(u -> u instanceof Patient)
+                .map(u -> (Patient) u);
+    }
+
+    public Optional<Doctor> getDoctorById(String id) {
+        return this.ur.getUserById(id).filter(u -> u instanceof Doctor).map(u -> (Doctor) u);
+    }
+
+    public Optional<Doctor> getDoctorByUsername(String username) {
+        return this.ur
+                .getUserByUsername(username)
+                .filter(u -> u instanceof Doctor)
+                .map(u -> (Doctor) u);
+    }
+
     public List<Staff> getStaffs() {
         return this.getUsers().stream()
                 .filter(u -> u instanceof Staff)
@@ -82,13 +115,13 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     @Override
-    public List<Appointment> getPersonalAppointments() {
+    public List<Appointment> getAllAppointments() {
         return this.ar.getAllAppointments();
     }
 
     @Override
     public List<Appointment> getAppointmentsByStatus(AppointmentStatus as) {
-        return this.getPersonalAppointments().stream()
+        return this.getAllAppointments().stream()
                 .filter(ap -> ap.getStatus() == as)
                 .collect(Collectors.toList());
     }

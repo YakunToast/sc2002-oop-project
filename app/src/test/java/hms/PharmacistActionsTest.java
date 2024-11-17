@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -51,8 +49,7 @@ class PharmacistActionsTest {
         pharmacistController = new PharmacistController(testPharmacist);
 
         // Add appointment by doctors
-        doctorController.addAppointmentDay(
-                LocalDate.of(2024, 11, 19), LocalTime.of(07, 00), LocalTime.of(15, 00));
+        TestUtils.createTestAppointments(testDoctor);
 
         // Get appointments from patient and get first available
         List<Appointment> appointments = patientController.getAvailableAppointmentSlots();

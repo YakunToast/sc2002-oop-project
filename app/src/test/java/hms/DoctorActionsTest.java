@@ -5,9 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +15,6 @@ import org.junit.jupiter.api.TestInstance;
 
 import hms.controller.DoctorController;
 import hms.controller.PatientController;
-import hms.model.appointment.Appointment;
 import hms.model.appointment.Appointment.AppointmentStatus;
 import hms.model.medication.Medication;
 import hms.model.medication.Prescription;
@@ -31,22 +28,6 @@ class DoctorActionsTest {
     private Patient testPatient;
     private PatientController patientController;
     private Medication testMedication;
-
-    private Appointment createTestAppointment() {
-        // Add appointment by doctors
-        doctorController.addAppointmentDay(
-                LocalDate.of(2024, 11, 19), LocalTime.of(07, 00), LocalTime.of(15, 00));
-
-        // Get appointments from patient and get first available
-        List<Appointment> appointments = patientController.getAvailableAppointmentSlots();
-        Appointment appointment = appointments.get(0);
-
-        // Schedule the appointment
-        patientController.scheduleAppointment(appointment);
-
-        // Return the appointment
-        return appointment;
-    }
 
     @BeforeEach
     void setup() {
@@ -108,14 +89,14 @@ class DoctorActionsTest {
     @Test
     @DisplayName("Test Case 13: Accept or Decline Appointment Requests")
     void testHandleAppointmentRequests() {
-        var appointment = createTestAppointment();
+        var appointment = TestUtils.createTestAppointment(testDoctor);
         assertEquals(appointment.getDoctor(), testDoctor);
 
         boolean accepted = doctorController.acceptAppointment(appointment);
         assertTrue(accepted);
         assertEquals(AppointmentStatus.CONFIRMED, appointment.getStatus());
 
-        appointment = createTestAppointment();
+        appointment = TestUtils.createTestAppointment(testDoctor);
         boolean declined = doctorController.declineAppointment(appointment);
         assertTrue(declined);
         assertEquals(AppointmentStatus.CANCELLED, appointment.getStatus());
@@ -125,13 +106,15 @@ class DoctorActionsTest {
     @DisplayName("Test Case 14: View Upcoming Appointments")
     void testViewUpcomingAppointments() {
         // Create some test appointments
-        var appointment1 = createTestAppointment();
-        var appointment2 = createTestAppointment();
+        var appointment1 = TestUtils.createTestAppointment(testDoctor);
+        var appointment2 = TestUtils.createTestAppointment(testDoctor);
         assertNotNull(appointment1);
         assertNotNull(appointment2);
 
-        var appointments = doctorController.getPendingAppointments();
+        var pendingAppointments = doctorController.getPendingAppointments();
+        assertTrue(pendingAppointments.isEmpty());
 
+        var appointments = doctorController.getFreeAppointments();
         assertNotNull(appointments);
         assertFalse(appointments.isEmpty());
         assertTrue(appointments.stream().allMatch(appt -> appt.getDoctor().equals(testDoctor)));
@@ -140,7 +123,7 @@ class DoctorActionsTest {
     @Test
     @DisplayName("Test Case 15: Record Appointment Outcome")
     void testRecordAppointmentOutcome() {
-        var appointment = createTestAppointment();
+        var appointment = TestUtils.createTestAppointment(testDoctor);
         appointment.setStatus(AppointmentStatus.COMPLETED);
 
         boolean recorded =

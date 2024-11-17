@@ -37,35 +37,42 @@ public class Schedule implements Serializable {
         return appointments;
     }
 
-    // addAppointments add appointments in one hour windows
-    public void addAppointmentDay(LocalDate date, LocalTime start, LocalTime end) {
-        LocalDateTime startDateTime = LocalDateTime.of(date, start);
-        LocalDateTime endDateTime = LocalDateTime.of(date, end);
+    public Appointment addAppointment(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        Appointment appointment = new Appointment(this.doctor, startDateTime, endDateTime);
+        appointments.add(appointment);
+        RepositoryManager.getInstance().getAppointmentRepository().addAppointment(appointment);
+        return appointment;
+    }
 
+    // addAppointments add appointments in one hour windows
+    public List<Appointment> addAppointmentHourly(
+            LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        List<Appointment> appointments = new ArrayList<>();
         while (startDateTime.isBefore(endDateTime)) {
             LocalDateTime nextHour = startDateTime.plusHours(1);
-
-            Appointment appointment = new Appointment(this.doctor, startDateTime, nextHour);
-
+            Appointment appointment = addAppointment(startDateTime, endDateTime);
             appointments.add(appointment);
-            RepositoryManager.getInstance().getAppointmentRepository().addAppointment(appointment);
-
             startDateTime = nextHour;
         }
+        return appointments;
     }
 
     // Method to add availability timeslot in 1-hour windows over a date range
-    public void addMultipleAppointmentDays(
-            LocalDate startDate, LocalDate endDate, LocalTime start, LocalTime end) {
-        if (start.isAfter(end)) {
+    public List<Appointment> addMultipleAppointmentDays(
+            LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime) {
+        if (startTime.isAfter(endTime)) {
             throw new IllegalArgumentException("Start time must be before end time");
         }
 
         LocalDate currentDate = startDate;
+        List<Appointment> appointments = new ArrayList<>();
         while (!currentDate.isAfter(endDate)) {
-            addAppointmentDay(currentDate, start, end);
+            LocalDateTime startDateTime = LocalDateTime.of(currentDate, startTime);
+            LocalDateTime endDateTime = LocalDateTime.of(currentDate, endTime);
+            appointments.addAll(addAppointmentHourly(startDateTime, endDateTime));
             currentDate = currentDate.plusDays(1);
         }
+        return appointments;
     }
 
     private void removeAppointment(Appointment ap) {

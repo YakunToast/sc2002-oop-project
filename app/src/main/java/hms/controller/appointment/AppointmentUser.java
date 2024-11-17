@@ -15,6 +15,8 @@ public interface AppointmentUser extends AppointmentBase {
 
     Map<Doctor, List<Appointment>> getAvailableAppointmentSlotsByDoctors();
 
+    List<Appointment> getPersonalAppointments();
+
     List<Appointment> getAvailableAppointmentSlots();
 
     List<Doctor> getPersonalDoctors();

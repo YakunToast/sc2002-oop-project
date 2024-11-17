@@ -5,9 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -35,8 +33,7 @@ class PatientActionsTest {
         patientController = new PatientController(testPatient);
         doctorController = new DoctorController(testDoctor);
 
-        doctorController.addAppointmentDay(
-                LocalDate.of(2024, 11, 19), LocalTime.of(07, 00), LocalTime.of(19, 00));
+        TestUtils.createTestAppointments(testDoctor);
     }
 
     @Test

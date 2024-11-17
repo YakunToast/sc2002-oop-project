@@ -19,10 +19,17 @@ public class Inventory implements Serializable {
     }
 
     public boolean addMedication(Medication medication) {
+        // Add medication
         if (medications.containsKey(medication.getName())) {
             return false;
         }
         medications.put(medication.getName(), medication);
+
+        // Update stock as well
+        if (!stock.containsKey(medication.getName())) {
+            stock.put(medication.getName(), 0);
+        }
+
         return true;
     }
 
@@ -35,10 +42,16 @@ public class Inventory implements Serializable {
     }
 
     public boolean removeMedication(Medication medication) {
+        // Remove medication
         if (!medications.containsKey(medication.getName())) {
             return false;
         }
         medications.remove(medication.getName());
+
+        // Remove stock as well
+        if (stock.containsKey(medication.getName())) {
+            stock.remove(medication.getName());
+        }
         return true;
     }
 

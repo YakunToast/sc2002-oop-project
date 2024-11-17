@@ -1,8 +1,12 @@
 package hms;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
+import hms.controller.DoctorController;
+import hms.model.appointment.Appointment;
 import hms.model.medication.Medication;
 import hms.model.medication.MedicationSideEffect;
 import hms.model.user.Administrator;
@@ -90,6 +94,29 @@ public class TestUtils {
         medication.setId(UUID.randomUUID());
         rm.getInventoryRepository().getInventory().addMedication(medication);
         return medication;
+    }
+
+    public static Appointment createTestAppointment(Doctor d) {
+        DoctorController dc = new DoctorController(d);
+        int year = 2024 + (int) (Math.random() * 5);
+        int month = 1 + (int) (Math.random() * 12);
+        int day = 1 + (int) (Math.random() * 28);
+        int startHour = (int) (Math.random() * 24);
+
+        LocalDateTime startDateTime = LocalDateTime.of(year, month, day, startHour, 0);
+        LocalDateTime endDateTime = startDateTime.plusHours(1);
+
+        Appointment ap = dc.addAppointment(startDateTime, endDateTime);
+        return ap;
+    }
+
+    public static List<Appointment> createTestAppointments(Doctor d) {
+        DoctorController dc = new DoctorController(d);
+        List<Appointment> aps =
+                dc.addAppointmentHourly(
+                        LocalDateTime.of(2024, 11, 21, 7, 00),
+                        LocalDateTime.of(2024, 11, 21, 19, 00));
+        return aps;
     }
 
     public static void setupTestRepositories() {

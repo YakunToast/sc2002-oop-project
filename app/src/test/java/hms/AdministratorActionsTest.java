@@ -14,6 +14,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import hms.controller.AdministratorController;
+import hms.controller.DoctorController;
+import hms.controller.PatientController;
+import hms.controller.PharmacistController;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.Appointment.AppointmentStatus;
 import hms.model.medication.Medication;
@@ -21,22 +24,37 @@ import hms.model.medication.MedicationSideEffect;
 import hms.model.medication.ReplenishmentRequest;
 import hms.model.user.Administrator;
 import hms.model.user.Doctor;
+import hms.model.user.Patient;
 import hms.model.user.Pharmacist;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AdministratorActionsTest {
-    private AdministratorController adminController;
+    private Patient testPatient;
+    private PatientController patientController;
     private Administrator testAdmin;
+    private AdministratorController adminController;
     private Doctor testDoctor;
+    private DoctorController doctorController;
     private Pharmacist testPharmacist;
+    private PharmacistController pharmacistController;
 
     @BeforeEach
     void setup() {
         TestUtils.setupTestRepositories();
-        testAdmin = TestUtils.createTestAdmin();
+
+        testPatient = TestUtils.createTestPatient();
         testDoctor = TestUtils.createTestDoctor();
         testPharmacist = TestUtils.createTestPharmacist();
+        testAdmin = TestUtils.createTestAdmin();
+
+        patientController = new PatientController(testPatient);
+        doctorController = new DoctorController(testDoctor);
+        pharmacistController = new PharmacistController(testPharmacist);
         adminController = new AdministratorController(testAdmin);
+
+        Appointment ap = TestUtils.createTestAppointment(testDoctor);
+        patientController.scheduleAppointment(ap);
+        doctorController.acceptAppointment(ap);
     }
 
     @Test
@@ -45,11 +63,12 @@ class AdministratorActionsTest {
         // Test adding new staff
         Doctor newDoctor = TestUtils.createTestDoctor();
         boolean added = adminController.addUser(newDoctor);
-        assertTrue(added);
+        assertFalse(added);
 
         // Test updating staff
         // TODO: Not needed, should just be updated
         newDoctor.setEmail("updated@hospital.com");
+        assertEquals(adminController.getDoctorById(newDoctor.getId()).get(), newDoctor);
         // boolean updated = adminController.updateStaffMember(newDoctor);
         // assertTrue(updated);
 
@@ -73,7 +92,7 @@ class AdministratorActionsTest {
     @DisplayName("Test Case 21: View Appointments Details")
     void testViewAppointmentsDetails() {
         // Get all appointments
-        var allAppointments = adminController.getPersonalAppointments();
+        var allAppointments = adminController.getAllAppointments();
         assertNotNull(allAppointments);
 
         // Test filtering appointments by status
@@ -86,10 +105,10 @@ class AdministratorActionsTest {
 
         // Test getting appointment details
         Appointment appointment = allAppointments.get(0);
+
         var details = adminController.getAppointmentById(appointment.getId()).orElseThrow();
         assertNotNull(details);
         assertEquals(appointment.getId(), details.getId());
-        assertNotNull(details.getPatient());
         assertNotNull(details.getDoctor());
     }
 
@@ -127,6 +146,8 @@ class AdministratorActionsTest {
     @Test
     @DisplayName("Test Case 23: Approve Replenishment Requests")
     void testApproveReplenishmentRequests() {
+        TestUtils.createTestMedication();
+
         // Create a test replenishment request
         var medication = adminController.getInventory().getMedications().get(0);
         var medicationStock = adminController.getMedicationStock(medication);

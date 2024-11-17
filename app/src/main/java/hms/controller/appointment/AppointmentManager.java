@@ -10,4 +10,6 @@ public interface AppointmentManager extends AppointmentBase {
     List<Appointment> getAppointmentsByStatus(Appointment.AppointmentStatus status);
 
     Optional<Appointment> getAppointmentById(UUID id);
+
+    List<Appointment> getAllAppointments();
 }

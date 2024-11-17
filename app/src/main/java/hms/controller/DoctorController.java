@@ -57,13 +57,19 @@ public class DoctorController implements AppointmentDoctor {
                 .collect(Collectors.toList());
     }
 
-    public void addAppointmentDay(LocalDate date, LocalTime start, LocalTime end) {
-        doctor.getSchedule().addAppointmentDay(date, start, end);
+    public Appointment addAppointment(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return doctor.getSchedule().addAppointment(startDateTime, endDateTime);
     }
 
-    public void addMultipleAppointmentDays(
-            LocalDate startDate, LocalDate endDate, LocalTime start, LocalTime end) {
-        doctor.getSchedule().addMultipleAppointmentDays(startDate, endDate, start, end);
+    public List<Appointment> addAppointmentHourly(
+            LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return doctor.getSchedule().addAppointmentHourly(startDateTime, endDateTime);
+    }
+
+    public List<Appointment> addMultipleAppointmentDays(
+            LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime) {
+        return doctor.getSchedule()
+                .addMultipleAppointmentDays(startDate, endDate, startTime, endTime);
     }
 
     public MedicalRecord getPatientMedicalRecord(Patient patient) {

@@ -48,7 +48,7 @@ public class App {
         Doctor d1 = new Doctor("D1", "cba", "first", "doctor", "pass", "cba@xyz.com", "+1234");
 
         new DoctorController(d1)
-                .addAppointmentDay(
+                .addAppointmentHourly(
                         LocalDate.of(2024, 11, 19), LocalTime.of(07, 00), LocalTime.of(19, 00));
 
         // Save sample users
