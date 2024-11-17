@@ -79,15 +79,4 @@ public class Schedule implements Serializable {
         appointments.remove(ap);
         RepositoryManager.getInstance().getAppointmentRepository().removeAppointment(ap);
     }
-
-    // Method to remove availability timeslot by matching slots within a date and
-    // time range
-    public void removeAppointments(
-            LocalDate startDate, LocalDate endDate, LocalTime start, LocalTime end) {
-        LocalDate currentDate = startDate;
-        while (!currentDate.isAfter(endDate)) {
-            removeAppointment(currentDate, start, end);
-            currentDate = currentDate.plusDays(1);
-        }
-    }
 }

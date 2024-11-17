@@ -6,8 +6,7 @@ package hms;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -49,7 +48,8 @@ public class App {
 
         new DoctorController(d1)
                 .addAppointmentHourly(
-                        LocalDate.of(2024, 11, 19), LocalTime.of(07, 00), LocalTime.of(19, 00));
+                        LocalDateTime.of(2024, 11, 19, 07, 00),
+                        LocalDateTime.of(2024, 11, 19, 19, 00));
 
         // Save sample users
         if (rm.getUserRepository().getUserById("P1").isEmpty()) {

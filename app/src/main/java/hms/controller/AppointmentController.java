@@ -22,9 +22,6 @@ public class AppointmentController {
     public void cancelAppointment() {
         // Mark as cancelled
         appointment.setStatus(AppointmentStatus.CANCELLED);
-
-        // Remove from database
-        appointmentRepository.removeAppointment(appointment);
     }
 
     public boolean accept() {
