@@ -1,6 +1,7 @@
 package hms.view;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -11,6 +12,7 @@ import hms.model.record.MedicalRecord;
 import hms.model.schedule.TimeSlot;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
+import hms.model.user.User;
 
 public class PatientView {
     private final PatientController pc;
@@ -156,9 +158,10 @@ public class PatientView {
     void scheduleAppointment(Scanner sc) {
         
         TimeSlot selectedSlot = chooseTimeSlot(sc);
+        User doctor = selectedSlot.getOwner();
         selectedSlot.setPending();
-        // TODO:
-        //pc.scheduleAppointment(doctor, ts)
+        //TODO:
+        //pc.scheduleAppointment(doctor, selectedSlot);
         System.out.println("Appointment scheduled successfully. Please wait for confirmation.");
         
     }
@@ -180,9 +183,10 @@ public class PatientView {
             }
             else if (choice >= 1 && choice <= appts.size()) {
                 TimeSlot selectedSlot = chooseTimeSlot(sc);
+                List<TimeSlot> slot = new ArrayList<>();
+                slot.add(selectedSlot);
                 selectedSlot.setPending();
-                // TODO:
-                // pc.rescheduleAppointment(appts.get(choice-1), selectedSlot);
+                pc.rescheduleAppointment(appts.get(choice-1), slot);
             }
         }
     }
