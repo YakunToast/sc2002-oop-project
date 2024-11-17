@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import hms.controller.DoctorController;
+import hms.controller.PatientController;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.Appointment.AppointmentStatus;
 import hms.model.medication.Medication;
@@ -23,15 +26,24 @@ import hms.model.user.Patient;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class DoctorActionsTest {
-    private DoctorController doctorController;
     private Doctor testDoctor;
+    private DoctorController doctorController;
     private Patient testPatient;
+    private PatientController patientController;
     private Medication testMedication;
 
     private Appointment createTestAppointment() {
-        // TODO: Cannot create appointment from doctor
-        return doctorController.createAppointment(
-                testPatient.getId(), LocalDateTime.now().plusDays(1));
+        // Add appointments
+        doctorController.addAppointmentDay(
+                LocalDate.of(2024, 11, 19), LocalTime.of(07, 00), LocalTime.of(15, 00));
+
+        // Get appointments
+        List<Appointment> appointments = patientController.getAvailableAppointmentSlots();
+        Appointment appointment = appointments.get(0);
+
+        patientController.scheduleAppointment(appointment);
+
+        return appointment;
     }
 
     @BeforeEach
@@ -40,7 +52,9 @@ class DoctorActionsTest {
         testDoctor = TestUtils.createTestDoctor();
         testPatient = TestUtils.createTestPatient();
         testMedication = TestUtils.createTestMedication();
+
         doctorController = new DoctorController(testDoctor);
+        patientController = new PatientController(testPatient);
     }
 
     @Test
@@ -72,7 +86,7 @@ class DoctorActionsTest {
         var schedule = doctorController.getPersonalSchedule();
 
         assertNotNull(schedule);
-        assertNotNull(schedule.getTimeSlots());
+        assertNotNull(schedule.getAppointments());
     }
 
     @Test
@@ -85,7 +99,7 @@ class DoctorActionsTest {
 
         assertTrue(availabilitySet);
         var schedule = doctorController.getPersonalSchedule();
-        assertFalse(schedule.getTimeSlots().isEmpty());
+        assertFalse(schedule.getAppointments().isEmpty());
     }
 
     @Test

@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 import hms.controller.appointment.AppointmentDoctor;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentOutcome;
+import hms.model.appointment.Schedule;
 import hms.model.medication.Prescription;
 import hms.model.record.MedicalRecord;
-import hms.model.schedule.Schedule;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 import hms.model.user.UserRole;
@@ -40,6 +40,10 @@ public class DoctorController implements AppointmentDoctor {
                 .collect(Collectors.toList());
     }
 
+    public List<Appointment> getFreeAppointments() {
+        return this.getAppointments().stream().filter(a -> a.isFree()).collect(Collectors.toList());
+    }
+
     public List<Appointment> getPendingAppointments() {
         return this.getAppointments().stream()
                 .filter(a -> a.isPending())
@@ -52,8 +56,13 @@ public class DoctorController implements AppointmentDoctor {
                 .collect(Collectors.toList());
     }
 
-    public void addSlots(LocalDate startDate, LocalDate endDate, LocalTime start, LocalTime end) {
-        doctor.getSchedule().addSlots(startDate, endDate, start, end);
+    public void addAppointmentDay(LocalDate date, LocalTime start, LocalTime end) {
+        doctor.getSchedule().addAppointmentDay(date, start, end);
+    }
+
+    public void addMultipleAppointmentDays(
+            LocalDate startDate, LocalDate endDate, LocalTime start, LocalTime end) {
+        doctor.getSchedule().addMultipleAppointmentDays(startDate, endDate, start, end);
     }
 
     public MedicalRecord getPatientMedicalRecord(Patient patient) {
@@ -79,7 +88,8 @@ public class DoctorController implements AppointmentDoctor {
 
     public boolean setAvailability(LocalDateTime start, LocalDateTime end) {
         Schedule sc = this.getPersonalSchedule();
-        sc.addSlots(start.toLocalDate(), end.toLocalDate(), start.toLocalTime(), end.toLocalTime());
+        sc.addMultipleAppointmentDays(
+                start.toLocalDate(), end.toLocalDate(), start.toLocalTime(), end.toLocalTime());
         // TODO: Need to better check success of this
         return true;
     }

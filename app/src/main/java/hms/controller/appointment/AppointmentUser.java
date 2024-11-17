@@ -1,25 +1,29 @@
 package hms.controller.appointment;
 
 import java.util.List;
+import java.util.Map;
 
 import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentOutcome;
 import hms.model.record.MedicalRecord;
-import hms.model.schedule.TimeSlot;
 import hms.model.user.Doctor;
 
 public interface AppointmentUser extends AppointmentBase {
     MedicalRecord getMedicalRecord();
 
-    List<Doctor> getDoctors();
+    List<Doctor> getAllDoctors();
 
-    List<List<TimeSlot>> getAvailableAppointmentSlots();
+    Map<Doctor, List<Appointment>> getAvailableAppointmentSlotsByDoctors();
 
-    Appointment scheduleAppointment(Doctor doctor, List<TimeSlot> ts);
+    List<Appointment> getAvailableAppointmentSlots();
 
-    Appointment rescheduleAppointment(Appointment ap, List<TimeSlot> ts);
+    List<Doctor> getPersonalDoctors();
 
-    public void cancelAppointment(Appointment ap);
+    boolean scheduleAppointment(Appointment ap);
+
+    boolean rescheduleAppointment(Appointment oldAp, Appointment newAp);
+
+    void cancelAppointment(Appointment ap);
 
     List<Appointment> getScheduledAppointments();
 

@@ -7,10 +7,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Iterator;
-import java.util.UUID;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -18,7 +16,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
-import hms.model.appointment.Appointment;
+import hms.controller.DoctorController;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 import hms.repository.RepositoryManager;
@@ -48,19 +46,10 @@ public class App {
         // Create sample users
         Patient p1 = new Patient("P1", "abc", "first", "patient", "pass", "abc@xyz.com", "+1234");
         Doctor d1 = new Doctor("D1", "cba", "first", "doctor", "pass", "cba@xyz.com", "+1234");
-        Appointment a1 =
-                new Appointment(
-                        UUID.fromString("00000000-0000-0000-0000-000000000000"),
-                        p1,
-                        d1,
-                        LocalDateTime.of(2024, 11, 19, 10, 0, 0));
 
-        d1.getSchedule()
-                .addSlots(
-                        LocalDate.of(2024, 11, 19),
-                        LocalDate.of(2024, 11, 19),
-                        LocalTime.of(07, 0),
-                        LocalTime.of(15, 0));
+        new DoctorController(d1)
+                .addAppointmentDay(
+                        LocalDate.of(2024, 11, 19), LocalTime.of(07, 00), LocalTime.of(19, 00));
 
         // Save sample users
         if (rm.getUserRepository().getUserById("P1").isEmpty()) {
@@ -70,12 +59,6 @@ public class App {
         if (rm.getUserRepository().getUserById("D1").isEmpty()) {
             System.out.println("Creating doctor cba...");
             rm.getUserRepository().addUser(d1);
-        }
-        if (rm.getAppointmentRepository()
-                .getAppointmentById(UUID.fromString("00000000-0000-0000-0000-000000000000"))
-                .isEmpty()) {
-            System.out.println("Creating appointment 0...");
-            rm.getAppointmentRepository().addAppointment(a1);
         }
 
         // Initialise view

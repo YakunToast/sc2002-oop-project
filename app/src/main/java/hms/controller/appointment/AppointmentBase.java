@@ -6,7 +6,7 @@ import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentOutcome;
 
 public interface AppointmentBase {
-    List<Appointment> getAppointments();
+    List<Appointment> getPersonalAppointments();
 
     AppointmentOutcome getAppointmentOutcome(Appointment ap);
 }

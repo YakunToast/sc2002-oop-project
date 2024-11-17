@@ -82,13 +82,13 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     @Override
-    public List<Appointment> getAppointments() {
+    public List<Appointment> getPersonalAppointments() {
         return this.ar.getAllAppointments();
     }
 
     @Override
     public List<Appointment> getAppointmentsByStatus(AppointmentStatus as) {
-        return this.getAppointments().stream()
+        return this.getPersonalAppointments().stream()
                 .filter(ap -> ap.getStatus() == as)
                 .collect(Collectors.toList());
     }

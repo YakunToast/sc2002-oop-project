@@ -73,7 +73,7 @@ class AdministratorActionsTest {
     @DisplayName("Test Case 21: View Appointments Details")
     void testViewAppointmentsDetails() {
         // Get all appointments
-        var allAppointments = adminController.getAppointments();
+        var allAppointments = adminController.getPersonalAppointments();
         assertNotNull(allAppointments);
 
         // Test filtering appointments by status

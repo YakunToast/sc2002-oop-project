@@ -10,10 +10,6 @@ import hms.model.user.Doctor;
 import hms.model.user.Patient;
 import hms.model.user.Pharmacist;
 import hms.model.user.UserRole;
-import hms.repository.AppointmentRepository;
-import hms.repository.InventoryRepository;
-import hms.repository.RepositoryManager;
-import hms.repository.UserRepository;
 
 public class TestUtils {
     public static Patient createTestPatient() {
@@ -89,9 +85,9 @@ public class TestUtils {
     }
 
     public static void setupTestRepositories() {
-        UserRepository userRepo = new UserRepository();
-        AppointmentRepository apptRepo = new AppointmentRepository();
-        InventoryRepository invRepo = new InventoryRepository();
-        RepositoryManager repoManager = new RepositoryManager();
+        // RepositoryManager repoManager = RepositoryManager.getInstance();
+        // UserRepository userRepo = new UserRepository();
+        // AppointmentRepository apptRepo = new AppointmentRepository();
+        // InventoryRepository invRepo = new InventoryRepository();
     }
 }

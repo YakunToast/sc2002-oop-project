@@ -2,80 +2,97 @@ package hms.model.appointment;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
 
-import hms.model.schedule.TimeSlot;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 
+// TODO: ISP LSP it by creating multiple classes like FreeAppointment, PendingAppointment, etc...
+// and interfaces like IBookableAppointment, IFreeableAppointment, etc....
 // Appointment class to manage doctor appointments
 public class Appointment implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private UUID appointmentId;
-    private Patient patient;
+    private UUID uuid;
     private Doctor doctor;
-    private LocalDateTime dateTime;
-    private List<TimeSlot> timeSlots;
+    private LocalDateTime start;
+    private LocalDateTime end;
+    private Patient patient;
     private AppointmentStatus status; // confirmed, canceled, completed
     private AppointmentOutcome outcome;
 
     public enum AppointmentStatus {
+        FREE,
         PENDING,
         CONFIRMED,
         CANCELLED,
         COMPLETED
     }
 
-    public Appointment(UUID appointmentId, Patient patient, Doctor doctor, LocalDateTime dateTime) {
-        this.appointmentId = appointmentId;
-        this.patient = patient;
+    public Appointment(Doctor doctor, LocalDateTime start, LocalDateTime end) {
+        this.uuid = UUID.randomUUID();
         this.doctor = doctor;
-        this.dateTime = dateTime;
+        this.start = start;
+        this.end = end;
+        this.status = AppointmentStatus.FREE;
+    }
+
+    public Appointment(UUID uuid, Doctor doctor, LocalDateTime start, LocalDateTime end) {
+        this(doctor, start, end);
+        this.uuid = uuid;
+    }
+
+    public Appointment(Doctor doctor, LocalDateTime start, LocalDateTime end, Patient patient) {
+        this(doctor, start, end);
+        this.patient = patient;
         this.status = AppointmentStatus.PENDING;
     }
 
-    public Appointment(Patient patient, Doctor doctor, LocalDateTime dateTime) {
-        this(UUID.randomUUID(), patient, doctor, dateTime);
+    public Appointment(
+            UUID uuid, Doctor doctor, LocalDateTime start, LocalDateTime end, Patient patient) {
+        this(doctor, start, end, patient);
+        this.uuid = uuid;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Appointment Details\n");
-        sb.append("-------------------\n");
-        sb.append("Appointment ID: ").append(appointmentId).append("\n");
-        sb.append("Patient Name: ")
+        sb.append("Appointment Details\n")
+                .append("-------------------\n")
+                .append("Appointment ID: ")
+                .append(uuid)
+                .append("\n")
+                .append("Patient Name: ")
                 .append(patient != null ? patient.getName() : "None")
+                .append("\n")
+                .append("Doctor Name: ")
+                .append(doctor != null ? doctor.getName() : "None")
+                .append("\n")
+                .append("Start Time: ")
+                .append(start != null ? start.toString() : "Not Scheduled")
+                .append("\n")
+                .append("End Time: ")
+                .append(end != null ? end.toString() : "Not Scheduled")
+                .append("\n")
+                .append("Status: ")
+                .append(status != null ? status.toString() : "Unknown")
+                .append("\n")
+                .append("Outcome: ")
+                .append(outcome != null ? outcome : "Not Determined")
                 .append("\n");
-        sb.append("Doctor Name: ").append(doctor != null ? doctor.getName() : "None").append("\n");
-        sb.append("Date and Time: ")
-                .append(dateTime != null ? dateTime.toString() : "Not Scheduled")
-                .append("\n");
-        sb.append("Status: ").append(status != null ? status.toString() : "Unknown").append("\n");
-        sb.append("Outcome: ").append(outcome != null ? outcome : "Not Determined").append("\n");
         return sb.toString();
     }
 
     public String toTerse() {
         return String.format(
                 "Appointment [%s] - Patient: %s, Doctor: %s, DateTime: %s, Status: %s, Outcome: %s",
-                appointmentId != null ? appointmentId.toString() : "N/A",
+                uuid != null ? uuid.toString() : "N/A",
                 patient != null ? patient.getName() : "None",
                 doctor != null ? doctor.getName() : "None",
-                dateTime != null ? dateTime.toString() : "Not Scheduled",
+                start != null ? start.toString() : "Not Scheduled",
+                end != null ? end.toString() : "Not Scheduled",
                 status != null ? status.toString() : "Unknown",
                 outcome != null ? outcome : "Not Determined");
-    }
-
-    public void setTimeslots(List<TimeSlot> ts) {
-        this.timeSlots = ts;
-    }
-
-    public List<TimeSlot> getTimeSlots() {
-        return Collections.unmodifiableList(this.timeSlots);
     }
 
     public void setStatus(AppointmentStatus newStatus) {
@@ -94,25 +111,12 @@ public class Appointment implements Serializable {
         return outcome;
     }
 
-    public boolean isPending() {
-        return this.status == AppointmentStatus.PENDING;
-    }
-
-    public boolean isConfirmed() {
-        return this.status == AppointmentStatus.CONFIRMED;
-    }
-
-    public boolean isCancelled() {
-        return this.status == AppointmentStatus.CANCELLED;
-    }
-
-    public boolean isCompleted() {
-        return this.status == AppointmentStatus.COMPLETED;
-    }
-
-    // Getters
     public UUID getId() {
-        return appointmentId;
+        return uuid;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public Patient getPatient() {
@@ -127,11 +131,39 @@ public class Appointment implements Serializable {
         return doctor;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setStart(LocalDateTime start) {
+        this.start = start;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getStart() {
+        return start;
+    }
+
+    public void setEnd(LocalDateTime end) {
+        this.end = end;
+    }
+
+    public LocalDateTime getEnd() {
+        return end;
+    }
+
+    public boolean isFree() {
+        return this.status == AppointmentStatus.FREE;
+    }
+
+    public boolean isPending() {
+        return this.status == AppointmentStatus.PENDING;
+    }
+
+    public boolean isConfirmed() {
+        return this.status == AppointmentStatus.CONFIRMED;
+    }
+
+    public boolean isCancelled() {
+        return this.status == AppointmentStatus.CANCELLED;
+    }
+
+    public boolean isCompleted() {
+        return this.status == AppointmentStatus.COMPLETED;
     }
 }

@@ -199,7 +199,7 @@ public class DoctorView {
                 }
 
                 // Add availability
-                dc.addSlots(startDate, endDate, start, end);
+                dc.addMultipleAppointmentDays(startDate, endDate, start, end);
                 System.out.println(
                         "Availability added: "
                                 + startDate

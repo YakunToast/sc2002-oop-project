@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -63,7 +62,7 @@ class PatientActionsTest {
 
         assertNotNull(slots);
         assertFalse(slots.isEmpty());
-        assertTrue(slots.stream().flatMap(List::stream).allMatch(slot -> slot.isAvailable()));
+        assertTrue(slots.stream().allMatch(ap -> ap.isFree()));
     }
 
     // TODO: For the appointment endpoints,
@@ -75,57 +74,59 @@ class PatientActionsTest {
     @DisplayName("Test Case 4: Schedule an Appointment")
     void testScheduleAppointment() {
         LocalDateTime appointmentTime = LocalDateTime.now().plusDays(1);
-        var appointment =
-                patientController.scheduleAppointment(testDoctor.getId(), appointmentTime);
+        var appointment = patientController.getAvailableAppointmentSlots().get(0);
+        patientController.scheduleAppointment(appointment);
 
         assertNotNull(appointment);
         assertEquals(AppointmentStatus.CONFIRMED, appointment.getStatus());
-        assertEquals(testPatient.getId(), appointment.getPatientId());
-        assertEquals(testDoctor.getId(), appointment.getDoctorId());
+        assertEquals(testPatient, appointment.getPatient());
+        assertEquals(testDoctor, appointment.getDoctor());
     }
 
     @Test
     @DisplayName("Test Case 5: Reschedule an Appointment")
     void testRescheduleAppointment() {
         LocalDateTime originalTime = LocalDateTime.now().plusDays(1);
-        var appointment = patientController.scheduleAppointment(testDoctor.getId(), originalTime);
+        var appointment = patientController.getAvailableAppointmentSlots().get(0);
+        patientController.scheduleAppointment(appointment);
 
         LocalDateTime newTime = LocalDateTime.now().plusDays(2);
+        var newAppointment = patientController.getAvailableAppointmentSlots().get(0);
         var rescheduledAppointment =
-                patientController.rescheduleAppointment(appointment.getId(), newTime);
+                patientController.rescheduleAppointment(appointment, newAppointment);
 
         assertNotNull(rescheduledAppointment);
-        assertEquals(newTime, rescheduledAppointment.getDateTime());
-        assertEquals(AppointmentStatus.CONFIRMED, rescheduledAppointment.getStatus());
+        assertEquals(newTime, newAppointment.getStart());
+        assertEquals(AppointmentStatus.CONFIRMED, newAppointment.getStatus());
     }
 
     @Test
     @DisplayName("Test Case 6: Cancel an Appointment")
     void testCancelAppointment() {
         LocalDateTime appointmentTime = LocalDateTime.now().plusDays(1);
-        var appointment =
-                patientController.scheduleAppointment(testDoctor.getId(), appointmentTime);
+        var appointment = patientController.getAvailableAppointmentSlots().get(0);
+        patientController.scheduleAppointment(
+                patientController.getAvailableAppointmentSlots().get(0));
 
-        boolean cancelled = patientController.cancelAppointment(appointment.getId());
+        patientController.cancelAppointment(appointment);
 
-        assertTrue(cancelled);
-        var cancelledAppointment = patientController.getAppointment(appointment.getId());
-        assertEquals(AppointmentStatus.CANCELLED, cancelledAppointment.getStatus());
+        // var cancelledAppointment = patientController.getAppointment(appointment);
+        assertEquals(AppointmentStatus.CANCELLED, appointment.getStatus());
     }
 
     @Test
     @DisplayName("Test Case 7: View Scheduled Appointments")
     void testViewScheduledAppointments() {
-        patientController.scheduleAppointment(testDoctor.getId(), LocalDateTime.now().plusDays(1));
-        patientController.scheduleAppointment(testDoctor.getId(), LocalDateTime.now().plusDays(2));
+        var appointment1 = patientController.getAvailableAppointmentSlots().get(0);
+        var appointment2 = patientController.getAvailableAppointmentSlots().get(0);
+        patientController.scheduleAppointment(appointment1);
+        patientController.scheduleAppointment(appointment2);
 
         var appointments = patientController.getScheduledAppointments();
 
         assertNotNull(appointments);
         assertFalse(appointments.isEmpty());
-        assertTrue(
-                appointments.stream()
-                        .allMatch(appt -> appt.getPatientId().equals(testPatient.getId())));
+        assertTrue(appointments.stream().allMatch(appt -> appt.getPatient().equals(testPatient)));
     }
 
     @Test

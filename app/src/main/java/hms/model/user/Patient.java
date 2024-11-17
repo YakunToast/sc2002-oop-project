@@ -104,7 +104,7 @@ public class Patient extends User {
 
     public List<Appointment> getPastAppointments() {
         return appointments.stream()
-                .filter(a -> a.getDateTime().isBefore(LocalDateTime.now()))
+                .filter(a -> a.getStart().isBefore(LocalDateTime.now()))
                 .collect(Collectors.toList());
     }
 }

@@ -1,13 +1,14 @@
 package hms.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import hms.controller.appointment.AppointmentUser;
 import hms.model.appointment.Appointment;
+import hms.model.appointment.Appointment.AppointmentStatus;
 import hms.model.appointment.AppointmentOutcome;
 import hms.model.record.MedicalRecord;
-import hms.model.schedule.TimeSlot;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 import hms.repository.RepositoryManager;
@@ -37,7 +38,7 @@ public class PatientController implements AppointmentUser {
     }
 
     @Override
-    public List<Appointment> getAppointments() {
+    public List<Appointment> getPersonalAppointments() {
         return RepositoryManager.getInstance()
                 .getAppointmentRepository()
                 .getAllAppointments()
@@ -47,30 +48,71 @@ public class PatientController implements AppointmentUser {
     }
 
     @Override
-    public List<Doctor> getDoctors() {
-        return this.getAppointments().stream().map(a -> a.getDoctor()).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<List<TimeSlot>> getAvailableAppointmentSlots() {
-        return this.getDoctors().stream()
-                .map(e -> e.getSchedule().getTimeSlots())
+    public List<Doctor> getAllDoctors() {
+        return RepositoryManager.getInstance().getUserRepository().getAllUsers().stream()
+                .filter(u -> u instanceof Doctor)
+                .map(u -> (Doctor) u)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Appointment scheduleAppointment(Doctor doctor, List<TimeSlot> ts) {
-        return AppointmentController.createAppointment(doctor, patient, ts);
+    public List<Doctor> getPersonalDoctors() {
+        return this.getPersonalAppointments().stream()
+                .map(a -> a.getDoctor())
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Appointment rescheduleAppointment(Appointment ap, List<TimeSlot> ts) {
-        Doctor doctor = ap.getDoctor();
-        AppointmentController ac = new AppointmentController(ap);
+    public HashMap<Doctor, List<Appointment>> getAvailableAppointmentSlotsByDoctors() {
+        return this.getAllDoctors().stream()
+                .collect(
+                        Collectors.toMap(
+                                doctor -> doctor,
+                                doctor ->
+                                        doctor.getSchedule().getAppointments().stream()
+                                                .filter(
+                                                        appointment ->
+                                                                appointment.getStatus()
+                                                                        == AppointmentStatus.FREE)
+                                                .collect(Collectors.toList()),
+                                (prev, next) -> next,
+                                HashMap::new));
+    }
 
-        ac.cancelAppointment();
+    @Override
+    public List<Appointment> getAvailableAppointmentSlots() {
+        return this.getAvailableAppointmentSlotsByDoctors().values().stream()
+                .flatMap(aps -> aps.stream())
+                .collect(Collectors.toList());
+    }
 
-        return this.scheduleAppointment(doctor, ts);
+    @Override
+    public boolean scheduleAppointment(Appointment ap) {
+        if (!ap.isFree()) {
+            return false;
+        }
+
+        ap.setPatient(this.patient);
+        ap.setStatus(AppointmentStatus.PENDING);
+        return true;
+    }
+
+    @Override
+    public boolean rescheduleAppointment(Appointment oldAp, Appointment newAp) {
+        if (!newAp.isFree()) {
+            return false;
+        }
+
+        if (oldAp.getPatient() != patient) {
+            return false;
+        }
+
+        oldAp.setPatient(null);
+        oldAp.setStatus(Appointment.AppointmentStatus.FREE);
+
+        this.scheduleAppointment(newAp);
+
+        return true;
     }
 
     @Override
@@ -82,12 +124,12 @@ public class PatientController implements AppointmentUser {
     @Override
     public List<Appointment> getScheduledAppointments() {
         // TODO: Filter by date or status?
-        return this.getAppointments().stream().collect(Collectors.toList());
+        return this.getPersonalAppointments().stream().collect(Collectors.toList());
     }
 
     @Override
     public List<AppointmentOutcome> getPastAppointmentOutcomes() {
-        return this.getAppointments().stream()
+        return this.getPersonalAppointments().stream()
                 .filter(ap -> ap.getOutcome() != null)
                 .map(ap -> ap.getOutcome())
                 .collect(Collectors.toList());

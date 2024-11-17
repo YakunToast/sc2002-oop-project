@@ -1,6 +1,6 @@
 package hms.model.user;
 
-import hms.model.schedule.Schedule;
+import hms.model.appointment.Schedule;
 
 public class Doctor extends Staff {
     private Schedule schedule;
