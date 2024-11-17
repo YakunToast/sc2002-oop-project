@@ -38,9 +38,25 @@ public class RepositoryManager implements Serializable {
         }
     }
 
+    public void save() {
+        try {
+            this.serialize("database.bin");
+        } catch (IOException e) {
+            System.out.println("failed to serialise database");
+        }
+    }
+
     public void deserialize(String filePath) throws IOException, ClassNotFoundException {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
             instance = (RepositoryManager) in.readObject();
+        }
+    }
+
+    public void load() {
+        try {
+            this.deserialize("database.bin");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("failed to serialise database");
         }
     }
 
