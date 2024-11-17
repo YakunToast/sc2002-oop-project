@@ -40,6 +40,7 @@ public class App {
                         new Thread(
                                 new Runnable() {
                                     public void run() {
+                                        rm.serialize("database.bin");
                                         // TODO: Find a way to better save all controllers at once
                                         // Database.save();
                                     }
