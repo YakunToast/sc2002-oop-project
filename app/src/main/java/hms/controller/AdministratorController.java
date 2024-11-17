@@ -132,4 +132,34 @@ public class AdministratorController implements InventoryManager, AppointmentMan
                 .filter(rr -> rr.isPending())
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public int getMedicationStock(Medication medication) {
+        return this.inventoryController.getMedicationStock(medication);
+    }
+
+    @Override
+    public boolean addMedication(Medication medication) {
+        return this.inventoryController.addMedication(medication);
+    }
+
+    @Override
+    public boolean addMedicationStock(Medication medication, int qty) {
+        return this.inventoryController.addMedicationStock(medication, qty);
+    }
+
+    @Override
+    public boolean removeMedication(Medication medication) {
+        return this.inventoryController.removeMedication(medication);
+    }
+
+    @Override
+    public boolean removeMedicationStock(Medication medication, int qty) {
+        return this.inventoryController.removeMedicationStock(medication, qty);
+    }
+
+    @Override
+    public boolean setMedicationStockAlert(Medication medication, int alertQty) {
+        return this.inventoryController.setMedicationStockAlert(medication, alertQty);
+    }
 }
