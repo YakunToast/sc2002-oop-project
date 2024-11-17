@@ -1,22 +1,31 @@
 package hms.view;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.UUID;
-import java.util.Optional;
 
-import hms.model.user.*;
-import hms.model.medication.*;
-import hms.model.appointment.*;
-import hms.repository.RepositoryManager;
+import hms.controller.AdministratorController;
+import hms.model.appointment.Appointment;
+import hms.model.medication.Inventory;
+import hms.model.medication.Medication;
+import hms.model.medication.ReplenishmentRequest;
 import hms.model.schedule.TimeSlot;
+import hms.model.user.Administrator;
+import hms.model.user.Doctor;
+import hms.model.user.Pharmacist;
+import hms.model.user.Staff;
+import hms.model.user.UserRole;
+import hms.repository.RepositoryManager;
 
 public class AdministratorView {
     private Administrator administrator;
+    private AdministratorController administratorController;
     private final RepositoryManager repositoryManager;
 
     public AdministratorView(Administrator administrator) {
         this.administrator = administrator;
+        this.administratorController = new AdministratorController(administrator);
         this.repositoryManager = RepositoryManager.getInstance();
     }
 
