@@ -307,8 +307,8 @@ public class AdministratorView {
         for (Medication med : medications) {
             System.out.printf("%s\t%d\t\t%d%n",
                 med.getName(),
-                med.getStockLevel(),
-                med.getLowStockAlertLevel());
+                administratorController.getMedicationStock(med),
+                administratorController.getMedicationStockAlert(med);
         }
     }
 

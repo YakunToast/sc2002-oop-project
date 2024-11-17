@@ -50,4 +50,8 @@ public class InventoryController {
     public boolean setMedicationStockAlert(Medication medication, int alertQty) {
         return this.inventory.setMedicationStockAlert(medication, alertQty);
     }
+
+    public int getMedicationStockAlert(Medication medication) {
+        return this.inventory.getMedicationStockAlert(medication);
+    }
 }

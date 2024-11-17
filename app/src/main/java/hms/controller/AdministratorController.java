@@ -195,4 +195,9 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     public boolean setMedicationStockAlert(Medication medication, int alertQty) {
         return this.inventoryController.setMedicationStockAlert(medication, alertQty);
     }
+
+    @Override
+    public int getMedicationStockAlert(Medication medication) {
+        return this.inventoryController.getMedicationStockAlert(medication);
+    }
 }
