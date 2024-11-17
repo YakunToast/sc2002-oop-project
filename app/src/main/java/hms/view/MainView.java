@@ -48,7 +48,7 @@ public class MainView {
     private User handleLogin(Scanner sc) {
         int attempts = 0;
         while (attempts < MAX_LOGIN_ATTEMPTS) {
-            System.out.print("Hospital ID/Username: ");
+            System.out.print("Username: ");
             String username = sc.nextLine().trim();
             System.out.print("Password: ");
             String password = sc.nextLine().trim();
@@ -95,6 +95,7 @@ public class MainView {
             if (newPassword.equals(confirmPassword)) {
                 if (isValidPassword(newPassword)) {
                     user.setPassword(newPassword);
+                    //TODO: find a way to update a user, can use userController?
                     RepositoryManager.getInstance().getUserRepository().update(user);
                     System.out.println("Password successfully changed!\n");
                     break;
