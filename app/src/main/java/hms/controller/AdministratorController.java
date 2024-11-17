@@ -114,6 +114,13 @@ public class AdministratorController implements InventoryManager, AppointmentMan
                 .collect(Collectors.toList());
     }
 
+    public List<Pharmacist> getPharmacists() {
+        return this.getUsers().stream()
+                .filter(u -> u instanceof Pharmacist)
+                .map(u -> (Pharmacist) u)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public List<Appointment> getAllAppointments() {
         return this.ar.getAllAppointments();
