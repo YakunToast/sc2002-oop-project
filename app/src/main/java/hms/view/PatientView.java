@@ -2,9 +2,11 @@ package hms.view;
 
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 import hms.controller.PatientController;
+import hms.model.appointment.Appointment;
 import hms.model.record.MedicalRecord;
 import hms.model.schedule.TimeSlot;
 import hms.model.user.Doctor;
@@ -106,13 +108,14 @@ public class PatientView {
         }
     }
 
+    // Unnecessary function?
     void viewAvailableSlots(Scanner sc) {
         for (Doctor doctor : pc.getDoctors()) {
             System.out.println("Doctor: " + doctor.getName() + " " + doctor.getSchedule());
         }
     }
 
-    void scheduleAppointment(Scanner sc) {
+    TimeSlot chooseTimeSlot(Scanner sc) {
         int index = 1;
         HashMap<Integer, TimeSlot> availableSlotsMap = new HashMap<>();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -132,27 +135,88 @@ public class PatientView {
 
         if (availableSlotsMap.isEmpty()) {
             System.out.println("No available timeslots at the moment. Please try again later.");
-            return;
+            return null;
         }
 
-        System.out.print("Choose a timeslot by entering the corresponding index: ");
-        int chosenIndex = sc.nextInt();
-        sc.nextLine(); // Consume newline left-over
+        while (true) {
+            System.out.print("Choose a timeslot by entering the corresponding index: ");
+            int chosenIndex = sc.nextInt();
+            sc.nextLine(); // Consume newline left-over
 
-        if (availableSlotsMap.containsKey(chosenIndex)) {
-            TimeSlot selectedSlot = availableSlotsMap.get(chosenIndex);
-            selectedSlot.setPending();
-            System.out.println("Appointment scheduled successfully. Please wait for confirmation.");
-        } else {
-            System.out.println("Invalid selection. Please try again.");
+            if (availableSlotsMap.containsKey(chosenIndex)) {
+                TimeSlot selectedSlot = availableSlotsMap.get(chosenIndex);
+                return selectedSlot;
+            } 
+            else {
+                System.out.println("Invalid selection. Please try again.");
+            }
+        }        
+    }
+
+    void scheduleAppointment(Scanner sc) {
+        
+        TimeSlot selectedSlot = chooseTimeSlot(sc);
+        selectedSlot.setPending();
+        // TODO:
+        //pc.scheduleAppointment(doctor, ts)
+        System.out.println("Appointment scheduled successfully. Please wait for confirmation.");
+        
+    }
+
+    void rescheduleAppointment(Scanner sc) {
+        List<Appointment> appts = pc.getAppointments();
+
+        for (int i = 0; i < appts.size(); i++) {
+            System.out.println(i + 1 + ". " + appts.get(i).toString()); 
+        }
+                                                            
+        while (true) {
+            System.out.println("Choose an appointment to reschedule or 0 to return:");
+            int choice = sc.nextInt();
+            sc.nextLine();
+
+            if (choice == 0) {
+                break;
+            }
+            else if (choice >= 1 && choice <= appts.size()) {
+                TimeSlot selectedSlot = chooseTimeSlot(sc);
+                selectedSlot.setPending();
+                // TODO:
+                // pc.rescheduleAppointment(appts.get(choice-1), selectedSlot);
+            }
         }
     }
 
-    void rescheduleAppointment(Scanner sc) {}
+    void cancelAppointment(Scanner sc) {
+        List<Appointment> appts = pc.getAppointments();
 
-    void cancelAppointment(Scanner sc) {}
+        for (int i = 0; i < appts.size(); i++) {
+            System.out.println(i + 1 + ". " + appts.get(i).toString()); 
+        }
+                                                            
+        while (true) {
+            System.out.println("Choose an appointment to cancel or 0 to return:");
+            int choice = sc.nextInt();
+            sc.nextLine();
 
-    void viewScheduledAppointments(Scanner sc) {}
+            if (choice == 0) {
+                break;
+            }
+            else if (choice >= 1 && choice <= appts.size()) {
+                pc.cancelAppointment(appts.get(choice-1));
+            }
+        }
+    }
+
+    void viewScheduledAppointments(Scanner sc) {
+        List<Appointment> appts = pc.getAppointments();
+
+        for (int i = 0; i < appts.size(); i++) {
+            System.out.println(i + 1 + ". " + appts.get(i).toString()); 
+        }
+
+    }
 
     void viewPastAppointmentOutcomes(Scanner sc) {}
+
 }

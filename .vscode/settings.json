@@ -8,5 +8,6 @@
   "java.project.sourcePaths": [
     "app/src/main/java"
   ],
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "java.debug.settings.onBuildFailureProceed": true
 }

@@ -74,6 +74,12 @@ public class PatientController implements AppointmentUser {
     }
 
     @Override
+    public void cancelAppointment(Appointment ap) {
+        AppointmentController ac = new AppointmentController(ap);
+        ac.cancelAppointment();
+    }
+
+    @Override
     public List<Appointment> getScheduledAppointments() {
         // TODO: Filter by date or status?
         return this.getAppointments().stream().collect(Collectors.toList());

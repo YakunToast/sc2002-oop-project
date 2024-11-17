@@ -19,6 +19,8 @@ public interface AppointmentUser extends AppointmentBase {
 
     Appointment rescheduleAppointment(Appointment ap, List<TimeSlot> ts);
 
+    public void cancelAppointment(Appointment ap);
+
     List<Appointment> getScheduledAppointments();
 
     List<AppointmentOutcome> getPastAppointmentOutcomes();
