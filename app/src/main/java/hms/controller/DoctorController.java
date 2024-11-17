@@ -95,8 +95,7 @@ public class DoctorController implements AppointmentDoctor {
 
     public boolean setAvailability(LocalDateTime start, LocalDateTime end) {
         Schedule sc = this.getPersonalSchedule();
-        sc.addMultipleAppointmentDays(
-                start.toLocalDate(), end.toLocalDate(), start.toLocalTime(), end.toLocalTime());
+        sc.addAppointment(start, end);
         // TODO: Need to better check success of this
         return true;
     }

@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -128,7 +127,9 @@ class DoctorActionsTest {
 
         boolean recorded =
                 doctorController.addAppointmentOutcome(
-                        appointment, "Regular checkup", new Prescription(List.of(testMedication)));
+                        appointment,
+                        "Regular checkup",
+                        new Prescription(testMedication, testMedication));
 
         assertTrue(recorded);
         var savedOutcome = doctorController.getAppointmentOutcome(appointment);

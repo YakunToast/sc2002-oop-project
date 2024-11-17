@@ -2,7 +2,9 @@ package hms.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import hms.controller.inventory.InventoryUser;
@@ -90,6 +92,21 @@ public class PharmacistController implements InventoryUser {
     @Override
     public List<Medication> getMedications() {
         return this.inventoryController.getMedications();
+    }
+
+    @Override
+    public Optional<Medication> getMedicationByName(String name) {
+        return this.inventoryController.getMedicationByName(name);
+    }
+
+    @Override
+    public Optional<Medication> getMedicationByUUID(UUID uuid) {
+        return this.inventoryController.getMedicationByUUID(uuid);
+    }
+
+    @Override
+    public Optional<Medication> getMedicationByUUID(String uuid) {
+        return this.inventoryController.getMedicationByUUID(uuid);
     }
 
     @Override

@@ -21,7 +21,7 @@ public class MainView {
         // Loop forever
         while (true) {
             displayWelcomeBanner();
-            
+
             // Handle login
             User user = handleLogin(sc);
             if (user == null) {
@@ -54,16 +54,18 @@ public class MainView {
             String password = sc.nextLine().trim();
 
             // First try to find user by ID, then by username
-            User user = RepositoryManager.getInstance()
-                    .getUserRepository()
-                    .getUserById(username)
-                    .orElse(null);
+            User user =
+                    RepositoryManager.getInstance()
+                            .getUserRepository()
+                            .getUserById(username)
+                            .orElse(null);
 
             if (user == null) {
-                user = RepositoryManager.getInstance()
-                        .getUserRepository()
-                        .getUserByUsername(username)
-                        .orElse(null);
+                user =
+                        RepositoryManager.getInstance()
+                                .getUserRepository()
+                                .getUserByUsername(username)
+                                .orElse(null);
             }
 
             if (user != null && user.verifyPassword(password)) {
@@ -71,9 +73,11 @@ public class MainView {
             }
 
             attempts++;
-            System.out.println("\nInvalid credentials! " + 
-                    (MAX_LOGIN_ATTEMPTS - attempts) + " attempts remaining.");
-            
+            System.out.println(
+                    "\nInvalid credentials! "
+                            + (MAX_LOGIN_ATTEMPTS - attempts)
+                            + " attempts remaining.");
+
             if (attempts < MAX_LOGIN_ATTEMPTS) {
                 System.out.println("Please try again.\n");
             }
@@ -85,7 +89,7 @@ public class MainView {
 
     private void handlePasswordChange(Scanner sc, User user) {
         System.out.println("\nThis appears to be your first login. You must change your password.");
-        
+
         while (true) {
             System.out.print("Enter new password: ");
             String newPassword = sc.nextLine().trim();
@@ -95,13 +99,13 @@ public class MainView {
             if (newPassword.equals(confirmPassword)) {
                 if (isValidPassword(newPassword)) {
                     user.setPassword(newPassword);
-                    //TODO: find a way to update a user, can use userController?
-                    RepositoryManager.getInstance().getUserRepository().update(user);
                     System.out.println("Password successfully changed!\n");
                     break;
                 } else {
-                    System.out.println("\nPassword must be at least 8 characters long and contain " +
-                            "at least one uppercase letter, one lowercase letter, and one number.");
+                    System.out.println(
+                            "\n"
+                                + "Password must be at least 8 characters long and contain at least"
+                                + " one uppercase letter, one lowercase letter, and one number.");
                 }
             } else {
                 System.out.println("\nPasswords do not match. Please try again.");
@@ -112,16 +116,16 @@ public class MainView {
     private boolean isValidPassword(String password) {
         // Password must be at least 8 characters long and contain at least
         // one uppercase letter, one lowercase letter, and one number
-        return password.length() >= 8 &&
-                password.matches(".*[A-Z].*") &&
-                password.matches(".*[a-z].*") &&
-                password.matches(".*\\d.*");
+        return password.length() >= 8
+                && password.matches(".*[A-Z].*")
+                && password.matches(".*[a-z].*")
+                && password.matches(".*\\d.*");
     }
 
     private void handleUserMenu(Scanner sc, User user) {
         UserRole role = user.getRole();
-        System.out.println("\nWelcome, " + role + " " + 
-                user.getFirstName() + " " + user.getLastName() + "!");
+        System.out.println(
+                "\nWelcome, " + role + " " + user.getFirstName() + " " + user.getLastName() + "!");
 
         try {
             switch (role) {

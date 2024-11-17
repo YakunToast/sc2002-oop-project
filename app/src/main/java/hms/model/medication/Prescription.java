@@ -1,25 +1,31 @@
 package hms.model.medication;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Prescription implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private PrescriptionStatus status;
-    private List<Medication> medications;
+    private Map<Medication, Integer> medications;
 
     public Prescription(Medication... medications) {
-        this.medications = List.of(medications);
+        Map<Medication, Integer> medicationMap = new HashMap<>();
+        for (Medication medication : medications) {
+            medicationMap.put(
+                    medication, 1); // Assuming a default quantity of 1 for each medication
+        }
+        this.medications = medicationMap;
         this.status = PrescriptionStatus.PENDING;
     }
 
-    public Prescription(List<Medication> medications) {
+    public Prescription(Map<Medication, Integer> medications) {
         this.medications = medications;
         this.status = PrescriptionStatus.PENDING;
     }
 
-    public Prescription(List<Medication> medications, PrescriptionStatus status) {
+    public Prescription(Map<Medication, Integer> medications, PrescriptionStatus status) {
         this(medications);
         this.status = status;
     }
@@ -30,7 +36,6 @@ public class Prescription implements Serializable {
 
     public void setPending() {
         this.status = PrescriptionStatus.PENDING;
-        // TODO: Remove from inventory
     }
 
     public boolean isPending() {
@@ -47,18 +52,17 @@ public class Prescription implements Serializable {
 
     public void setCancelled() {
         this.status = PrescriptionStatus.CANCELLED;
-        // TODO: Add back to inventory
     }
 
     public boolean isCancelled() {
         return this.status == PrescriptionStatus.CANCELLED;
     }
 
-    public List<Medication> getMedications() {
+    public Map<Medication, Integer> getMedications() {
         return this.medications;
     }
 
-    public void setMedications(List<Medication> medication) {
+    public void setMedications(Map<Medication, Integer> medication) {
         this.medications = medication;
     }
 
