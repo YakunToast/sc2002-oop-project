@@ -51,6 +51,22 @@ public class Medication implements Serializable {
      * @param description Description of the medication
      * @param dosageInstructions Dosage instructions
      * @param sideEffects Possible side effects
+     */
+    public Medication(
+            String medicationName,
+            String description,
+            String dosageInstructions,
+            MedicationSideEffect... sideEffects) {
+        this(medicationName, description, dosageInstructions, List.of(sideEffects));
+    }
+
+    /**
+     * Constructor for creating a new Medication instance
+     *
+     * @param medicationName Name of the medication
+     * @param description Description of the medication
+     * @param dosageInstructions Dosage instructions
+     * @param sideEffects Possible side effects
      * @param status Initial status of the medication
      */
     public Medication(
