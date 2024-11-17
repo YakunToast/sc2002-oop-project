@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 import hms.controller.appointment.AppointmentDoctor;
 import hms.model.appointment.Appointment;
-import hms.model.appointment.Appointment.AppointmentStatus;
 import hms.model.appointment.AppointmentOutcome;
+import hms.model.appointment.AppointmentStatus;
 import hms.model.appointment.Schedule;
 import hms.model.medication.Prescription;
 import hms.model.record.MedicalRecord;

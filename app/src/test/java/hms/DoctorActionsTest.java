@@ -14,7 +14,7 @@ import org.junit.jupiter.api.TestInstance;
 
 import hms.controller.DoctorController;
 import hms.controller.PatientController;
-import hms.model.appointment.Appointment.AppointmentStatus;
+import hms.model.appointment.AppointmentStatus;
 import hms.model.medication.Medication;
 import hms.model.medication.Prescription;
 import hms.model.user.Doctor;

@@ -4,6 +4,13 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import hms.model.appointment.state.FreeState;
+import hms.model.appointment.state.IAppointmentState;
+import hms.model.appointment.state.ICancellableAppointment;
+import hms.model.appointment.state.ICompletableAppointment;
+import hms.model.appointment.state.IConfirmableAppointment;
+import hms.model.appointment.state.IFreeableAppointment;
+import hms.model.appointment.state.IPendableAppointment;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 
@@ -20,14 +27,7 @@ public class Appointment implements Serializable {
     private Patient patient;
     private AppointmentStatus status; // confirmed, canceled, completed
     private AppointmentOutcome outcome;
-
-    public enum AppointmentStatus {
-        FREE,
-        PENDING,
-        CONFIRMED,
-        CANCELLED,
-        COMPLETED
-    }
+    private IAppointmentState state;
 
     public Appointment(Doctor doctor, LocalDateTime start, LocalDateTime end) {
         this.uuid = UUID.randomUUID();
@@ -35,6 +35,7 @@ public class Appointment implements Serializable {
         this.start = start;
         this.end = end;
         this.status = AppointmentStatus.FREE;
+        this.state = new FreeState();
     }
 
     public Appointment(UUID uuid, Doctor doctor, LocalDateTime start, LocalDateTime end) {
@@ -93,6 +94,51 @@ public class Appointment implements Serializable {
                 end != null ? end.toString() : "Not Scheduled",
                 status != null ? status.toString() : "Unknown",
                 outcome != null ? outcome : "Not Determined");
+    }
+
+    public void confirm() {
+        if (state instanceof IConfirmableAppointment) {
+            ((IConfirmableAppointment) state).confirm(this);
+        } else {
+            throw new IllegalStateException(
+                    "Cannot confirm appointment in current state: " + state.getStatus());
+        }
+    }
+
+    public void cancel() {
+        if (state instanceof ICancellableAppointment) {
+            ((ICancellableAppointment) state).cancel(this);
+        } else {
+            throw new IllegalStateException(
+                    "Cannot cancel appointment in current state: " + state.getStatus());
+        }
+    }
+
+    public void complete() {
+        if (state instanceof ICompletableAppointment) {
+            ((ICompletableAppointment) state).complete(this);
+        } else {
+            throw new IllegalStateException(
+                    "Cannot complete appointment in current state: " + state.getStatus());
+        }
+    }
+
+    public void free() {
+        if (state instanceof IFreeableAppointment) {
+            ((IFreeableAppointment) state).free(this);
+        } else {
+            throw new IllegalStateException(
+                    "Cannot free appointment in current state: " + state.getStatus());
+        }
+    }
+
+    public void pending() {
+        if (state instanceof IPendableAppointment) {
+            ((IPendableAppointment) state).pending(this);
+        } else {
+            throw new IllegalStateException(
+                    "Cannot pend appointment in current state: " + state.getStatus());
+        }
     }
 
     public void setStatus(AppointmentStatus newStatus) {
@@ -165,5 +211,9 @@ public class Appointment implements Serializable {
 
     public boolean isCompleted() {
         return this.status == AppointmentStatus.COMPLETED;
+    }
+
+    public void setState(IAppointmentState state) {
+        this.state = state;
     }
 }

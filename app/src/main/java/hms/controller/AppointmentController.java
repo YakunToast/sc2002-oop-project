@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import hms.model.appointment.Appointment;
-import hms.model.appointment.Appointment.AppointmentStatus;
 import hms.model.appointment.AppointmentOutcome;
+import hms.model.appointment.AppointmentStatus;
 import hms.repository.AppointmentRepository;
 import hms.repository.RepositoryManager;
 

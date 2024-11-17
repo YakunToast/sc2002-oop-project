@@ -18,7 +18,7 @@ import hms.controller.DoctorController;
 import hms.controller.PatientController;
 import hms.controller.PharmacistController;
 import hms.model.appointment.Appointment;
-import hms.model.appointment.Appointment.AppointmentStatus;
+import hms.model.appointment.AppointmentStatus;
 import hms.model.medication.Medication;
 import hms.model.medication.MedicationSideEffect;
 import hms.model.medication.ReplenishmentRequest;

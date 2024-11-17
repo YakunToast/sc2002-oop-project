@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import hms.controller.DoctorController;
 import hms.model.appointment.Appointment;
-import hms.model.appointment.Appointment.AppointmentStatus;
+import hms.model.appointment.AppointmentStatus;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 import hms.repository.RepositoryManager;

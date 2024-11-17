@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import hms.controller.appointment.AppointmentUser;
 import hms.model.appointment.Appointment;
-import hms.model.appointment.Appointment.AppointmentStatus;
 import hms.model.appointment.AppointmentOutcome;
+import hms.model.appointment.AppointmentStatus;
 import hms.model.record.MedicalRecord;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
@@ -108,7 +108,7 @@ public class PatientController implements AppointmentUser {
         }
 
         oldAp.setPatient(null);
-        oldAp.setStatus(Appointment.AppointmentStatus.FREE);
+        oldAp.setStatus(AppointmentStatus.FREE);
 
         this.scheduleAppointment(newAp);
 
