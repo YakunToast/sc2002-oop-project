@@ -34,6 +34,34 @@ public class PharmacistController implements InventoryUser {
                 .collect(Collectors.toList());
     }
 
+    public boolean dispensePrescription(Prescription p) {
+        if (p.isDispensed()) {
+            return false;
+        }
+
+        for (Map.Entry<Medication, Integer> entry : p.getMedications().entrySet()) {
+            Medication key = entry.getKey();
+            Integer value = entry.getValue();
+            inventoryController.removeMedicationStock(key, value);
+        }
+        p.setDispensed();
+        return true;
+    }
+
+    public boolean cancelPrescription(Prescription p) {
+        if (p.isCancelled()) {
+            return false;
+        }
+
+        for (Map.Entry<Medication, Integer> entry : p.getMedications().entrySet()) {
+            Medication key = entry.getKey();
+            Integer value = entry.getValue();
+            inventoryController.addMedicationStock(key, value);
+        }
+        p.setCancelled();
+        return true;
+    }
+
     public boolean updatePrescriptionStatus(Prescription p, PrescriptionStatus ps) {
         switch (ps) {
             case PrescriptionStatus.PENDING -> p.setPending();
