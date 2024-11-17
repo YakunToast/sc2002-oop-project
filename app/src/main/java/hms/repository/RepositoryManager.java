@@ -34,29 +34,31 @@ public class RepositoryManager implements Serializable {
 
     public void serialize(String filePath) throws IOException {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
-            out.writeObject(this);
+            out.writeObject(instance);
         }
     }
 
     public void save() {
         try {
             this.serialize("database.bin");
+            System.out.println("saved database!");
         } catch (IOException e) {
             System.out.println("failed to serialise database");
         }
     }
 
-    public void deserialize(String filePath) throws IOException, ClassNotFoundException {
+    public static void deserialize(String filePath) throws IOException, ClassNotFoundException {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
             instance = (RepositoryManager) in.readObject();
         }
     }
 
-    public void load() {
+    public static void load() {
         try {
-            this.deserialize("database.bin");
+            deserialize("database.bin");
+            System.out.println("loaded database!");
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("failed to serialise database");
+            System.out.println("failed to deserialise database");
         }
     }
 

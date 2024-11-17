@@ -29,6 +29,7 @@ public class App {
 
     public static void main(String[] args) {
         // Prepare repositories
+        RepositoryManager.load();
         rm = RepositoryManager.getInstance();
 
         loadPatientsFromExcel("Patient_List.xlsx");
