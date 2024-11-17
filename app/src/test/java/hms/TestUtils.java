@@ -1,10 +1,19 @@
 package hms;
 
-import hms.model.user.*;
-import hms.model.appointment.*;
-import hms.model.medication.*;
-import hms.repository.*;
+import java.util.Arrays;
 import java.util.UUID;
+
+import hms.model.medication.Medication;
+import hms.model.medication.MedicationSideEffect;
+import hms.model.user.Administrator;
+import hms.model.user.Doctor;
+import hms.model.user.Patient;
+import hms.model.user.Pharmacist;
+import hms.model.user.UserRole;
+import hms.repository.AppointmentRepository;
+import hms.repository.InventoryRepository;
+import hms.repository.RepositoryManager;
+import hms.repository.UserRepository;
 
 public class TestUtils {
     public static Patient createTestPatient() {
@@ -77,7 +86,6 @@ public class TestUtils {
                         Arrays.asList(sideEffects));
         medication.setId(UUID.randomUUID());
         return medication;
-
     }
 
     public static void setupTestRepositories() {
