@@ -33,6 +33,21 @@ public class Medication implements Serializable {
      * @param dosageInstructions Dosage instructions
      * @param sideEffects Possible side effects
      */
+    public Medication(String medicationName, String description, String dosageInstructions) {
+        this.name = medicationName;
+        this.description = description;
+        this.dosageInstructions = dosageInstructions;
+        this.sideEffects = new ArrayList<>(null);
+    }
+
+    /**
+     * Constructor for creating a new Medication instance
+     *
+     * @param medicationName Name of the medication
+     * @param description Description of the medication
+     * @param dosageInstructions Dosage instructions
+     * @param sideEffects Possible side effects
+     */
     public Medication(
             String medicationName,
             String description,
