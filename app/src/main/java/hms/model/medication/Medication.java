@@ -1,7 +1,6 @@
 package hms.model.medication;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,7 +36,6 @@ public class Medication implements Serializable {
         this.name = medicationName;
         this.description = description;
         this.dosageInstructions = dosageInstructions;
-        this.sideEffects = new ArrayList<>(null);
     }
 
     /**
