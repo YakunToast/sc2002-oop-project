@@ -4,13 +4,16 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import hms.controller.DoctorController;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentOutcome;
 import hms.model.appointment.AppointmentStatus;
+import hms.model.medication.Medication;
 import hms.model.medication.Prescription;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
@@ -295,9 +298,38 @@ public class DoctorView {
                 if (appointment.getOutcome() == null) {
                     System.out.print("Enter description of appointment outcome: ");
                     String desc = sc.nextLine();
-                    Prescription pres = new Prescription();
+                    
+                    System.out.println("Enter 0 if no medication required, otherwise press any key to continue.");
+                    String needMedication = sc.nextLine();
+                    
+                    Map<Medication, Integer> medications = new HashMap<>();
 
-                    // TODO: Please check if correct
+                    if (!needMedication.equals("0")) {
+                        while (true) {
+                            System.out.println("Enter medication name: ");
+                            String medName = sc.nextLine();
+                            System.out.println("Enter medication description: ");
+                            String medDesc = sc.nextLine();
+                            System.out.println("Enter dosage instructions: ");
+                            String medDosage = sc.nextLine();
+                            System.out.println("Enter amount to be prescribed: ");
+                            int dosageQuantity = sc.nextInt();
+                            sc.nextLine();
+
+                            Medication newMed = new Medication(medName, medDesc, medDosage);
+                            medications.put(newMed, dosageQuantity);
+
+                            System.out.println("Enter 0 to return, press any key to prescribe more.");
+                            needMedication = sc.nextLine();
+                            
+                            if (needMedication.equals("0")) {
+                                break;
+                            }
+                        }      
+                    }
+                    
+                    Prescription pres = new Prescription(medications);
+                    
                     AppointmentOutcome outcome = new AppointmentOutcome(appointment, desc, pres);
                     appointment.setOutcome(outcome);
                     System.out.println("Outcome recorded successfully.");
