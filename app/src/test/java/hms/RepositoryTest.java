@@ -46,15 +46,13 @@ class RepositoryTest {
     @Test
     @DisplayName("Test: Repository Save & Load: Appointment Outcomes")
     void testViewPatientMedicalRecords() {
-        Medication me = TestUtils.createTestMedication();
-
         // Prepare appointment
         Appointment ap = TestUtils.createTestAppointment(testDoctor);
         patientController.scheduleAppointment(ap);
         doctorController.acceptAppointment(ap);
 
         // Mark appointment outcome
-        Prescription prescription = new Prescription(me);
+        Prescription prescription = new Prescription(testMedication);
         doctorController.addAppointmentOutcome(ap, "Appointment Description", prescription);
 
         // Pharmacist check if prescrition is correct
