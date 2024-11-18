@@ -32,6 +32,14 @@ public class RepositoryManager implements Serializable {
         return instance;
     }
 
+    public static void destroyInstance() {
+        if (instance != null) {
+            synchronized (RepositoryManager.class) {
+                instance = null;
+            }
+        }
+    }
+
     public void serialize(String filePath) throws IOException {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
             out.writeObject(instance);

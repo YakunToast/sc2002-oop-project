@@ -118,6 +118,7 @@ public class TestUtils {
 
     public static void setupTestRepositories() {
         // Technically refreshes the repositories
+        RepositoryManager.destroyInstance();
         rm = RepositoryManager.getInstance();
     }
 }
