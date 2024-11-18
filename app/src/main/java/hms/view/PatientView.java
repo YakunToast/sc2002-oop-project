@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import hms.controller.PatientController;
 import hms.model.appointment.Appointment;
+import hms.model.appointment.AppointmentOutcome;
 import hms.model.record.MedicalRecord;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
@@ -207,5 +208,11 @@ public class PatientView {
         }
     }
 
-    void viewPastAppointmentOutcomes(Scanner sc) {}
+    void viewPastAppointmentOutcomes(Scanner sc) {
+        List<AppointmentOutcome> apptOutcomes = pc.getPastAppointmentOutcomes();
+
+        for (int i = 0; i < apptOutcomes.size(); i++) {
+            System.out.println(i + 1 + ". " + apptOutcomes.get(i).toString());
+        }
+    }
 }
