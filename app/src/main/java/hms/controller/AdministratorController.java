@@ -207,7 +207,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
      * @return Optional<Appointment>
      */
     @Override
-    public Optional<Appointment> getAppointmentById(UUID id) {
+    public Optional<Appointment> getAppointmentById(int id) {
         return this.ar.getAppointmentById(id);
     }
 

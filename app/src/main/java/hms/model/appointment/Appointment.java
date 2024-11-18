@@ -2,7 +2,6 @@ package hms.model.appointment;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import hms.model.appointment.state.FreeState;
 import hms.model.appointment.state.IAppointmentState;
@@ -14,13 +13,11 @@ import hms.model.appointment.state.IPendableAppointment;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 
-// TODO: ISP LSP it by creating multiple classes like FreeAppointment, PendingAppointment, etc...
-// and interfaces like IBookableAppointment, IFreeableAppointment, etc....
 // Appointment class to manage doctor appointments
 public class Appointment implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private UUID uuid;
+    private int id;
     private Doctor doctor;
     private LocalDateTime start;
     private LocalDateTime end;
@@ -30,7 +27,6 @@ public class Appointment implements Serializable {
     private IAppointmentState state;
 
     public Appointment(Doctor doctor, LocalDateTime start, LocalDateTime end) {
-        this.uuid = UUID.randomUUID();
         this.doctor = doctor;
         this.start = start;
         this.end = end;
@@ -38,21 +34,10 @@ public class Appointment implements Serializable {
         this.state = new FreeState();
     }
 
-    public Appointment(UUID uuid, Doctor doctor, LocalDateTime start, LocalDateTime end) {
-        this(doctor, start, end);
-        this.uuid = uuid;
-    }
-
     public Appointment(Doctor doctor, LocalDateTime start, LocalDateTime end, Patient patient) {
         this(doctor, start, end);
         this.patient = patient;
         this.status = AppointmentStatus.PENDING;
-    }
-
-    public Appointment(
-            UUID uuid, Doctor doctor, LocalDateTime start, LocalDateTime end, Patient patient) {
-        this(doctor, start, end, patient);
-        this.uuid = uuid;
     }
 
     /**
@@ -64,7 +49,7 @@ public class Appointment implements Serializable {
         sb.append("Appointment Details\n")
                 .append("-------------------\n")
                 .append("Appointment ID: ")
-                .append(uuid)
+                .append(id)
                 .append("\n")
                 .append("Patient Name: ")
                 .append(patient != null ? patient.getName() : "None")
@@ -94,7 +79,7 @@ public class Appointment implements Serializable {
     public String toTerse() {
         return String.format(
                 "Appointment [%s] - Patient: %s, Doctor: %s, DateTime: %s, Status: %s, Outcome: %s",
-                uuid != null ? uuid.toString() : "N/A",
+                id,
                 patient != null ? patient.getName() : "None",
                 doctor != null ? doctor.getName() : "None",
                 start != null ? start.toString() : "Not Scheduled",
@@ -180,12 +165,18 @@ public class Appointment implements Serializable {
         return outcome;
     }
 
-    
-    /** 
-     * @return UUID
+    /**
+     * @return void
      */
-    public UUID getId() {
-        return uuid;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @return int
+     */
+    public int getId() {
+        return id;
     }
 
     
