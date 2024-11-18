@@ -10,11 +10,13 @@ import org.junit.jupiter.api.TestInstance;
 
 import hms.controller.DoctorController;
 import hms.controller.PatientController;
+import hms.controller.PharmacistController;
 import hms.model.appointment.Appointment;
 import hms.model.medication.Medication;
 import hms.model.medication.Prescription;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
+import hms.model.user.Pharmacist;
 import hms.repository.RepositoryManager;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -23,6 +25,8 @@ class RepositoryTest {
     private DoctorController doctorController;
     private Patient testPatient;
     private PatientController patientController;
+    private Pharmacist testPharmacist;
+    private PharmacistController pharmacistController;
     private Medication testMedication;
 
     @BeforeEach
@@ -31,47 +35,68 @@ class RepositoryTest {
 
         testDoctor = TestUtils.createTestDoctor();
         testPatient = TestUtils.createTestPatient();
+        testPharmacist = TestUtils.createTestPharmacist();
         testMedication = TestUtils.createTestMedication();
 
         doctorController = new DoctorController(testDoctor);
         patientController = new PatientController(testPatient);
+        pharmacistController = new PharmacistController(testPharmacist);
     }
 
     @Test
     @DisplayName("Test: Repository Save & Load: Appointment Outcomes")
     void testViewPatientMedicalRecords() {
+        Medication me = TestUtils.createTestMedication();
+
+        // Prepare appointment
         Appointment ap = TestUtils.createTestAppointment(testDoctor);
         patientController.scheduleAppointment(ap);
         doctorController.acceptAppointment(ap);
 
-        Medication me = TestUtils.createTestMedication();
-        doctorController.addAppointmentOutcome(ap, "Appointment Description", new Prescription(me));
+        // Mark appointment outcome
+        Prescription prescription = new Prescription(me);
+        doctorController.addAppointmentOutcome(ap, "Appointment Description", prescription);
+
+        // Pharmacist check if prescrition is correct
+        assertEquals(prescription, pharmacistController.getPendingPrescriptions().get(0));
 
         // Refresh repository
         RepositoryManager.getInstance().save();
         RepositoryManager.destroyInstance();
         RepositoryManager.load();
 
-        // Get old users
-        Doctor newTestDoctor =
-                (Doctor)
-                        RepositoryManager.getInstance()
-                                .getUserRepository()
-                                .getUserByUsername(testDoctor.getUsername())
-                                .get();
+        // Get users
         Patient newTestPatient =
                 (Patient)
                         RepositoryManager.getInstance()
                                 .getUserRepository()
                                 .getUserByUsername(testPatient.getUsername())
                                 .get();
-        DoctorController newDoctorController = new DoctorController(newTestDoctor);
+        Doctor newTestDoctor =
+                (Doctor)
+                        RepositoryManager.getInstance()
+                                .getUserRepository()
+                                .getUserByUsername(testDoctor.getUsername())
+                                .get();
+        Pharmacist newTestPharmacist =
+                (Pharmacist)
+                        RepositoryManager.getInstance()
+                                .getUserRepository()
+                                .getUserByUsername(testPharmacist.getUsername())
+                                .get();
         PatientController newPatientController = new PatientController(newTestPatient);
+        DoctorController newDoctorController = new DoctorController(newTestDoctor);
+        PharmacistController newPharmacistController = new PharmacistController(newTestPharmacist);
 
         // Get appointment and check appointment
         Appointment newAppointment = newDoctorController.getAppointments().get(0);
         assertNotNull(newPatientController.getAppointmentOutcome(newAppointment));
         assertEquals(newAppointment.getPatient(), newTestPatient);
+
+        // Check appointment outcome
         assertEquals("Appointment Description", newAppointment.getOutcome().getDescription());
+
+        // Check prescription from pharmacist
+        assertNotNull(newPharmacistController.getPendingPrescriptions().get(0));
     }
 }

@@ -200,8 +200,6 @@ public class DoctorController implements AppointmentDoctor {
         AppointmentOutcome ao = new AppointmentOutcome(ap, description, pr);
         ap.setOutcome(ao);
         ap.setStatus(AppointmentStatus.COMPLETED);
-        RepositoryManager.getInstance().getAppointmentRepository().addAppointmentOutcome(ao);
-
         return true;
     }
 
