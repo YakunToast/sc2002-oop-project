@@ -9,7 +9,9 @@ import java.util.Scanner;
 
 import hms.controller.DoctorController;
 import hms.model.appointment.Appointment;
+import hms.model.appointment.AppointmentOutcome;
 import hms.model.appointment.AppointmentStatus;
+import hms.model.medication.Prescription;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 import hms.repository.RepositoryManager;
@@ -287,11 +289,14 @@ public class DoctorView {
                 break;
             } else if (choice >= 1 && choice <= pastAppointments.size()) {
                 Appointment appointment = pastAppointments.get(choice - 1);
-                if (appointment.getOutcome().equals("")) {
-                    System.out.print("Enter outcome of the appointment: ");
-                    String outcome = sc.nextLine();
-                    // TODO: Handle!
-                    // appointment.setOutcome(AppointmentOutcome);;
+                if (appointment.getOutcome() == null) {
+                    System.out.print("Enter description of appointment outcome: ");
+                    String desc = sc.nextLine();
+                    Prescription pres = new Prescription();
+
+                    // TODO: Please check if correct
+                    AppointmentOutcome outcome = new AppointmentOutcome(appointment, desc, pres);
+                    appointment.setOutcome(outcome);
                     System.out.println("Outcome recorded successfully.");
                 } else {
                     System.out.println("Outcome for this appointment has already been recorded.");
