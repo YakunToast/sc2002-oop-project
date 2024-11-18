@@ -16,8 +16,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import hms.controller.DoctorController;
+import hms.model.user.Administrator;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
+import hms.model.user.Pharmacist;
 import hms.repository.RepositoryManager;
 import hms.view.MainView;
 
@@ -43,8 +45,12 @@ public class App {
                                 }));
 
         // Create sample users
-        Patient p1 = new Patient("P1", "abc", "first", "patient", "pass", "abc@xyz.com", "+1234");
-        Doctor d1 = new Doctor("D1", "cba", "first", "doctor", "pass", "cba@xyz.com", "+1234");
+        Patient p1 = new Patient("P1", "pat", "first", "patient", "pass", "abc@xyz.com", "+1234");
+        Doctor d1 = new Doctor("D1", "doc", "first", "doctor", "pass", "cba@xyz.com", "+1234");
+        Pharmacist h1 =
+                new Pharmacist("H1", "pha", "pha", "doctor", "pass", "cba@xyz.com", "+1234");
+        Administrator a1 =
+                new Administrator("A1", "adm", "first", "doctor", "pass", "cba@xyz.com", "+1234");
 
         new DoctorController(d1)
                 .addAppointmentHourly(
@@ -53,12 +59,20 @@ public class App {
 
         // Save sample users
         if (rm.getUserRepository().getUserById("P1").isEmpty()) {
-            System.out.println("Creating patient abc...");
+            System.out.println("Creating patient pat...");
             rm.getUserRepository().addUser(p1);
         }
         if (rm.getUserRepository().getUserById("D1").isEmpty()) {
-            System.out.println("Creating doctor cba...");
+            System.out.println("Creating doctor doc...");
             rm.getUserRepository().addUser(d1);
+        }
+        if (rm.getUserRepository().getUserById("H1").isEmpty()) {
+            System.out.println("Creating doctor pha...");
+            rm.getUserRepository().addUser(h1);
+        }
+        if (rm.getUserRepository().getUserById("A1").isEmpty()) {
+            System.out.println("Creating doctor adm...");
+            rm.getUserRepository().addUser(a1);
         }
 
         // Initialise view
