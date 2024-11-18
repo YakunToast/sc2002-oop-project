@@ -18,8 +18,7 @@ class ConfirmedState
         appointment.setState(new CancelledState());
     }
 
-    
-    /** 
+    /**
      * @param appointment
      */
     @Override
@@ -27,8 +26,7 @@ class ConfirmedState
         appointment.setState(new CompletedState());
     }
 
-    
-    /** 
+    /**
      * @param appointment
      */
     @Override
@@ -36,8 +34,7 @@ class ConfirmedState
         appointment.setState(new FreeState());
     }
 
-    
-    /** 
+    /**
      * @param appointment
      */
     @Override
@@ -45,8 +42,7 @@ class ConfirmedState
         appointment.setState(new PendingState());
     }
 
-    
-    /** 
+    /**
      * @return AppointmentStatus
      */
     @Override

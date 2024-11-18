@@ -35,8 +35,7 @@ public class DoctorController implements AppointmentDoctor {
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @return List<Appointment>
      */
     public List<Appointment> getAppointments() {
@@ -48,16 +47,14 @@ public class DoctorController implements AppointmentDoctor {
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @return List<Appointment>
      */
     public List<Appointment> getFreeAppointments() {
         return this.getAppointments().stream().filter(a -> a.isFree()).collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @return List<Appointment>
      */
     public List<Appointment> getPendingAppointments() {
@@ -66,8 +63,7 @@ public class DoctorController implements AppointmentDoctor {
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @return List<Appointment>
      */
     public List<Appointment> getConfirmedAppointments() {
@@ -76,8 +72,7 @@ public class DoctorController implements AppointmentDoctor {
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @param startDateTime
      * @param endDateTime
      * @return Appointment
@@ -86,8 +81,7 @@ public class DoctorController implements AppointmentDoctor {
         return doctor.getSchedule().addAppointment(startDateTime, endDateTime);
     }
 
-    
-    /** 
+    /**
      * @param startDateTime
      * @param endDateTime
      * @return List<Appointment>
@@ -97,8 +91,7 @@ public class DoctorController implements AppointmentDoctor {
         return doctor.getSchedule().addAppointmentHourly(startDateTime, endDateTime);
     }
 
-    
-    /** 
+    /**
      * @param startDate
      * @param endDate
      * @param startTime
@@ -111,8 +104,7 @@ public class DoctorController implements AppointmentDoctor {
                 .addMultipleAppointmentDays(startDate, endDate, startTime, endTime);
     }
 
-    
-    /** 
+    /**
      * @param patient
      * @return MedicalRecord
      */
@@ -121,8 +113,7 @@ public class DoctorController implements AppointmentDoctor {
         return patient.getMedicalRecord();
     }
 
-    
-    /** 
+    /**
      * @param patient
      * @param diagnosis
      * @param treatment
@@ -140,16 +131,14 @@ public class DoctorController implements AppointmentDoctor {
         return true;
     }
 
-    
-    /** 
+    /**
      * @return Schedule
      */
     public Schedule getPersonalSchedule() {
         return this.doctor.getSchedule();
     }
 
-    
-    /** 
+    /**
      * @param start
      * @param end
      * @return boolean
@@ -161,8 +150,7 @@ public class DoctorController implements AppointmentDoctor {
         return true;
     }
 
-    
-    /** 
+    /**
      * @param ap
      * @return boolean
      */
@@ -174,8 +162,7 @@ public class DoctorController implements AppointmentDoctor {
         return new AppointmentController(ap).accept();
     }
 
-    
-    /** 
+    /**
      * @param ap
      * @return boolean
      */
@@ -187,8 +174,7 @@ public class DoctorController implements AppointmentDoctor {
         return new AppointmentController(ap).decline();
     }
 
-    
-    /** 
+    /**
      * @param ap
      * @param description
      * @param pr
@@ -203,8 +189,7 @@ public class DoctorController implements AppointmentDoctor {
         return true;
     }
 
-    
-    /** 
+    /**
      * @param ap
      * @return AppointmentOutcome
      */

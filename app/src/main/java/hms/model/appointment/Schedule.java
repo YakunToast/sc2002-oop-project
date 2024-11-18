@@ -28,8 +28,7 @@ public class Schedule implements Serializable {
         return this.doctor;
     }
 
-    
-    /** 
+    /**
      * @return String
      */
     public String toString() {
@@ -40,16 +39,14 @@ public class Schedule implements Serializable {
         return sb.toString();
     }
 
-    
-    /** 
+    /**
      * @return List<Appointment>
      */
     public List<Appointment> getAppointments() {
         return appointments;
     }
 
-    
-    /** 
+    /**
      * @param startDateTime
      * @param endDateTime
      * @return Appointment
@@ -61,8 +58,7 @@ public class Schedule implements Serializable {
         return appointment;
     }
 
-    
-    /** 
+    /**
      * @param startDateTime
      * @param endDateTime
      * @return List<Appointment>
@@ -80,8 +76,7 @@ public class Schedule implements Serializable {
         return appointments;
     }
 
-    
-    /** 
+    /**
      * @param startDate
      * @param endDate
      * @param startTime
@@ -106,8 +101,7 @@ public class Schedule implements Serializable {
         return appointments;
     }
 
-    
-    /** 
+    /**
      * @param ap
      */
     private void removeAppointment(Appointment ap) {

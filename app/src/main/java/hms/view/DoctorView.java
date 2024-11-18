@@ -88,8 +88,7 @@ public class DoctorView {
         System.out.println("========");
     }
 
-    
-    /** 
+    /**
      * @param sc
      * @return Patient
      */
@@ -109,8 +108,7 @@ public class DoctorView {
         return patient;
     }
 
-    
-    /** 
+    /**
      * @param sc
      * @param patient
      */
@@ -118,8 +116,7 @@ public class DoctorView {
         System.out.println(patient.getMedicalRecord());
     }
 
-    
-    /** 
+    /**
      * @param sc
      * @param patient
      */
@@ -158,8 +155,7 @@ public class DoctorView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     void viewSchedule(Scanner sc) {
@@ -170,8 +166,7 @@ public class DoctorView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     void setAppointmentAvailability(Scanner sc) {
@@ -248,8 +243,7 @@ public class DoctorView {
         System.out.println("All availabilities updated successfully.");
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     void acceptOrDeclineAppointments(Scanner sc) {
@@ -291,8 +285,7 @@ public class DoctorView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     void viewUpcomingAppointments(Scanner sc) {
@@ -303,8 +296,7 @@ public class DoctorView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     void recordAppointmentOutcome(Scanner sc) {
@@ -333,10 +325,12 @@ public class DoctorView {
                 if (appointment.getOutcome() == null) {
                     System.out.print("Enter description of appointment outcome: ");
                     String desc = sc.nextLine();
-                    
-                    System.out.println("Enter 0 if no medication required, otherwise press any key to continue.");
+
+                    System.out.println(
+                            "Enter 0 if no medication required, otherwise press any key to"
+                                + " continue.");
                     String needMedication = sc.nextLine();
-                    
+
                     Map<Medication, Integer> medications = new HashMap<>();
                     AppointmentOutcome outcome;
 
@@ -355,22 +349,21 @@ public class DoctorView {
                             Medication newMed = new Medication(medName, medDesc, medDosage);
                             medications.put(newMed, dosageQuantity);
 
-                            System.out.println("Enter 0 to return, press any key to prescribe more.");
+                            System.out.println(
+                                    "Enter 0 to return, press any key to prescribe more.");
                             needMedication = sc.nextLine();
-                            
+
                             if (needMedication.equals("0")) {
                                 break;
                             }
-                        }  
-                        
-                        Prescription pres = new Prescription(medications);   
+                        }
+
+                        Prescription pres = new Prescription(medications);
                         dc.addAppointmentOutcome(appointment, desc, pres);
-                    }
-                    
-                    else {
+                    } else {
                         dc.addAppointmentOutcome(appointment, desc, null);
                     }
-                    
+
                     System.out.println("Outcome recorded successfully.");
                 } else {
                     System.out.println("Outcome for this appointment has already been recorded.");

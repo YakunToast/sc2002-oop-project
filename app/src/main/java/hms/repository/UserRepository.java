@@ -28,8 +28,7 @@ public class UserRepository extends BaseRepository {
         users.put(User.getId(), User);
     }
 
-    
-    /** 
+    /**
      * @param user
      * @return boolean
      */
@@ -37,8 +36,7 @@ public class UserRepository extends BaseRepository {
         return users.remove(user.getId(), user);
     }
 
-    
-    /** 
+    /**
      * @return List<User>
      */
     public List<User> getAllUsers() {
@@ -49,8 +47,7 @@ public class UserRepository extends BaseRepository {
         return result;
     }
 
-    
-    /** 
+    /**
      * @param id
      * @return Optional<User>
      */
@@ -58,8 +55,7 @@ public class UserRepository extends BaseRepository {
         return Optional.ofNullable(castToAppropriateType(users.get(id)));
     }
 
-    
-    /** 
+    /**
      * @param username
      * @return Optional<User>
      */
@@ -70,8 +66,7 @@ public class UserRepository extends BaseRepository {
                 .findFirst();
     }
 
-    
-    /** 
+    /**
      * @param user
      * @return User
      */

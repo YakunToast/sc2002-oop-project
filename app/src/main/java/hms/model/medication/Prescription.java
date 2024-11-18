@@ -30,7 +30,7 @@ public class Prescription implements Serializable {
         this.status = status;
     }
 
-    /** 
+    /**
      * @return PrescriptionStatus
      */
     public PrescriptionStatus getPrescriptionStatus() {
@@ -41,8 +41,7 @@ public class Prescription implements Serializable {
         this.status = PrescriptionStatus.PENDING;
     }
 
-    
-    /** 
+    /**
      * @return boolean
      */
     public boolean isPending() {
@@ -53,8 +52,7 @@ public class Prescription implements Serializable {
         this.status = PrescriptionStatus.DISPENSED;
     }
 
-    
-    /** 
+    /**
      * @return boolean
      */
     public boolean isDispensed() {
@@ -65,28 +63,24 @@ public class Prescription implements Serializable {
         this.status = PrescriptionStatus.CANCELLED;
     }
 
-    
-    /** 
+    /**
      * @return boolean
      */
     public boolean isCancelled() {
         return this.status == PrescriptionStatus.CANCELLED;
     }
 
-    
-    /** 
+    /**
      * @return Map<Medication, Integer>
      */
     public Map<Medication, Integer> getMedications() {
         return this.medications;
     }
 
-    
-    /** 
+    /**
      * @param medication
      */
     public void setMedications(Map<Medication, Integer> medication) {
         this.medications = medication;
     }
-
 }

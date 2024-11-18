@@ -32,8 +32,7 @@ public class PharmacistController implements InventoryUser {
         return AppointmentController.getAppointmentOutcomes();
     }
 
-    
-    /** 
+    /**
      * @return List<Prescription>
      */
     public List<Prescription> getPendingPrescriptions() {
@@ -43,8 +42,7 @@ public class PharmacistController implements InventoryUser {
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @param p
      * @return boolean
      */
@@ -62,8 +60,7 @@ public class PharmacistController implements InventoryUser {
         return true;
     }
 
-    
-    /** 
+    /**
      * @param p
      * @return boolean
      */
@@ -81,8 +78,7 @@ public class PharmacistController implements InventoryUser {
         return true;
     }
 
-    
-    /** 
+    /**
      * @param p
      * @param ps
      * @return boolean
@@ -97,8 +93,7 @@ public class PharmacistController implements InventoryUser {
         return true;
     }
 
-    
-    /** 
+    /**
      * @return Inventory
      */
     @Override
@@ -106,8 +101,7 @@ public class PharmacistController implements InventoryUser {
         return this.inventoryController.getInventory();
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @return int
      */
@@ -116,8 +110,7 @@ public class PharmacistController implements InventoryUser {
         return this.inventoryController.getMedicationStock(medication);
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @return int
      */
@@ -126,8 +119,7 @@ public class PharmacistController implements InventoryUser {
         return this.inventoryController.getMedicationStockAlert(medication);
     }
 
-    
-    /** 
+    /**
      * @return List<Medication>
      */
     @Override
@@ -135,8 +127,7 @@ public class PharmacistController implements InventoryUser {
         return this.inventoryController.getMedications();
     }
 
-    
-    /** 
+    /**
      * @param name
      * @return Optional<Medication>
      */
@@ -145,8 +136,7 @@ public class PharmacistController implements InventoryUser {
         return this.inventoryController.getMedicationByName(name);
     }
 
-    
-    /** 
+    /**
      * @param uuid
      * @return Optional<Medication>
      */
@@ -155,8 +145,7 @@ public class PharmacistController implements InventoryUser {
         return this.inventoryController.getMedicationByUUID(uuid);
     }
 
-    
-    /** 
+    /**
      * @param uuid
      * @return Optional<Medication>
      */
@@ -165,8 +154,7 @@ public class PharmacistController implements InventoryUser {
         return this.inventoryController.getMedicationByUUID(uuid);
     }
 
-    
-    /** 
+    /**
      * @param m
      * @param qty
      * @return ReplenishmentRequest

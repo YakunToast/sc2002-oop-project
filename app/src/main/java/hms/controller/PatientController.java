@@ -20,31 +20,28 @@ public class PatientController implements AppointmentUser {
         this.patient = patient;
     }
 
-    /** 
+    /**
      * @return Patient
      */
     public Patient getPatient() {
         return this.patient;
     }
 
-    
-    /** 
+    /**
      * @param email
      */
     public void setEmail(String email) {
         this.patient.setEmail(email);
     }
 
-    
-    /** 
+    /**
      * @param phoneNumber
      */
     public void setPhoneNumber(String phoneNumber) {
         this.patient.setPhoneNumber(phoneNumber);
     }
 
-    
-    /** 
+    /**
      * @return MedicalRecord
      */
     @Override
@@ -52,8 +49,7 @@ public class PatientController implements AppointmentUser {
         return this.patient.getMedicalRecord();
     }
 
-    
-    /** 
+    /**
      * @return List<Doctor>
      */
     @Override
@@ -64,8 +60,7 @@ public class PatientController implements AppointmentUser {
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @return List<Doctor>
      */
     @Override
@@ -75,8 +70,7 @@ public class PatientController implements AppointmentUser {
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @return List<Appointment>
      */
     @Override
@@ -89,8 +83,7 @@ public class PatientController implements AppointmentUser {
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @return HashMap<Doctor, List<Appointment>>
      */
     @Override
@@ -110,8 +103,7 @@ public class PatientController implements AppointmentUser {
                                 HashMap::new));
     }
 
-    
-    /** 
+    /**
      * @return List<Appointment>
      */
     @Override
@@ -121,8 +113,7 @@ public class PatientController implements AppointmentUser {
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @param ap
      * @return boolean
      */
@@ -137,8 +128,7 @@ public class PatientController implements AppointmentUser {
         return true;
     }
 
-    
-    /** 
+    /**
      * @param oldAp
      * @param newAp
      * @return boolean
@@ -161,8 +151,7 @@ public class PatientController implements AppointmentUser {
         return true;
     }
 
-    
-    /** 
+    /**
      * @param ap
      */
     @Override
@@ -171,8 +160,7 @@ public class PatientController implements AppointmentUser {
         ac.cancelAppointment();
     }
 
-    
-    /** 
+    /**
      * @return List<Appointment>
      */
     @Override
@@ -181,8 +169,7 @@ public class PatientController implements AppointmentUser {
         return this.getPersonalAppointments().stream().collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @return List<AppointmentOutcome>
      */
     @Override
@@ -193,8 +180,7 @@ public class PatientController implements AppointmentUser {
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @param ap
      * @return AppointmentOutcome
      */

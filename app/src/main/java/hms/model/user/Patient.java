@@ -63,8 +63,7 @@ public class Patient extends User {
         return medicalRecord;
     }
 
-    
-    /** 
+    /**
      * @param phone
      * @param email
      */
@@ -72,48 +71,42 @@ public class Patient extends User {
         medicalRecord.updateContactInformation(phone, email);
     }
 
-    
-    /** 
+    /**
      * @return List<Appointment>
      */
     public List<Appointment> getAppointments() {
         return Collections.unmodifiableList(appointments);
     }
 
-    
-    /** 
+    /**
      * @param appointment
      */
     public void addAppointment(Appointment appointment) {
         appointments.add(appointment);
     }
 
-    
-    /** 
+    /**
      * @return String
      */
     public String getDateOfBirth() {
         return this.dateOfBirth;
     }
 
-    
-    /** 
+    /**
      * @param dateOfBirth
      */
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    
-    /** 
+    /**
      * @return Gender
      */
     public Gender getGender() {
         return this.gender;
     }
 
-    
-    /** 
+    /**
      * @param gender
      */
     public void setGender(String gender) {
@@ -126,24 +119,21 @@ public class Patient extends User {
         }
     }
 
-    
-    /** 
+    /**
      * @return String
      */
     public String getBloodType() {
         return this.bloodType;
     }
 
-    
-    /** 
+    /**
      * @param bloodType
      */
     public void setBloodType(String bloodType) {
         this.bloodType = bloodType;
     }
 
-    
-    /** 
+    /**
      * @return List<Appointment>
      */
     public List<Appointment> getPastAppointments() {

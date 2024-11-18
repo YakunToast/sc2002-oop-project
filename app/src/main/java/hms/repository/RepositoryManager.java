@@ -43,8 +43,7 @@ public class RepositoryManager implements Serializable {
         }
     }
 
-    
-    /** 
+    /**
      * @param filePath
      * @throws IOException
      */
@@ -64,8 +63,7 @@ public class RepositoryManager implements Serializable {
         }
     }
 
-    
-    /** 
+    /**
      * @param filePath
      * @throws IOException
      * @throws ClassNotFoundException
@@ -85,24 +83,21 @@ public class RepositoryManager implements Serializable {
         }
     }
 
-    
-    /** 
+    /**
      * @return UserRepository
      */
     public UserRepository getUserRepository() {
         return userRepository;
     }
 
-    
-    /** 
+    /**
      * @return AppointmentRepository
      */
     public AppointmentRepository getAppointmentRepository() {
         return appointmentRepository;
     }
 
-    
-    /** 
+    /**
      * @return InventoryRepository
      */
     public InventoryRepository getInventoryRepository() {

@@ -38,8 +38,7 @@ public class TestUtils {
         return patient;
     }
 
-    
-    /** 
+    /**
      * @return Doctor
      */
     public static Doctor createTestDoctor() {
@@ -56,8 +55,7 @@ public class TestUtils {
         return doctor;
     }
 
-    
-    /** 
+    /**
      * @return Pharmacist
      */
     public static Pharmacist createTestPharmacist() {
@@ -74,8 +72,7 @@ public class TestUtils {
         return pharmacist;
     }
 
-    
-    /** 
+    /**
      * @return Administrator
      */
     public static Administrator createTestAdmin() {
@@ -92,8 +89,7 @@ public class TestUtils {
         return admin;
     }
 
-    
-    /** 
+    /**
      * @return Medication
      */
     public static Medication createTestMedication() {
@@ -131,8 +127,7 @@ public class TestUtils {
         return ap;
     }
 
-    
-    /** 
+    /**
      * @param d
      * @return List<Appointment>
      */

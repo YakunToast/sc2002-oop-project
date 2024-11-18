@@ -32,8 +32,7 @@ public class AppointmentController {
         return true;
     }
 
-    
-    /** 
+    /**
      * @return boolean
      */
     public boolean decline() {
@@ -41,8 +40,7 @@ public class AppointmentController {
         return true;
     }
 
-    
-    /** 
+    /**
      * @return List<AppointmentOutcome>
      */
     public static List<AppointmentOutcome> getAppointmentOutcomes() {

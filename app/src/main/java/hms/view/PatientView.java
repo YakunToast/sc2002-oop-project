@@ -84,8 +84,7 @@ public class PatientView {
         System.out.println("---------------------------");
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     void updatePersonalInformation(Scanner sc) {
@@ -117,8 +116,7 @@ public class PatientView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     // Unnecessary function?
@@ -138,8 +136,7 @@ public class PatientView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      * @return Appointment
      */
@@ -181,8 +178,7 @@ public class PatientView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     void scheduleAppointment(Scanner sc) {
@@ -191,8 +187,7 @@ public class PatientView {
         System.out.println("Appointment scheduled successfully. Please wait for confirmation.");
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     void rescheduleAppointment(Scanner sc) {
@@ -216,8 +211,7 @@ public class PatientView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     void cancelAppointment(Scanner sc) {
@@ -240,8 +234,7 @@ public class PatientView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     void viewScheduledAppointments(Scanner sc) {
@@ -252,8 +245,7 @@ public class PatientView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     void viewPastAppointmentOutcomes(Scanner sc) {
@@ -265,12 +257,17 @@ public class PatientView {
             medications = apptOutcomes.get(i).getPrescription().get().getMedications();
             System.out.println(i + 1 + ". ");
             System.out.println("Description: " + desc);
-            System.out.println("Prescription:" );
+            System.out.println("Prescription:");
             for (Map.Entry<Medication, Integer> e : medications.entrySet()) {
-                System.out.println(e.getKey().getName() + ", " 
-                                + e.getKey().getDescription() + ", " 
-                                + e.getKey().getDosageInstructions() + ", "
-                                + "Amount given: " + e.getValue());
+                System.out.println(
+                        e.getKey().getName()
+                                + ", "
+                                + e.getKey().getDescription()
+                                + ", "
+                                + e.getKey().getDosageInstructions()
+                                + ", "
+                                + "Amount given: "
+                                + e.getValue());
             }
         }
     }

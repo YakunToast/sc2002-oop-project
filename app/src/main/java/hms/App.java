@@ -51,12 +51,14 @@ public class App {
                                 }));
 
         // Create sample users
-        Patient p1 = new Patient("P1", "pat", "first", "patient", "password", "abc@xyz.com", "+1234");
+        Patient p1 =
+                new Patient("P1", "pat", "first", "patient", "password", "abc@xyz.com", "+1234");
         Doctor d1 = new Doctor("D1", "doc", "first", "doctor", "password", "cba@xyz.com", "+1234");
         Pharmacist h1 =
                 new Pharmacist("H1", "pha", "pha", "doctor", "password", "cba@xyz.com", "+1234");
         Administrator a1 =
-                new Administrator("A1", "adm", "first", "doctor", "password", "cba@xyz.com", "+1234");
+                new Administrator(
+                        "A1", "adm", "first", "doctor", "password", "cba@xyz.com", "+1234");
 
         new DoctorController(d1)
                 .addAppointmentHourly(
@@ -86,8 +88,7 @@ public class App {
         mv.start();
     }
 
-    
-    /** 
+    /**
      * @param filePath
      */
     public static void loadPatientsFromExcel(String filePath) {
@@ -143,8 +144,7 @@ public class App {
         }
     }
 
-    
-    /** 
+    /**
      * @param filePath
      */
     public static void loadMedicinesFromExcel(String filePath) {
@@ -190,8 +190,7 @@ public class App {
         }
     }
 
-    
-    /** 
+    /**
      * @param filePath
      */
     public static void loadStaffsFromExcel(String filePath) {

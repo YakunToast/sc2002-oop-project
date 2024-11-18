@@ -69,8 +69,7 @@ public class AdministratorView {
         System.out.println("0. Logout");
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     private void viewAndManageHospitalStaff(Scanner sc) {
@@ -119,8 +118,7 @@ public class AdministratorView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     private void addStaffMember(Scanner sc) {
@@ -170,8 +168,7 @@ public class AdministratorView {
         System.out.println("Staff member added successfully! ID: " + newStaff.getId());
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     private void updateStaffMember(Scanner sc) {
@@ -206,8 +203,7 @@ public class AdministratorView {
         System.out.println("Staff member updated successfully!");
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     private void removeStaffMember(Scanner sc) {
@@ -229,8 +225,7 @@ public class AdministratorView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     // not sure this is needed, just for additional feature
@@ -284,8 +279,7 @@ public class AdministratorView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     private void viewAppointmentDetails(Scanner sc) {
@@ -312,8 +306,7 @@ public class AdministratorView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     private void viewAndManageMedicationInventory(Scanner sc) {
@@ -363,8 +356,7 @@ public class AdministratorView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     private void addNewMedication(Scanner sc) {
@@ -393,8 +385,7 @@ public class AdministratorView {
         System.out.println("Medication added successfully!");
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     // TODO: we should have a stock level right?
@@ -418,8 +409,7 @@ public class AdministratorView {
         System.out.println("Stock level updated successfully!");
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     // TODO: we should have an alert for stock level right?
@@ -443,8 +433,7 @@ public class AdministratorView {
         System.out.println("Low stock alert level updated successfully!");
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     private void approveReplenishmentRequests(Scanner sc) {
