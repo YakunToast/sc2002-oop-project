@@ -14,8 +14,7 @@ public class CompletedState
         appointment.setState(new FreeState());
     }
 
-    
-    /** 
+    /**
      * @param appointment
      */
     @Override
@@ -23,8 +22,7 @@ public class CompletedState
         appointment.setState(new PendingState());
     }
 
-    
-    /** 
+    /**
      * @return AppointmentStatus
      */
     @Override

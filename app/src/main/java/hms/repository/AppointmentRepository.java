@@ -30,8 +30,7 @@ public class AppointmentRepository extends BaseRepository {
         appointments.put(getNextId(), appointment);
     }
 
-    
-    /** 
+    /**
      * @param appointment
      * @return boolean
      */
@@ -39,16 +38,14 @@ public class AppointmentRepository extends BaseRepository {
         return appointments.remove(appointment.getId(), appointment);
     }
 
-    
-    /** 
+    /**
      * @return List<Appointment>
      */
     public List<Appointment> getAllAppointments() {
         return new ArrayList<>(appointments.values());
     }
 
-    
-    /** 
+    /**
      * @param id
      * @return Optional<Appointment>
      */

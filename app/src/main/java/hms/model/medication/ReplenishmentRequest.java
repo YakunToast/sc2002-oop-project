@@ -34,8 +34,7 @@ public class ReplenishmentRequest implements Serializable {
         this.status = ReplenishmentRequestStatus.PENDING;
     }
 
-    
-    /** 
+    /**
      * @return boolean
      */
     public boolean isPending() {
@@ -46,24 +45,21 @@ public class ReplenishmentRequest implements Serializable {
         this.status = ReplenishmentRequestStatus.APPROVED;
     }
 
-    
-    /** 
+    /**
      * @return boolean
      */
     public boolean isApproved() {
         return this.status == ReplenishmentRequestStatus.APPROVED;
     }
 
-    
-    /** 
+    /**
      * @return Medication
      */
     public Medication getMedication() {
         return this.medication;
     }
 
-    
-    /** 
+    /**
      * @return int
      */
     public int getRequestedQuantity() {

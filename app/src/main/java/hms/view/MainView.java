@@ -91,8 +91,7 @@ public class MainView {
         return null;
     }
 
-    
-    /** 
+    /**
      * @param sc
      * @param user
      */
@@ -122,8 +121,7 @@ public class MainView {
         }
     }
 
-    
-    /** 
+    /**
      * @param password
      * @return boolean
      */
@@ -136,8 +134,7 @@ public class MainView {
                 && password.matches(".*\\d.*");
     }
 
-    
-    /** 
+    /**
      * @param sc
      * @param user
      */

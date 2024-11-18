@@ -39,8 +39,7 @@ public class Inventory implements Serializable {
         return true;
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @param qty
      * @return boolean
@@ -53,8 +52,7 @@ public class Inventory implements Serializable {
         return true;
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @param qty
      * @return boolean
@@ -67,8 +65,7 @@ public class Inventory implements Serializable {
         return true;
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @return boolean
      */
@@ -86,8 +83,7 @@ public class Inventory implements Serializable {
         return true;
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @param qty
      * @return boolean
@@ -105,8 +101,7 @@ public class Inventory implements Serializable {
         return true;
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @param qty
      * @return boolean
@@ -119,8 +114,7 @@ public class Inventory implements Serializable {
         return true;
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @return int
      */
@@ -128,16 +122,14 @@ public class Inventory implements Serializable {
         return this.alert.get(medication.getName());
     }
 
-    
-    /** 
+    /**
      * @return List<Medication>
      */
     public List<Medication> getMedications() {
         return List.copyOf(this.medications.values());
     }
 
-    
-    /** 
+    /**
      * @param name
      * @return Optional<Medication>
      */
@@ -145,8 +137,7 @@ public class Inventory implements Serializable {
         return Optional.ofNullable(this.medications.get(name));
     }
 
-    
-    /** 
+    /**
      * @param id
      * @return Optional<Medication>
      */
@@ -154,8 +145,7 @@ public class Inventory implements Serializable {
         return this.medications.values().stream().filter(m -> m.getId() == id).findFirst();
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @return int
      */

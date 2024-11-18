@@ -42,80 +42,70 @@ public abstract class User implements Serializable {
         return id;
     }
 
-    
-    /** 
+    /**
      * @return String
      */
     public String getUsername() {
         return username;
     }
 
-    
-    /** 
+    /**
      * @param firstName
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    
-    /** 
+    /**
      * @return String
      */
     public String getFirstName() {
         return firstName;
     }
 
-    
-    /** 
+    /**
      * @param lastName
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    
-    /** 
+    /**
      * @return String
      */
     public String getLastName() {
         return lastName;
     }
 
-    
-    /** 
+    /**
      * @param email
      */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    
-    /** 
+    /**
      * @return String
      */
     public String getEmail() {
         return email;
     }
 
-    
-    /** 
+    /**
      * @param phoneNumber
      */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    
-    /** 
+    /**
      * @return String
      */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    
-    /** 
+    /**
      * @param password
      */
     public void setPassword(String password) {
@@ -123,8 +113,7 @@ public abstract class User implements Serializable {
         this.hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
-    
-    /** 
+    /**
      * @param password
      * @return boolean
      */
@@ -132,16 +121,14 @@ public abstract class User implements Serializable {
         return BCrypt.checkpw(password, this.hashedPassword);
     }
 
-    
-    /** 
+    /**
      * @return UserRole
      */
     public UserRole getRole() {
         return role;
     }
 
-    
-    /** 
+    /**
      * @return String
      */
     public String getName() {

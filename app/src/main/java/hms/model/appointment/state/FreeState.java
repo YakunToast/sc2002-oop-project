@@ -13,8 +13,7 @@ public class FreeState implements IAppointmentState, IConfirmableAppointment, IP
         appointment.setState(new ConfirmedState());
     }
 
-    
-    /** 
+    /**
      * @param appointment
      */
     @Override
@@ -22,8 +21,7 @@ public class FreeState implements IAppointmentState, IConfirmableAppointment, IP
         appointment.setState(new PendingState());
     }
 
-    
-    /** 
+    /**
      * @return AppointmentStatus
      */
     @Override

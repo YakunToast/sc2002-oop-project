@@ -23,24 +23,21 @@ public class InventoryRepository extends BaseRepository {
         return this.inventory;
     }
 
-    
-    /** 
+    /**
      * @return List<ReplenishmentRequest>
      */
     public List<ReplenishmentRequest> getReplenishmentRequests() {
         return List.copyOf(this.replenishmentRequest);
     }
 
-    
-    /** 
+    /**
      * @param rr
      */
     public void addReplenishmentRequest(ReplenishmentRequest rr) {
         this.replenishmentRequest.add(rr);
     }
 
-    
-    /** 
+    /**
      * @param rr
      */
     public void removeReplenishmentRequest(ReplenishmentRequest rr) {

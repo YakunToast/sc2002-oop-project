@@ -16,23 +16,21 @@ public class InventoryController {
         this.inventory = RepositoryManager.getInstance().getInventoryRepository().getInventory();
     }
 
-    /** 
+    /**
      * @return Inventory
      */
     public Inventory getInventory() {
         return inventory;
     }
 
-    
-    /** 
+    /**
      * @return List<Medication>
      */
     public List<Medication> getMedications() {
         return inventory.getMedications();
     }
 
-    
-    /** 
+    /**
      * @param name
      * @return Optional<Medication>
      */
@@ -40,8 +38,7 @@ public class InventoryController {
         return inventory.getMedicationByName(name);
     }
 
-    
-    /** 
+    /**
      * @param uuid
      * @return Optional<Medication>
      */
@@ -49,8 +46,7 @@ public class InventoryController {
         return inventory.getMedicationByUUID(uuid);
     }
 
-    
-    /** 
+    /**
      * @param uuid
      * @return Optional<Medication>
      */
@@ -58,8 +54,7 @@ public class InventoryController {
         return inventory.getMedicationByUUID(UUID.fromString(uuid));
     }
 
-    
-    /** 
+    /**
      * @param rr
      * @return boolean
      */
@@ -68,8 +63,7 @@ public class InventoryController {
         return true;
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @return int
      */
@@ -77,8 +71,7 @@ public class InventoryController {
         return this.inventory.getMedicationStock(medication);
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @return boolean
      */
@@ -86,8 +79,7 @@ public class InventoryController {
         return this.inventory.addMedication(medication);
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @param qty
      * @return boolean
@@ -96,8 +88,7 @@ public class InventoryController {
         return this.inventory.addMedicationStock(medication, qty);
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @param qty
      * @return boolean
@@ -106,8 +97,7 @@ public class InventoryController {
         return this.inventory.setMedicationStock(medication, qty);
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @return boolean
      */
@@ -115,8 +105,7 @@ public class InventoryController {
         return this.inventory.removeMedication(medication);
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @param qty
      * @return boolean
@@ -125,8 +114,7 @@ public class InventoryController {
         return this.inventory.removeMedicationStock(medication, qty);
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @param alertQty
      * @return boolean
@@ -135,8 +123,7 @@ public class InventoryController {
         return this.inventory.setMedicationStockAlert(medication, alertQty);
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @return int
      */

@@ -56,8 +56,7 @@ public class PharmacistView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     void viewAppointmentOutcomeRecords(Scanner sc) {
@@ -85,8 +84,7 @@ public class PharmacistView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     void updatePrescriptionStatus(Scanner sc) {
@@ -162,8 +160,7 @@ public class PharmacistView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     // TODO: add stock level in medication
@@ -187,8 +184,7 @@ public class PharmacistView {
         }
     }
 
-    
-    /** 
+    /**
      * @param sc
      */
     void submitReplenishmentRequest(Scanner sc) {

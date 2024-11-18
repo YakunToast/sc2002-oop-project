@@ -40,7 +40,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         this.inventoryController = new InventoryController();
     }
 
-    /** 
+    /**
      * @param user
      * @return boolean
      */
@@ -65,16 +65,14 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.ur.removeUser(user);
     }
 
-    
-    /** 
+    /**
      * @return List<User>
      */
     public List<User> getUsers() {
         return this.ur.getAllUsers();
     }
 
-    
-    /** 
+    /**
      * @param id
      * @return Optional<Staff>
      */
@@ -82,8 +80,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.ur.getUserById(id).filter(u -> u instanceof Staff).map(u -> (Staff) u);
     }
 
-    
-    /** 
+    /**
      * @param username
      * @return Optional<Staff>
      */
@@ -94,8 +91,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
                 .map(u -> (Staff) u);
     }
 
-    
-    /** 
+    /**
      * @param id
      * @return Optional<Patient>
      */
@@ -103,8 +99,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.ur.getUserById(id).filter(u -> u instanceof Patient).map(u -> (Patient) u);
     }
 
-    
-    /** 
+    /**
      * @param username
      * @return Optional<Patient>
      */
@@ -115,8 +110,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
                 .map(u -> (Patient) u);
     }
 
-    
-    /** 
+    /**
      * @param id
      * @return Optional<Doctor>
      */
@@ -124,8 +118,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.ur.getUserById(id).filter(u -> u instanceof Doctor).map(u -> (Doctor) u);
     }
 
-    
-    /** 
+    /**
      * @param username
      * @return Optional<Doctor>
      */
@@ -136,8 +129,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
                 .map(u -> (Doctor) u);
     }
 
-    
-    /** 
+    /**
      * @return List<Staff>
      */
     public List<Staff> getStaffs() {
@@ -147,8 +139,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @return List<Patient>
      */
     public List<Patient> getPatients() {
@@ -158,8 +149,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @return List<Doctor>
      */
     public List<Doctor> getDoctors() {
@@ -169,8 +159,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @return List<Pharmacist>
      */
     public List<Pharmacist> getPharmacists() {
@@ -180,8 +169,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @return List<Appointment>
      */
     @Override
@@ -189,8 +177,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.ar.getAllAppointments();
     }
 
-    
-    /** 
+    /**
      * @param as
      * @return List<Appointment>
      */
@@ -201,8 +188,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @param id
      * @return Optional<Appointment>
      */
@@ -211,8 +197,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.ar.getAppointmentById(id);
     }
 
-    
-    /** 
+    /**
      * @param ap
      * @return AppointmentOutcome
      */
@@ -221,8 +206,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return ap.getOutcome();
     }
 
-    
-    /** 
+    /**
      * @return Inventory
      */
     @Override
@@ -230,8 +214,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.inventoryController.getInventory();
     }
 
-    
-    /** 
+    /**
      * @return List<Medication>
      */
     @Override
@@ -239,8 +222,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.inventoryController.getMedications();
     }
 
-    
-    /** 
+    /**
      * @param name
      * @return Optional<Medication>
      */
@@ -249,8 +231,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.inventoryController.getMedicationByName(name);
     }
 
-    
-    /** 
+    /**
      * @param uuid
      * @return Optional<Medication>
      */
@@ -259,8 +240,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.inventoryController.getMedicationByUUID(uuid);
     }
 
-    
-    /** 
+    /**
      * @param uuid
      * @return Optional<Medication>
      */
@@ -269,8 +249,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.inventoryController.getMedicationByUUID(uuid);
     }
 
-    
-    /** 
+    /**
      * @param rr
      * @return boolean
      */
@@ -284,8 +263,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return true;
     }
 
-    
-    /** 
+    /**
      * @return List<ReplenishmentRequest>
      */
     @Override
@@ -298,8 +276,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
                 .collect(Collectors.toList());
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @return int
      */
@@ -308,8 +285,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.inventoryController.getMedicationStock(medication);
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @return boolean
      */
@@ -318,8 +294,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.inventoryController.addMedication(medication);
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @param qty
      * @return boolean
@@ -329,8 +304,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.inventoryController.addMedicationStock(medication, qty);
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @param qty
      * @return boolean
@@ -340,8 +314,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.inventoryController.setMedicationStock(medication, qty);
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @return boolean
      */
@@ -350,8 +323,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.inventoryController.removeMedication(medication);
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @param qty
      * @return boolean
@@ -361,8 +333,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.inventoryController.removeMedicationStock(medication, qty);
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @param alertQty
      * @return boolean
@@ -372,8 +343,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.inventoryController.setMedicationStockAlert(medication, alertQty);
     }
 
-    
-    /** 
+    /**
      * @param medication
      * @return int
      */
