@@ -8,8 +8,7 @@ public class Pharmacist extends Staff {
             String lastName,
             String password,
             String email,
-            String phoneNumber,
-            UserRole role) {
-        super(id, username, firstName, lastName, password, email, phoneNumber, role);
+            String phoneNumber) {
+        super(id, username, firstName, lastName, password, email, phoneNumber, UserRole.PHARMACIST);
     }
 }
