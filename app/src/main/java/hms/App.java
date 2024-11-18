@@ -62,19 +62,19 @@ public class App {
 
         // Save sample users
         if (rm.getUserRepository().getUserById("P1").isEmpty()) {
-            System.out.println("Creating patient pat...");
+            System.out.println("Creating Patient pat...");
             rm.getUserRepository().addUser(p1);
         }
         if (rm.getUserRepository().getUserById("D1").isEmpty()) {
-            System.out.println("Creating doctor doc...");
+            System.out.println("Creating Doctor doc...");
             rm.getUserRepository().addUser(d1);
         }
         if (rm.getUserRepository().getUserById("H1").isEmpty()) {
-            System.out.println("Creating doctor pha...");
+            System.out.println("Creating Pharmacist pha...");
             rm.getUserRepository().addUser(h1);
         }
         if (rm.getUserRepository().getUserById("A1").isEmpty()) {
-            System.out.println("Creating doctor adm...");
+            System.out.println("Creating Admin adm...");
             rm.getUserRepository().addUser(a1);
         }
 
