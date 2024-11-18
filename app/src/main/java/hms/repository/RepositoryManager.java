@@ -44,6 +44,7 @@ public class RepositoryManager implements Serializable {
             System.out.println("saved database!");
         } catch (IOException e) {
             System.out.println("failed to serialise database");
+            e.printStackTrace();
         }
     }
 
