@@ -27,6 +27,8 @@ class RepositoryTest {
     private PatientController patientController;
     private Pharmacist testPharmacist;
     private PharmacistController pharmacistController;
+    private Administrator testAdministrator;
+    private AdministratorController administratorController;
     private Medication testMedication;
 
     @BeforeEach
@@ -36,11 +38,13 @@ class RepositoryTest {
         testDoctor = TestUtils.createTestDoctor();
         testPatient = TestUtils.createTestPatient();
         testPharmacist = TestUtils.createTestPharmacist();
+        testAdministrator = TestUtils.createTestAdmin();
         testMedication = TestUtils.createTestMedication();
 
         doctorController = new DoctorController(testDoctor);
         patientController = new PatientController(testPatient);
         pharmacistController = new PharmacistController(testPharmacist);
+        administratorController = new AdministratorController(testAdministrator);
     }
 
     @Test
@@ -82,9 +86,17 @@ class RepositoryTest {
                                 .getUserRepository()
                                 .getUserByUsername(testPharmacist.getUsername())
                                 .get();
+        Administrator newTestAdministrator =
+                (Administrator)
+                        RepositoryManager.getInstance()
+                                .getUserRepository()
+                                .getUserByUsername(testAdministrator.getUsername())
+                                .get();
         PatientController newPatientController = new PatientController(newTestPatient);
         DoctorController newDoctorController = new DoctorController(newTestDoctor);
         PharmacistController newPharmacistController = new PharmacistController(newTestPharmacist);
+        AdministratorController newAdministratorController =
+                new AdministratorController(newTestAdministrator);
 
         // Get appointment and check appointment
         Appointment newAppointment = newDoctorController.getAppointments().get(0);
