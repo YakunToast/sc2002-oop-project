@@ -4,6 +4,10 @@ import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentStatus;
 
 public class FreeState implements IAppointmentState, IConfirmableAppointment, IPendableAppointment {
+
+    /**
+     * @param appointment
+     */
     @Override
     public void confirm(Appointment appointment) {
         appointment.setState(new ConfirmedState());

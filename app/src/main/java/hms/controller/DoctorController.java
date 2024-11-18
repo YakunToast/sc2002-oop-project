@@ -25,6 +25,9 @@ public class DoctorController implements AppointmentDoctor {
         this.doctor = doctor;
     }
 
+    /**
+     * @return List<Patient>
+     */
     public List<Patient> getPatients() {
         return RepositoryManager.getInstance().getUserRepository().getAllUsers().stream()
                 .filter(u -> u.getRole() == UserRole.PATIENT)

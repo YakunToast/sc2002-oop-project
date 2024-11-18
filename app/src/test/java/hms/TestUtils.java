@@ -18,6 +18,9 @@ import hms.repository.RepositoryManager;
 public class TestUtils {
     private static RepositoryManager rm = RepositoryManager.getInstance();
 
+    /**
+     * @return Patient
+     */
     public static Patient createTestPatient() {
         Patient patient =
                 new Patient(

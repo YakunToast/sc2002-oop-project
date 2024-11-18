@@ -31,6 +31,9 @@ public class AdministratorView {
         this.repositoryManager = RepositoryManager.getInstance();
     }
 
+    /**
+     * @param sc
+     */
     void start(Scanner sc) {
         while (true) {
             displayMenu();

@@ -45,6 +45,10 @@ public class MainView {
         System.out.println("Please log in to continue\n");
     }
 
+    /**
+     * @param sc
+     * @return User
+     */
     private User handleLogin(Scanner sc) {
         int attempts = 0;
         while (attempts < MAX_LOGIN_ATTEMPTS) {

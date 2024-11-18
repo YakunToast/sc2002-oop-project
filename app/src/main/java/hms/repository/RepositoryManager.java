@@ -21,6 +21,9 @@ public class RepositoryManager implements Serializable {
         this.inventoryRepository = new InventoryRepository();
     }
 
+    /**
+     * @return RepositoryManager
+     */
     public static RepositoryManager getInstance() {
         if (instance == null) {
             synchronized (RepositoryManager.class) {

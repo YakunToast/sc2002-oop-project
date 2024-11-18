@@ -16,6 +16,9 @@ public class InventoryRepository extends BaseRepository {
         this.replenishmentRequest = new HashSet<>();
     }
 
+    /**
+     * @return Inventory
+     */
     public Inventory getInventory() {
         return this.inventory;
     }

@@ -21,6 +21,9 @@ public class UserRepository extends BaseRepository {
         users = new HashMap<>();
     }
 
+    /**
+     * @param User
+     */
     public void addUser(User User) {
         users.put(User.getId(), User);
     }

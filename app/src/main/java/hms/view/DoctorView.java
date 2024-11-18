@@ -23,6 +23,9 @@ public class DoctorView {
         this.dc = new DoctorController(doctor);
     }
 
+    /**
+     * @param sc
+     */
     void start(Scanner sc) {
         while (true) {
             System.out.println("What would you like to do next?");

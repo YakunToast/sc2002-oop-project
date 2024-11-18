@@ -20,6 +20,9 @@ public class PatientController implements AppointmentUser {
         this.patient = patient;
     }
 
+    /**
+     * @return Patient
+     */
     public Patient getPatient() {
         return this.patient;
     }

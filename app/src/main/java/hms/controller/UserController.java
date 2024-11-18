@@ -14,6 +14,12 @@ public class UserController {
         this.userRepository = RepositoryManager.getInstance().getUserRepository();
     }
 
+    /**
+     * @param idOrUsername
+     * @param password
+     * @return Optional<User>
+     * @throws IllegalArgumentException
+     */
     public Optional<User> login(String idOrUsername, String password)
             throws IllegalArgumentException {
         if (idOrUsername == null || password == null) {

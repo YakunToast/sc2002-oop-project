@@ -55,6 +55,9 @@ public class Appointment implements Serializable {
         this.uuid = uuid;
     }
 
+    /**
+     * @return String
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

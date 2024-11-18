@@ -99,6 +99,9 @@ public class Medication implements Serializable {
         return id;
     }
 
+    /**
+     * @param medicationId
+     */
     public void setId(UUID medicationId) {
         this.id = medicationId;
     }

@@ -30,6 +30,9 @@ public class Prescription implements Serializable {
         this.status = status;
     }
 
+    /**
+     * @return PrescriptionStatus
+     */
     public PrescriptionStatus getPrescriptionStatus() {
         return this.status;
     }

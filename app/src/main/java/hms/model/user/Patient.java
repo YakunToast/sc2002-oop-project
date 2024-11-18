@@ -56,6 +56,9 @@ public class Patient extends User {
         this.setBloodType(bloodType);
     }
 
+    /**
+     * @return MedicalRecord
+     */
     public MedicalRecord getMedicalRecord() {
         return medicalRecord;
     }

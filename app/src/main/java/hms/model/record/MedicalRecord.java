@@ -31,6 +31,10 @@ public class MedicalRecord implements Serializable {
         this.treatments = new ArrayList<>();
     }
 
+    /**
+     * @param phone
+     * @param email
+     */
     // Only allow updating contact information
     public void updateContactInformation(String phone, String email) {
         this.contactPhone = phone;

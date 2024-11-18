@@ -20,6 +20,9 @@ public class AppointmentRepository extends BaseRepository {
         appointmentOutcomes = new HashMap<>();
     }
 
+    /**
+     * @param appointment
+     */
     public void addAppointment(Appointment appointment) {
         appointments.put(appointment.getId(), appointment);
     }

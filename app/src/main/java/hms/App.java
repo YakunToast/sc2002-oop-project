@@ -29,6 +29,9 @@ import hms.view.MainView;
 public class App {
     public static RepositoryManager rm;
 
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         // Prepare repositories
         RepositoryManager.load();

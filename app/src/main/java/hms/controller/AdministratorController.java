@@ -40,6 +40,10 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         this.inventoryController = new InventoryController();
     }
 
+    /**
+     * @param user
+     * @return boolean
+     */
     public boolean addUser(User user) {
         if (this.ur.getUserById(user.getId()).isPresent()) {
             return false;
@@ -53,6 +57,10 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return true;
     }
 
+    /**
+     * @param user
+     * @return boolean
+     */
     public boolean removeUser(User user) {
         return this.ur.removeUser(user);
     }

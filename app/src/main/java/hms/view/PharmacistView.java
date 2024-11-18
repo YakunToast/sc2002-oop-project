@@ -24,6 +24,9 @@ public class PharmacistView {
         this.repositoryManager = RepositoryManager.getInstance();
     }
 
+    /**
+     * @param sc
+     */
     void start(Scanner sc) {
         while (true) {
             System.out.println("\n=== Pharmacist Menu ===");

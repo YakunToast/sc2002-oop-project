@@ -22,6 +22,9 @@ public class ReplenishmentRequest implements Serializable {
         this.pharmacist = pharmacist;
     }
 
+    /**
+     * @return Pharmacist
+     */
     public Pharmacist getPharmacist() {
         return this.pharmacist;
     }

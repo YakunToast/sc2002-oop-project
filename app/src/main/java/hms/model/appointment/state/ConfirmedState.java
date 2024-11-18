@@ -9,6 +9,10 @@ class ConfirmedState
                 ICompletableAppointment,
                 IFreeableAppointment,
                 IPendableAppointment {
+
+    /**
+     * @param appointment
+     */
     @Override
     public void cancel(Appointment appointment) {
         appointment.setState(new CancelledState());

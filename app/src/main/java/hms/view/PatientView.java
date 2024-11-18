@@ -19,6 +19,9 @@ public class PatientView {
         this.pc = new PatientController(patient);
     }
 
+    /**
+     * @param sc
+     */
     void start(Scanner sc) {
         while (true) {
             System.out.println("What would you like to do next?");

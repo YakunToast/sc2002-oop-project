@@ -35,6 +35,9 @@ public abstract class User implements Serializable {
         this.setPassword(password);
     }
 
+    /**
+     * @return String
+     */
     public String getId() {
         return id;
     }

@@ -18,6 +18,9 @@ public class Doctor extends Staff {
         this.schedule = new Schedule(this);
     }
 
+    /**
+     * @return Schedule
+     */
     public Schedule getSchedule() {
         return schedule;
     }

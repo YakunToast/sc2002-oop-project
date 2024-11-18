@@ -21,6 +21,9 @@ public class Schedule implements Serializable {
         this.doctor = doctor;
     }
 
+    /**
+     * @return Doctor
+     */
     public Doctor getDoctor() {
         return this.doctor;
     }

@@ -5,6 +5,10 @@ import hms.model.appointment.AppointmentStatus;
 
 public class PendingState
         implements IAppointmentState, IConfirmableAppointment, ICancellableAppointment {
+
+    /**
+     * @param appointment
+     */
     @Override
     public void confirm(Appointment appointment) {
         appointment.setState(new ConfirmedState());

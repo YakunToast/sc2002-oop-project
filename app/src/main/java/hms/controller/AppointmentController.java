@@ -24,6 +24,9 @@ public class AppointmentController {
         appointment.setStatus(AppointmentStatus.CANCELLED);
     }
 
+    /**
+     * @return boolean
+     */
     public boolean accept() {
         appointment.setStatus(AppointmentStatus.CONFIRMED);
         return true;

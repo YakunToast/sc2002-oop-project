@@ -16,6 +16,9 @@ public class InventoryController {
         this.inventory = RepositoryManager.getInstance().getInventoryRepository().getInventory();
     }
 
+    /**
+     * @return Inventory
+     */
     public Inventory getInventory() {
         return inventory;
     }

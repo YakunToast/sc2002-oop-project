@@ -20,6 +20,10 @@ public class Inventory implements Serializable {
         this.alert = new HashMap<>();
     }
 
+    /**
+     * @param medication
+     * @return boolean
+     */
     public boolean addMedication(Medication medication) {
         // Add medication
         if (medications.containsKey(medication.getName())) {

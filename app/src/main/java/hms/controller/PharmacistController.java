@@ -25,6 +25,9 @@ public class PharmacistController implements InventoryUser {
         this.inventoryController = new InventoryController();
     }
 
+    /**
+     * @return List<AppointmentOutcome>
+     */
     public List<AppointmentOutcome> getAppointmentOutcomes() {
         return AppointmentController.getAppointmentOutcomes();
     }
