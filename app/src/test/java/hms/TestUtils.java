@@ -13,7 +13,6 @@ import hms.model.user.Administrator;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 import hms.model.user.Pharmacist;
-import hms.model.user.UserRole;
 import hms.repository.RepositoryManager;
 
 public class TestUtils {
@@ -59,8 +58,7 @@ public class TestUtils {
                         "Pharmacist",
                         "password",
                         "pharmacist@hospital.com",
-                        "5555555555",
-                        UserRole.PHARMACIST);
+                        "5555555555");
         rm.getUserRepository().addUser(pharmacist);
         return pharmacist;
     }
@@ -74,8 +72,7 @@ public class TestUtils {
                         "Admin",
                         "password",
                         "admin@hospital.com",
-                        "1111111111",
-                        UserRole.ADMINISTRATOR);
+                        "1111111111");
         rm.getUserRepository().addUser(admin);
         return admin;
     }

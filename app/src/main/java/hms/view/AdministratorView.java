@@ -153,8 +153,7 @@ public class AdministratorView {
                             lastName,
                             "password",
                             email,
-                            number,
-                            role);
+                            number);
         }
         repositoryManager.getUserRepository().addUser(newStaff);
         System.out.println("Staff member added successfully! ID: " + newStaff.getId());

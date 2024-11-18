@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Iterator;
+import java.util.Optional;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -16,6 +17,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import hms.controller.DoctorController;
+import hms.model.medication.Inventory;
+import hms.model.medication.Medication;
 import hms.model.user.Administrator;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
@@ -32,8 +35,8 @@ public class App {
         rm = RepositoryManager.getInstance();
 
         loadPatientsFromExcel("Patient_List.xlsx");
-        // loadMedicinesFromExcel("Medicine_List.xlsx");
-        // loadStaffsFromExcel("Staff_List.xlsx");
+        loadMedicinesFromExcel("Medicine_List.xlsx");
+        loadStaffsFromExcel("Staff_List.xlsx");
 
         Runtime.getRuntime()
                 .addShutdownHook(
@@ -133,106 +136,130 @@ public class App {
         }
     }
 
-    // public static void loadMedicines(String filePath) {
-    // try {
-    // FileInputStream file = new FileInputStream(new File(filePath));
-    // Workbook workbook = WorkbookFactory.create(file);
-    // Sheet sheet = workbook.getSheetAt(0);
+    public static void loadMedicinesFromExcel(String filePath) {
+        try {
+            FileInputStream file = new FileInputStream(new File(filePath));
+            Workbook workbook = WorkbookFactory.create(file);
+            Sheet sheet = workbook.getSheetAt(0);
 
-    // Iterator<Row> rowIterator = sheet.iterator();
+            Iterator<Row> rowIterator = sheet.iterator();
 
-    // // Skip first row
-    // rowIterator.next();
+            // Skip first row
+            rowIterator.next();
 
-    // // Loop through all rows
-    // while (rowIterator.hasNext()) {
-    // Row row = rowIterator.next();
+            // Loop through all rows
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
 
-    // Iterator<Cell> cellIterator = row.cellIterator();
+                Iterator<Cell> cellIterator = row.cellIterator();
 
-    // String name = cellIterator.next().getStringCellValue();
-    // double initialStock = cellIterator.next().getNumericCellValue();
-    // double lowStock = cellIterator.next().getNumericCellValue();
+                String name = cellIterator.next().getStringCellValue();
+                int initialStock = (int) cellIterator.next().getNumericCellValue();
+                int lowStock = (int) cellIterator.next().getNumericCellValue();
 
-    // // Create new "Patient"
-    // Medication medication = new Medication(name, "", "", null, null);
+                // Create new "Medication"
+                Medication medication = new Medication(name, "", "", null, null);
 
-    // // Check if exists, if not add
-    // if (Database.getPatient(patientID) == null) {
-    // Database.add(patient);
-    // }
-    // }
-    // file.close();
-    // workbook.close();
-    // } catch (IOException e) {
-    // e.printStackTrace();
-    // }
-    // }
+                // Check if exists, if not add
+                Inventory inventory = rm.getInventoryRepository().getInventory();
+                Optional<Medication> medicationOpt =
+                        rm.getInventoryRepository().getInventory().getMedicationByName(name);
+                if (!medicationOpt.isPresent()) {
+                    rm.getInventoryRepository().getInventory().addMedication(medication);
+                } else {
+                    medication = medicationOpt.get();
+                }
+                inventory.setMedicationStock(medication, initialStock);
+                inventory.setMedicationStockAlert(medication, lowStock);
+            }
+            file.close();
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-    // public static void loadStaffsFromExcel(String filePath) {
-    // try {
-    // FileInputStream file = new FileInputStream(new File(filePath));
-    // Workbook workbook = WorkbookFactory.create(file);
-    // Sheet sheet = workbook.getSheetAt(0);
+    public static void loadStaffsFromExcel(String filePath) {
+        try {
+            FileInputStream file = new FileInputStream(new File(filePath));
+            Workbook workbook = WorkbookFactory.create(file);
+            Sheet sheet = workbook.getSheetAt(0);
 
-    // Iterator<Row> rowIterator = sheet.iterator();
+            Iterator<Row> rowIterator = sheet.iterator();
 
-    // // Skip first row
-    // rowIterator.next();
+            // Skip first row
+            rowIterator.next();
 
-    // // Loop through all rows
-    // while (rowIterator.hasNext()) {
-    // Row row = rowIterator.next();
+            // Loop through all rows
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
 
-    // Iterator<Cell> cellIterator = row.cellIterator();
+                Iterator<Cell> cellIterator = row.cellIterator();
 
-    // String staffId = cellIterator.next().getStringCellValue();
-    // String name = cellIterator.next().getStringCellValue();
-    // String firstName = name.split(" ")[0]; // TODO: Naive approach
-    // String lastName = name.split(" ")[1];
-    // String role = cellIterator.next().getStringCellValue();
-    // String gender = cellIterator.next().getStringCellValue();
-    // int age = (int) cellIterator.next().getNumericCellValue();
+                String staffId = cellIterator.next().getStringCellValue();
+                String name = cellIterator.next().getStringCellValue();
+                String firstName = name.split(" ")[0]; // TODO: Naive approach
+                String lastName = name.split(" ")[1];
+                String role = cellIterator.next().getStringCellValue();
+                String gender = cellIterator.next().getStringCellValue();
+                int age = (int) cellIterator.next().getNumericCellValue();
 
-    // // TODO: need to somehow solid this
-    // switch (role) {
-    // case "Doctor" -> {
-    // Doctor doctor = new Doctor(staffId, staffId, firstName, lastName, "pass",
-    // "null@email", "");
+                // TODO: need to somehow solid this
+                switch (role) {
+                    case "Doctor" -> {
+                        Doctor doctor =
+                                new Doctor(
+                                        staffId,
+                                        staffId,
+                                        firstName,
+                                        lastName,
+                                        "pass",
+                                        "null@email",
+                                        "");
 
-    // // Check if exists, if not add
-    // if (Database.getDoctor(staffId) == null) {
-    // Database.add(doctor);
-    // }
+                        // Check if exists, if not add
+                        if (rm.getUserRepository().getUserById(staffId) == null) {
+                            rm.getUserRepository().addUser(doctor);
+                        }
+                    }
+                    case "Pharmacist" -> {
+                        Pharmacist pharmacist =
+                                new Pharmacist(
+                                        staffId,
+                                        staffId,
+                                        firstName,
+                                        lastName,
+                                        "pass",
+                                        "null@email",
+                                        "");
 
-    // }
-    // case "Pharmacist" -> {
-    // Pharmacist pharmacist = new Pharmacist(staffId, staffId, firstName, lastName,
-    // "pass", "null@email", "");
+                        // Check if exists, if not add
+                        if (rm.getUserRepository().getUserById(staffId) == null) {
+                            rm.getUserRepository().addUser(pharmacist);
+                        }
+                    }
+                    case "Administrator" -> {
+                        Administrator administrator =
+                                new Administrator(
+                                        staffId,
+                                        staffId,
+                                        firstName,
+                                        lastName,
+                                        "pass",
+                                        "null@email",
+                                        "");
 
-    // // Check if exists, if not add
-    // if (Database.getPharmacist(staffId) == null) {
-    // Database.add(Pharmacist);
-    // }
-
-    // }
-    // case "Administrator" -> {
-    // Administrator administrator = new Administrator(staffId, staffId, firstName,
-    // lastName, "pass", "null@email", "");
-
-    // // Check if exists, if not add
-    // if (Database.getAdministrator(staffId) == null) {
-    // Database.add(administrator);
-    // }
-
-    // }
-    // }
-
-    // }
-    // file.close();
-    // workbook.close();
-    // } catch (IOException e) {
-    // e.printStackTrace();
-    // }
-    // }
+                        // Check if exists, if not add
+                        if (rm.getUserRepository().getUserById(staffId) == null) {
+                            rm.getUserRepository().addUser(administrator);
+                        }
+                    }
+                }
+            }
+            file.close();
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
