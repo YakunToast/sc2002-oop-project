@@ -20,6 +20,7 @@ public class ReplenishmentRequest implements Serializable {
         this.qty = qty;
         this.datetime = datetime;
         this.pharmacist = pharmacist;
+        this.status = ReplenishmentRequestStatus.PENDING;
     }
 
     /**
