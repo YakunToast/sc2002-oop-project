@@ -15,7 +15,8 @@
 		"vscode": {
 			"extensions": [
 				"maattdd.gitless",
-				"JoseVSeb.google-java-format-for-vs-code"
+				"JoseVSeb.google-java-format-for-vs-code",
+				"madhavd1.javadoc-tools"
 			]
 		}
 	}
