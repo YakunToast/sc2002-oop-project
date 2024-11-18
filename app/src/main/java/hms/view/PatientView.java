@@ -3,11 +3,13 @@ package hms.view;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import hms.controller.PatientController;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentOutcome;
+import hms.model.medication.Medication;
 import hms.model.record.MedicalRecord;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
@@ -223,10 +225,20 @@ public class PatientView {
 
     void viewPastAppointmentOutcomes(Scanner sc) {
         List<AppointmentOutcome> apptOutcomes = pc.getPastAppointmentOutcomes();
-
+        String desc;
+        Map<Medication, Integer> medications;
         for (int i = 0; i < apptOutcomes.size(); i++) {
-            System.out.println(i + 1 + ". " + apptOutcomes.get(i).getDescription()
-                                            + apptOutcomes.get(i).getPrescription());
+            desc = apptOutcomes.get(i).getDescription();
+            medications = apptOutcomes.get(i).getPrescription().get().getMedications();
+            System.out.println(i + 1 + ". ");
+            System.out.println("Description: " + desc);
+            System.out.println("Prescription:" );
+            for (Map.Entry<Medication, Integer> e : medications.entrySet()) {
+                System.out.println(e.getKey().getName() + ", " 
+                                + e.getKey().getDescription() + ", " 
+                                + e.getKey().getDosageInstructions() + ", "
+                                + "Amount given: " + e.getValue());
+            }
         }
     }
 }
