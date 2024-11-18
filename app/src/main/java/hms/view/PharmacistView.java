@@ -3,6 +3,7 @@ package hms.view;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.UUID;
 
 import hms.controller.PharmacistController;
 import hms.model.appointment.AppointmentOutcome;
@@ -116,17 +117,19 @@ public class PharmacistView {
 
         System.out.print("Enter Appointment ID to update: ");
         String appointmentId = sc.nextLine();
+        
+        System.out.println(appointmentId);
 
         Optional<AppointmentOutcome> outcomeOpt =
                 outcomes.stream()
-                        .filter(o -> o.getAppointment().getId().equals(appointmentId))
+                        .filter(o -> o.getAppointment().getId().equals(UUID.fromString(appointmentId)))
                         .findFirst();
 
         if (outcomeOpt.isPresent()) {
             AppointmentOutcome outcome = outcomeOpt.get();
             Optional<Prescription> prescriptionOpt = outcome.getPrescription();
             if (!prescriptionOpt.isPresent()) {
-                // TODO: better handle missing appointment ID
+                System.out.println("No prescription required.");
                 return;
             }
 
