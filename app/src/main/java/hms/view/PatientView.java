@@ -225,7 +225,8 @@ public class PatientView {
         List<AppointmentOutcome> apptOutcomes = pc.getPastAppointmentOutcomes();
 
         for (int i = 0; i < apptOutcomes.size(); i++) {
-            System.out.println(i + 1 + ". " + apptOutcomes.get(i).toString());
+            System.out.println(i + 1 + ". " + apptOutcomes.get(i).getDescription()
+                                            + apptOutcomes.get(i).getPrescription());
         }
     }
 }
