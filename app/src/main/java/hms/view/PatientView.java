@@ -110,8 +110,18 @@ public class PatientView {
 
     // Unnecessary function?
     void viewAvailableSlots(Scanner sc) {
-        for (Doctor doctor : pc.getPersonalDoctors()) {
-            System.out.println("Doctor: " + doctor.getName() + " " + doctor.getSchedule());
+        // Build indexed list of available appointments
+        HashMap<Doctor, List<Appointment>> availableSlotsByDoctor =
+                pc.getAvailableAppointmentSlotsByDoctors();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        int index = 1;
+        for (Doctor doctor : availableSlotsByDoctor.keySet()) {
+            for (Appointment timeslot : availableSlotsByDoctor.get(doctor)) {
+                System.out.printf(
+                        "%d. Doctor: %s, Time: %s%n",
+                        index, doctor.getName(), timeslot.getStart().format(formatter));
+                index++;
+            }
         }
     }
 
