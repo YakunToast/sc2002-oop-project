@@ -303,6 +303,7 @@ public class DoctorView {
                     String needMedication = sc.nextLine();
                     
                     Map<Medication, Integer> medications = new HashMap<>();
+                    AppointmentOutcome outcome;
 
                     if (!needMedication.equals("0")) {
                         while (true) {
@@ -325,13 +326,16 @@ public class DoctorView {
                             if (needMedication.equals("0")) {
                                 break;
                             }
-                        }      
+                        }  
+                        
+                        Prescription pres = new Prescription(medications);   
+                        dc.addAppointmentOutcome(appointment, desc, pres);
                     }
                     
-                    Prescription pres = new Prescription(medications);
+                    else {
+                        dc.addAppointmentOutcome(appointment, desc, null);
+                    }
                     
-                    AppointmentOutcome outcome = new AppointmentOutcome(appointment, desc, pres);
-                    appointment.setOutcome(outcome);
                     System.out.println("Outcome recorded successfully.");
                 } else {
                     System.out.println("Outcome for this appointment has already been recorded.");
