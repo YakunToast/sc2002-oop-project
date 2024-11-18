@@ -8,12 +8,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import hms.controller.AdministratorController;
 import hms.controller.DoctorController;
 import hms.controller.PatientController;
 import hms.controller.PharmacistController;
 import hms.model.appointment.Appointment;
 import hms.model.medication.Medication;
 import hms.model.medication.Prescription;
+import hms.model.user.Administrator;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 import hms.model.user.Pharmacist;

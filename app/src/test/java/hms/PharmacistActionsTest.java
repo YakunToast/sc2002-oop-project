@@ -18,7 +18,6 @@ import hms.controller.PharmacistController;
 import hms.model.appointment.Appointment;
 import hms.model.medication.Medication;
 import hms.model.medication.Prescription;
-import hms.model.medication.PrescriptionStatus;
 import hms.model.medication.ReplenishmentRequest;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
@@ -83,13 +82,10 @@ class PharmacistActionsTest {
     @Test
     @DisplayName("Test Case 17: Update Prescription Status")
     void testUpdatePrescriptionStatus() {
-
         // Get a prescription that needs to be dispensed
-        var prescription = pharmacistController.getPendingPrescriptions().get(0);
+        Prescription prescription = pharmacistController.getPendingPrescriptions().get(0);
 
-        boolean updated =
-                pharmacistController.updatePrescriptionStatus(
-                        prescription, PrescriptionStatus.DISPENSED);
+        boolean updated = pharmacistController.dispensePrescription(prescription);
 
         assertTrue(updated);
         assertTrue(prescription.isDispensed());

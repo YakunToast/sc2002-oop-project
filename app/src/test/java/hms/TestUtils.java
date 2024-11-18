@@ -109,11 +109,11 @@ public class TestUtils {
                         Arrays.asList(sideEffects));
         medication.setId(UUID.randomUUID());
         rm.getInventoryRepository().getInventory().addMedication(medication);
+        rm.getInventoryRepository().getInventory().addMedicationStock(medication, 100);
         return medication;
     }
 
-    
-    /** 
+    /**
      * @param d
      * @return Appointment
      */
