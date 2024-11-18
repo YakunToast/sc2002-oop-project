@@ -39,6 +39,12 @@ public class Inventory implements Serializable {
         return true;
     }
 
+    
+    /** 
+     * @param medication
+     * @param qty
+     * @return boolean
+     */
     public boolean addMedicationStock(Medication medication, int qty) {
         if (qty < 0) {
             return false;
@@ -47,6 +53,12 @@ public class Inventory implements Serializable {
         return true;
     }
 
+    
+    /** 
+     * @param medication
+     * @param qty
+     * @return boolean
+     */
     public boolean setMedicationStock(Medication medication, int qty) {
         if (qty < 0) {
             return false;
@@ -55,6 +67,11 @@ public class Inventory implements Serializable {
         return true;
     }
 
+    
+    /** 
+     * @param medication
+     * @return boolean
+     */
     public boolean removeMedication(Medication medication) {
         // Remove medication
         if (!medications.containsKey(medication.getName())) {
@@ -69,6 +86,12 @@ public class Inventory implements Serializable {
         return true;
     }
 
+    
+    /** 
+     * @param medication
+     * @param qty
+     * @return boolean
+     */
     public boolean removeMedicationStock(Medication medication, int qty) {
         if (qty > 0) {
             return false;
@@ -82,6 +105,12 @@ public class Inventory implements Serializable {
         return true;
     }
 
+    
+    /** 
+     * @param medication
+     * @param qty
+     * @return boolean
+     */
     public boolean setMedicationStockAlert(Medication medication, int qty) {
         if (qty <= 0) {
             return false;
@@ -90,22 +119,46 @@ public class Inventory implements Serializable {
         return true;
     }
 
+    
+    /** 
+     * @param medication
+     * @return int
+     */
     public int getMedicationStockAlert(Medication medication) {
         return this.alert.get(medication.getName());
     }
 
+    
+    /** 
+     * @return List<Medication>
+     */
     public List<Medication> getMedications() {
         return List.copyOf(this.medications.values());
     }
 
+    
+    /** 
+     * @param name
+     * @return Optional<Medication>
+     */
     public Optional<Medication> getMedicationByName(String name) {
         return Optional.ofNullable(this.medications.get(name));
     }
 
+    
+    /** 
+     * @param id
+     * @return Optional<Medication>
+     */
     public Optional<Medication> getMedicationByUUID(UUID id) {
         return this.medications.values().stream().filter(m -> m.getId() == id).findFirst();
     }
 
+    
+    /** 
+     * @param medication
+     * @return int
+     */
     public int getMedicationStock(Medication medication) {
         return this.stock.get(medication.getName());
     }

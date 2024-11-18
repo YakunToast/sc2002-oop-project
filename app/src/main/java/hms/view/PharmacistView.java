@@ -57,6 +57,10 @@ public class PharmacistView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     void viewAppointmentOutcomeRecords(Scanner sc) {
         System.out.println("\n=== Appointment Outcome Records ===");
         List<AppointmentOutcome> outcomes = pharmacistController.getAppointmentOutcomes();
@@ -82,6 +86,10 @@ public class PharmacistView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     void updatePrescriptionStatus(Scanner sc) {
         System.out.println("\n=== Update Prescription Status ===");
 
@@ -157,6 +165,10 @@ public class PharmacistView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     // TODO: add stock level in medication
     void viewMedicationInventory(Scanner sc) {
         System.out.println("\n=== Medication Inventory ===");
@@ -178,6 +190,10 @@ public class PharmacistView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     void submitReplenishmentRequest(Scanner sc) {
         System.out.println("\n=== Submit Replenishment Request ===");
 

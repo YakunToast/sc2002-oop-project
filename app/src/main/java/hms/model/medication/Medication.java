@@ -104,46 +104,90 @@ public class Medication implements Serializable {
         this.id = medicationId;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getName() {
         return name;
     }
 
+    
+    /** 
+     * @param medicationName
+     */
     public void setName(String medicationName) {
         this.name = medicationName;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getDescription() {
         return description;
     }
 
+    
+    /** 
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getDosageInstructions() {
         return dosageInstructions;
     }
 
+    
+    /** 
+     * @param dosageInstructions
+     */
     public void setDosageInstructions(String dosageInstructions) {
         this.dosageInstructions = dosageInstructions;
     }
 
+    
+    /** 
+     * @return List<MedicationSideEffect>
+     */
     public List<MedicationSideEffect> getSideEffects() {
         return sideEffects;
     }
 
+    
+    /** 
+     * @param sideEffects
+     */
     public void setSideEffects(List<MedicationSideEffect> sideEffects) {
         this.sideEffects = sideEffects;
     }
 
+    
+    /** 
+     * @return MedicationStatus
+     */
     public MedicationStatus getStatus() {
         return status;
     }
 
+    
+    /** 
+     * @param status
+     */
     public void setStatus(MedicationStatus status) {
         this.status = status;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "Medication [medicationId="

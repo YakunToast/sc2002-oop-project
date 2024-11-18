@@ -20,26 +20,42 @@ public class PatientController implements AppointmentUser {
         this.patient = patient;
     }
 
-    /**
+    /** 
      * @return Patient
      */
     public Patient getPatient() {
         return this.patient;
     }
 
+    
+    /** 
+     * @param email
+     */
     public void setEmail(String email) {
         this.patient.setEmail(email);
     }
 
+    
+    /** 
+     * @param phoneNumber
+     */
     public void setPhoneNumber(String phoneNumber) {
         this.patient.setPhoneNumber(phoneNumber);
     }
 
+    
+    /** 
+     * @return MedicalRecord
+     */
     @Override
     public MedicalRecord getMedicalRecord() {
         return this.patient.getMedicalRecord();
     }
 
+    
+    /** 
+     * @return List<Doctor>
+     */
     @Override
     public List<Doctor> getAllDoctors() {
         return RepositoryManager.getInstance().getUserRepository().getAllUsers().stream()
@@ -48,6 +64,10 @@ public class PatientController implements AppointmentUser {
                 .collect(Collectors.toList());
     }
 
+    
+    /** 
+     * @return List<Doctor>
+     */
     @Override
     public List<Doctor> getPersonalDoctors() {
         return this.getPersonalAppointments().stream()
@@ -55,6 +75,10 @@ public class PatientController implements AppointmentUser {
                 .collect(Collectors.toList());
     }
 
+    
+    /** 
+     * @return List<Appointment>
+     */
     @Override
     public List<Appointment> getPersonalAppointments() {
         return RepositoryManager.getInstance()
@@ -65,6 +89,10 @@ public class PatientController implements AppointmentUser {
                 .collect(Collectors.toList());
     }
 
+    
+    /** 
+     * @return HashMap<Doctor, List<Appointment>>
+     */
     @Override
     public HashMap<Doctor, List<Appointment>> getAvailableAppointmentSlotsByDoctors() {
         return this.getAllDoctors().stream()
@@ -82,6 +110,10 @@ public class PatientController implements AppointmentUser {
                                 HashMap::new));
     }
 
+    
+    /** 
+     * @return List<Appointment>
+     */
     @Override
     public List<Appointment> getAvailableAppointmentSlots() {
         return this.getAvailableAppointmentSlotsByDoctors().values().stream()
@@ -89,6 +121,11 @@ public class PatientController implements AppointmentUser {
                 .collect(Collectors.toList());
     }
 
+    
+    /** 
+     * @param ap
+     * @return boolean
+     */
     @Override
     public boolean scheduleAppointment(Appointment ap) {
         if (!ap.isFree()) {
@@ -100,6 +137,12 @@ public class PatientController implements AppointmentUser {
         return true;
     }
 
+    
+    /** 
+     * @param oldAp
+     * @param newAp
+     * @return boolean
+     */
     @Override
     public boolean rescheduleAppointment(Appointment oldAp, Appointment newAp) {
         if (!newAp.isFree()) {
@@ -118,18 +161,30 @@ public class PatientController implements AppointmentUser {
         return true;
     }
 
+    
+    /** 
+     * @param ap
+     */
     @Override
     public void cancelAppointment(Appointment ap) {
         AppointmentController ac = new AppointmentController(ap);
         ac.cancelAppointment();
     }
 
+    
+    /** 
+     * @return List<Appointment>
+     */
     @Override
     public List<Appointment> getScheduledAppointments() {
         // TODO: Filter by date or status?
         return this.getPersonalAppointments().stream().collect(Collectors.toList());
     }
 
+    
+    /** 
+     * @return List<AppointmentOutcome>
+     */
     @Override
     public List<AppointmentOutcome> getPastAppointmentOutcomes() {
         return this.getPersonalAppointments().stream()
@@ -138,6 +193,11 @@ public class PatientController implements AppointmentUser {
                 .collect(Collectors.toList());
     }
 
+    
+    /** 
+     * @param ap
+     * @return AppointmentOutcome
+     */
     @Override
     public AppointmentOutcome getAppointmentOutcome(Appointment ap) {
         return ap.getOutcome();

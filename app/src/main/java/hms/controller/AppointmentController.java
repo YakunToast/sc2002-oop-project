@@ -32,11 +32,19 @@ public class AppointmentController {
         return true;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean decline() {
         appointment.setStatus(AppointmentStatus.CANCELLED);
         return true;
     }
 
+    
+    /** 
+     * @return List<AppointmentOutcome>
+     */
     public static List<AppointmentOutcome> getAppointmentOutcomes() {
         return RepositoryManager.getInstance()
                 .getAppointmentRepository()

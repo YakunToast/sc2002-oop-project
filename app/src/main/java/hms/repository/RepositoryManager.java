@@ -43,6 +43,11 @@ public class RepositoryManager implements Serializable {
         }
     }
 
+    
+    /** 
+     * @param filePath
+     * @throws IOException
+     */
     public void serialize(String filePath) throws IOException {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
             out.writeObject(instance);
@@ -59,6 +64,12 @@ public class RepositoryManager implements Serializable {
         }
     }
 
+    
+    /** 
+     * @param filePath
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public static void deserialize(String filePath) throws IOException, ClassNotFoundException {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
             instance = (RepositoryManager) in.readObject();
@@ -74,14 +85,26 @@ public class RepositoryManager implements Serializable {
         }
     }
 
+    
+    /** 
+     * @return UserRepository
+     */
     public UserRepository getUserRepository() {
         return userRepository;
     }
 
+    
+    /** 
+     * @return AppointmentRepository
+     */
     public AppointmentRepository getAppointmentRepository() {
         return appointmentRepository;
     }
 
+    
+    /** 
+     * @return InventoryRepository
+     */
     public InventoryRepository getInventoryRepository() {
         return inventoryRepository;
     }

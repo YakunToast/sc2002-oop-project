@@ -32,6 +32,10 @@ public class PharmacistController implements InventoryUser {
         return AppointmentController.getAppointmentOutcomes();
     }
 
+    
+    /** 
+     * @return List<Prescription>
+     */
     public List<Prescription> getPendingPrescriptions() {
         return getAppointmentOutcomes().stream()
                 .map(ao -> ao.getPrescription())
@@ -39,6 +43,11 @@ public class PharmacistController implements InventoryUser {
                 .collect(Collectors.toList());
     }
 
+    
+    /** 
+     * @param p
+     * @return boolean
+     */
     public boolean dispensePrescription(Prescription p) {
         if (p.isDispensed()) {
             return false;
@@ -53,6 +62,11 @@ public class PharmacistController implements InventoryUser {
         return true;
     }
 
+    
+    /** 
+     * @param p
+     * @return boolean
+     */
     public boolean cancelPrescription(Prescription p) {
         if (p.isCancelled()) {
             return false;
@@ -67,6 +81,12 @@ public class PharmacistController implements InventoryUser {
         return true;
     }
 
+    
+    /** 
+     * @param p
+     * @param ps
+     * @return boolean
+     */
     public boolean updatePrescriptionStatus(Prescription p, PrescriptionStatus ps) {
         switch (ps) {
             case PrescriptionStatus.PENDING -> p.setPending();
@@ -77,41 +97,80 @@ public class PharmacistController implements InventoryUser {
         return true;
     }
 
+    
+    /** 
+     * @return Inventory
+     */
     @Override
     public Inventory getInventory() {
         return this.inventoryController.getInventory();
     }
 
+    
+    /** 
+     * @param medication
+     * @return int
+     */
     @Override
     public int getMedicationStock(Medication medication) {
         return this.inventoryController.getMedicationStock(medication);
     }
 
+    
+    /** 
+     * @param medication
+     * @return int
+     */
     @Override
     public int getMedicationStockAlert(Medication medication) {
         return this.inventoryController.getMedicationStockAlert(medication);
     }
 
+    
+    /** 
+     * @return List<Medication>
+     */
     @Override
     public List<Medication> getMedications() {
         return this.inventoryController.getMedications();
     }
 
+    
+    /** 
+     * @param name
+     * @return Optional<Medication>
+     */
     @Override
     public Optional<Medication> getMedicationByName(String name) {
         return this.inventoryController.getMedicationByName(name);
     }
 
+    
+    /** 
+     * @param uuid
+     * @return Optional<Medication>
+     */
     @Override
     public Optional<Medication> getMedicationByUUID(UUID uuid) {
         return this.inventoryController.getMedicationByUUID(uuid);
     }
 
+    
+    /** 
+     * @param uuid
+     * @return Optional<Medication>
+     */
     @Override
     public Optional<Medication> getMedicationByUUID(String uuid) {
         return this.inventoryController.getMedicationByUUID(uuid);
     }
 
+    
+    /** 
+     * @param m
+     * @param qty
+     * @return ReplenishmentRequest
+     */
     @Override
     public ReplenishmentRequest createReplenishmentRequest(Medication m, int qty) {
         ReplenishmentRequest rr =

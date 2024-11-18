@@ -14,11 +14,19 @@ public class CancelledState
         appointment.setState(new FreeState());
     }
 
+    
+    /** 
+     * @param appointment
+     */
     @Override
     public void pending(Appointment appointment) {
         appointment.setState(new PendingState());
     }
 
+    
+    /** 
+     * @return AppointmentStatus
+     */
     @Override
     public AppointmentStatus getStatus() {
         return AppointmentStatus.CANCELLED;

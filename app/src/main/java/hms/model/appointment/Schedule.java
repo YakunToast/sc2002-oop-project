@@ -28,6 +28,10 @@ public class Schedule implements Serializable {
         return this.doctor;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Appointment appointment : appointments) {
@@ -36,10 +40,20 @@ public class Schedule implements Serializable {
         return sb.toString();
     }
 
+    
+    /** 
+     * @return List<Appointment>
+     */
     public List<Appointment> getAppointments() {
         return appointments;
     }
 
+    
+    /** 
+     * @param startDateTime
+     * @param endDateTime
+     * @return Appointment
+     */
     public Appointment addAppointment(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         Appointment appointment = new Appointment(this.doctor, startDateTime, endDateTime);
         appointments.add(appointment);
@@ -47,6 +61,12 @@ public class Schedule implements Serializable {
         return appointment;
     }
 
+    
+    /** 
+     * @param startDateTime
+     * @param endDateTime
+     * @return List<Appointment>
+     */
     // addAppointments add appointments in one hour windows
     public List<Appointment> addAppointmentHourly(
             LocalDateTime startDateTime, LocalDateTime endDateTime) {
@@ -60,6 +80,14 @@ public class Schedule implements Serializable {
         return appointments;
     }
 
+    
+    /** 
+     * @param startDate
+     * @param endDate
+     * @param startTime
+     * @param endTime
+     * @return List<Appointment>
+     */
     // Method to add availability timeslot in 1-hour windows over a date range
     public List<Appointment> addMultipleAppointmentDays(
             LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime) {
@@ -78,6 +106,10 @@ public class Schedule implements Serializable {
         return appointments;
     }
 
+    
+    /** 
+     * @param ap
+     */
     private void removeAppointment(Appointment ap) {
         appointments.remove(ap);
         RepositoryManager.getInstance().getAppointmentRepository().removeAppointment(ap);

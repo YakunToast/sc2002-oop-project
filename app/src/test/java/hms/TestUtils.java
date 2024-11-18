@@ -38,6 +38,10 @@ public class TestUtils {
         return patient;
     }
 
+    
+    /** 
+     * @return Doctor
+     */
     public static Doctor createTestDoctor() {
         Doctor doctor =
                 new Doctor(
@@ -52,6 +56,10 @@ public class TestUtils {
         return doctor;
     }
 
+    
+    /** 
+     * @return Pharmacist
+     */
     public static Pharmacist createTestPharmacist() {
         Pharmacist pharmacist =
                 new Pharmacist(
@@ -66,6 +74,10 @@ public class TestUtils {
         return pharmacist;
     }
 
+    
+    /** 
+     * @return Administrator
+     */
     public static Administrator createTestAdmin() {
         Administrator admin =
                 new Administrator(
@@ -80,6 +92,10 @@ public class TestUtils {
         return admin;
     }
 
+    
+    /** 
+     * @return Medication
+     */
     public static Medication createTestMedication() {
         MedicationSideEffect[] sideEffects = {
             MedicationSideEffect.ANXIETY, MedicationSideEffect.BLURRED_VISION
@@ -96,6 +112,11 @@ public class TestUtils {
         return medication;
     }
 
+    
+    /** 
+     * @param d
+     * @return Appointment
+     */
     public static Appointment createTestAppointment(Doctor d) {
         DoctorController dc = new DoctorController(d);
         int year = 2024 + (int) (Math.random() * 5);
@@ -110,6 +131,11 @@ public class TestUtils {
         return ap;
     }
 
+    
+    /** 
+     * @param d
+     * @return List<Appointment>
+     */
     public static List<Appointment> createTestAppointments(Doctor d) {
         DoctorController dc = new DoctorController(d);
         List<Appointment> aps =

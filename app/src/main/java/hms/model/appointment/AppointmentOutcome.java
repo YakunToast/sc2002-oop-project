@@ -18,17 +18,25 @@ public class AppointmentOutcome implements Serializable {
         this.prescription = pr;
     }
 
-    /**
+    /** 
      * @return Appointment
      */
     public Appointment getAppointment() {
         return appointment;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getDescription() {
         return description;
     }
 
+    
+    /** 
+     * @return Optional<Prescription>
+     */
     public Optional<Prescription> getPrescription() {
         return Optional.of(this.prescription);
     }

@@ -69,6 +69,10 @@ public class AdministratorView {
         System.out.println("0. Logout");
     }
 
+    
+    /** 
+     * @param sc
+     */
     private void viewAndManageHospitalStaff(Scanner sc) {
         while (true) {
             System.out.println("\n=== Staff Management ===");
@@ -115,6 +119,10 @@ public class AdministratorView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     private void addStaffMember(Scanner sc) {
         System.out.println("\nAdd New Staff Member");
 
@@ -162,6 +170,10 @@ public class AdministratorView {
         System.out.println("Staff member added successfully! ID: " + newStaff.getId());
     }
 
+    
+    /** 
+     * @param sc
+     */
     private void updateStaffMember(Scanner sc) {
         System.out.print("Enter staff username to update: ");
         String staffUsername = sc.nextLine();
@@ -194,6 +206,10 @@ public class AdministratorView {
         System.out.println("Staff member updated successfully!");
     }
 
+    
+    /** 
+     * @param sc
+     */
     private void removeStaffMember(Scanner sc) {
         System.out.print("Enter staff username to remove: ");
         String staffUsername = sc.nextLine();
@@ -213,6 +229,10 @@ public class AdministratorView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     // not sure this is needed, just for additional feature
     private void filterStaffList(Scanner sc) {
         System.out.println("\nFilter by:");
@@ -264,6 +284,10 @@ public class AdministratorView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     private void viewAppointmentDetails(Scanner sc) {
         System.out.println("\n=== Appointment Details ===");
         List<Appointment> appointments =
@@ -288,6 +312,10 @@ public class AdministratorView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     private void viewAndManageMedicationInventory(Scanner sc) {
         while (true) {
             System.out.println("\n=== Medication Inventory Management ===");
@@ -335,6 +363,10 @@ public class AdministratorView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     private void addNewMedication(Scanner sc) {
         System.out.print("Enter medication name: ");
         String name = sc.nextLine();
@@ -361,6 +393,10 @@ public class AdministratorView {
         System.out.println("Medication added successfully!");
     }
 
+    
+    /** 
+     * @param sc
+     */
     // TODO: we should have a stock level right?
     private void updateStockLevel(Scanner sc) {
         System.out.print("Enter medication name: ");
@@ -382,6 +418,10 @@ public class AdministratorView {
         System.out.println("Stock level updated successfully!");
     }
 
+    
+    /** 
+     * @param sc
+     */
     // TODO: we should have an alert for stock level right?
     private void updateLowStockAlertLevel(Scanner sc) {
         System.out.print("Enter medication name: ");
@@ -403,6 +443,10 @@ public class AdministratorView {
         System.out.println("Low stock alert level updated successfully!");
     }
 
+    
+    /** 
+     * @param sc
+     */
     private void approveReplenishmentRequests(Scanner sc) {
         List<ReplenishmentRequest> requests =
                 administratorController.getPendingReplenishmentRequests();

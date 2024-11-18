@@ -87,6 +87,10 @@ public class Appointment implements Serializable {
         return sb.toString();
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toTerse() {
         return String.format(
                 "Appointment [%s] - Patient: %s, Doctor: %s, DateTime: %s, Status: %s, Outcome: %s",
@@ -144,78 +148,154 @@ public class Appointment implements Serializable {
         }
     }
 
+    
+    /** 
+     * @param newStatus
+     */
     public void setStatus(AppointmentStatus newStatus) {
         this.status = newStatus;
     }
 
+    
+    /** 
+     * @return AppointmentStatus
+     */
     public AppointmentStatus getStatus() {
         return status;
     }
 
+    
+    /** 
+     * @param outcome
+     */
     public void setOutcome(AppointmentOutcome outcome) {
         this.outcome = outcome;
     }
 
+    
+    /** 
+     * @return AppointmentOutcome
+     */
     public AppointmentOutcome getOutcome() {
         return outcome;
     }
 
+    
+    /** 
+     * @return UUID
+     */
     public UUID getId() {
         return uuid;
     }
 
+    
+    /** 
+     * @param patient
+     */
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
 
+    
+    /** 
+     * @return Patient
+     */
     public Patient getPatient() {
         return patient;
     }
 
+    
+    /** 
+     * @param doctor
+     */
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
 
+    
+    /** 
+     * @return Doctor
+     */
     public Doctor getDoctor() {
         return doctor;
     }
 
+    
+    /** 
+     * @param start
+     */
     public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
+    
+    /** 
+     * @return LocalDateTime
+     */
     public LocalDateTime getStart() {
         return start;
     }
 
+    
+    /** 
+     * @param end
+     */
     public void setEnd(LocalDateTime end) {
         this.end = end;
     }
 
+    
+    /** 
+     * @return LocalDateTime
+     */
     public LocalDateTime getEnd() {
         return end;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean isFree() {
         return this.status == AppointmentStatus.FREE;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean isPending() {
         return this.status == AppointmentStatus.PENDING;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean isConfirmed() {
         return this.status == AppointmentStatus.CONFIRMED;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean isCancelled() {
         return this.status == AppointmentStatus.CANCELLED;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean isCompleted() {
         return this.status == AppointmentStatus.COMPLETED;
     }
 
+    
+    /** 
+     * @param state
+     */
     public void setState(IAppointmentState state) {
         this.state = state;
     }

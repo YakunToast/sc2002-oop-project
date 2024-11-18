@@ -38,10 +38,20 @@ public class UserController {
         return optUser;
     }
 
+    
+    /** 
+     * @param user
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
+    
+    /** 
+     * @param oldPassword
+     * @param newPassword
+     * @return boolean
+     */
     public boolean changePassword(String oldPassword, String newPassword) {
         if (user == null) {
             return false;

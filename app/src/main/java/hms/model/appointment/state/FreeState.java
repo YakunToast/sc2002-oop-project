@@ -13,11 +13,19 @@ public class FreeState implements IAppointmentState, IConfirmableAppointment, IP
         appointment.setState(new ConfirmedState());
     }
 
+    
+    /** 
+     * @param appointment
+     */
     @Override
     public void pending(Appointment appointment) {
         appointment.setState(new PendingState());
     }
 
+    
+    /** 
+     * @return AppointmentStatus
+     */
     @Override
     public AppointmentStatus getStatus() {
         return AppointmentStatus.FREE;

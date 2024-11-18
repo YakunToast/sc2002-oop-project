@@ -41,6 +41,10 @@ public class MedicalRecord implements Serializable {
         this.emailAddress = email;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Medical Record\n");
@@ -58,51 +62,99 @@ public class MedicalRecord implements Serializable {
         return sb.toString();
     }
 
+    
+    /** 
+     * @return Patient
+     */
     // Getters for all fields (medical information is read-only)
     public Patient getPatient() {
         return patient;
     }
 
+    
+    /** 
+     * @param patient
+     */
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getContactPhone() {
         return contactPhone;
     }
 
+    
+    /** 
+     * @param contactPhone
+     */
     public void setContactPhone(String contactPhone) {
         this.contactPhone = contactPhone;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getEmailAddress() {
         return emailAddress;
     }
 
+    
+    /** 
+     * @param emailAddress
+     */
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
 
+    
+    /** 
+     * @return List<String>
+     */
     public List<String> getPastDiagnoses() {
         return Collections.unmodifiableList(pastDiagnoses);
     }
 
+    
+    /** 
+     * @param diagnosis
+     */
     public void addDiagnosis(String diagnosis) {
         this.pastDiagnoses.add(diagnosis);
     }
 
+    
+    /** 
+     * @return List<String>
+     */
     public List<String> getTreatments() {
         return Collections.unmodifiableList(treatments);
     }
 
+    
+    /** 
+     * @param treatment
+     */
     public void addTreatment(String treatment) {
         this.treatments.add(treatment);
     }
 
+    
+    /** 
+     * @return Doctor
+     */
     public Doctor getDoctor() {
         return doctor;
     }
 
+    
+    /** 
+     * @param doctor
+     */
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }

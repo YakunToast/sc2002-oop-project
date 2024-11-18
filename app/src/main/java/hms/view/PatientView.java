@@ -84,6 +84,10 @@ public class PatientView {
         System.out.println("---------------------------");
     }
 
+    
+    /** 
+     * @param sc
+     */
     void updatePersonalInformation(Scanner sc) {
         while (true) {
             System.out.println("What would you like to do next?");
@@ -113,6 +117,10 @@ public class PatientView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     // Unnecessary function?
     void viewAvailableSlots(Scanner sc) {
         // Build indexed list of available appointments
@@ -130,6 +138,11 @@ public class PatientView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     * @return Appointment
+     */
     Appointment chooseAppointment(Scanner sc) {
         int index = 1;
         HashMap<Integer, Appointment> availableSlotsMap = new HashMap<>();
@@ -168,12 +181,20 @@ public class PatientView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     void scheduleAppointment(Scanner sc) {
         Appointment selectedAppointment = chooseAppointment(sc);
         pc.scheduleAppointment(selectedAppointment);
         System.out.println("Appointment scheduled successfully. Please wait for confirmation.");
     }
 
+    
+    /** 
+     * @param sc
+     */
     void rescheduleAppointment(Scanner sc) {
         List<Appointment> appts = pc.getPersonalAppointments();
 
@@ -195,6 +216,10 @@ public class PatientView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     void cancelAppointment(Scanner sc) {
         List<Appointment> appts = pc.getPersonalAppointments();
 
@@ -215,6 +240,10 @@ public class PatientView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     void viewScheduledAppointments(Scanner sc) {
         List<Appointment> appts = pc.getPersonalAppointments();
 
@@ -223,6 +252,10 @@ public class PatientView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     void viewPastAppointmentOutcomes(Scanner sc) {
         List<AppointmentOutcome> apptOutcomes = pc.getPastAppointmentOutcomes();
         String desc;

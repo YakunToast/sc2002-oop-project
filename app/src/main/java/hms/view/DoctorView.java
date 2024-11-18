@@ -88,6 +88,11 @@ public class DoctorView {
         System.out.println("========");
     }
 
+    
+    /** 
+     * @param sc
+     * @return Patient
+     */
     Patient getPatientChoice(Scanner sc) {
         printPatients();
         System.out.print("Choose a patient ID: ");
@@ -104,10 +109,20 @@ public class DoctorView {
         return patient;
     }
 
+    
+    /** 
+     * @param sc
+     * @param patient
+     */
     void viewPatientMedicalRecord(Scanner sc, Patient patient) {
         System.out.println(patient.getMedicalRecord());
     }
 
+    
+    /** 
+     * @param sc
+     * @param patient
+     */
     void updatePatientMedicalRecord(Scanner sc, Patient patient) {
         while (true) {
             System.out.println("What would you like to do next?");
@@ -143,6 +158,10 @@ public class DoctorView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     void viewSchedule(Scanner sc) {
         System.out.println("Doctor's Schedule:");
         System.out.println("==================");
@@ -151,6 +170,10 @@ public class DoctorView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     void setAppointmentAvailability(Scanner sc) {
         System.out.println("Enter available date ranges and times in the format: ");
         System.out.println("YYYY-MM-DD & HH:MM (24-hour format)");
@@ -225,6 +248,10 @@ public class DoctorView {
         System.out.println("All availabilities updated successfully.");
     }
 
+    
+    /** 
+     * @param sc
+     */
     void acceptOrDeclineAppointments(Scanner sc) {
         List<Appointment> requests = dc.getPendingAppointments();
         if (requests.isEmpty()) {
@@ -264,6 +291,10 @@ public class DoctorView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     void viewUpcomingAppointments(Scanner sc) {
         List<Appointment> appointments = dc.getConfirmedAppointments();
         System.out.println("Upcoming Appointments:");
@@ -272,6 +303,10 @@ public class DoctorView {
         }
     }
 
+    
+    /** 
+     * @param sc
+     */
     void recordAppointmentOutcome(Scanner sc) {
         List<Appointment> pastAppointments = dc.getConfirmedAppointments();
 

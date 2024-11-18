@@ -28,10 +28,19 @@ public class UserRepository extends BaseRepository {
         users.put(User.getId(), User);
     }
 
+    
+    /** 
+     * @param user
+     * @return boolean
+     */
     public boolean removeUser(User user) {
         return users.remove(user.getId(), user);
     }
 
+    
+    /** 
+     * @return List<User>
+     */
     public List<User> getAllUsers() {
         List<User> result = new ArrayList<>();
         for (User user : users.values()) {
@@ -40,10 +49,20 @@ public class UserRepository extends BaseRepository {
         return result;
     }
 
+    
+    /** 
+     * @param id
+     * @return Optional<User>
+     */
     public Optional<User> getUserById(String id) {
         return Optional.ofNullable(castToAppropriateType(users.get(id)));
     }
 
+    
+    /** 
+     * @param username
+     * @return Optional<User>
+     */
     public Optional<User> getUserByUsername(String username) {
         return users.values().stream()
                 .filter(user -> user.getUsername().equals(username))
@@ -51,6 +70,11 @@ public class UserRepository extends BaseRepository {
                 .findFirst();
     }
 
+    
+    /** 
+     * @param user
+     * @return User
+     */
     private static User castToAppropriateType(User user) {
         if (user == null) {
             return null;

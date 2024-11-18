@@ -91,6 +91,11 @@ public class MainView {
         return null;
     }
 
+    
+    /** 
+     * @param sc
+     * @param user
+     */
     private void handlePasswordChange(Scanner sc, User user) {
         System.out.println("\nThis appears to be your first login. You must change your password.");
 
@@ -117,6 +122,11 @@ public class MainView {
         }
     }
 
+    
+    /** 
+     * @param password
+     * @return boolean
+     */
     private boolean isValidPassword(String password) {
         // Password must be at least 8 characters long and contain at least
         // one uppercase letter, one lowercase letter, and one number
@@ -126,6 +136,11 @@ public class MainView {
                 && password.matches(".*\\d.*");
     }
 
+    
+    /** 
+     * @param sc
+     * @param user
+     */
     private void handleUserMenu(Scanner sc, User user) {
         UserRole role = user.getRole();
         System.out.println(
