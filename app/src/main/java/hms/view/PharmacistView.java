@@ -125,8 +125,6 @@ public class PharmacistView {
 
         System.out.print("Enter Appointment ID to update: ");
         String appointmentId = sc.nextLine();
-        
-        System.out.println(appointmentId);
 
         Optional<AppointmentOutcome> outcomeOpt =
                 outcomes.stream()
