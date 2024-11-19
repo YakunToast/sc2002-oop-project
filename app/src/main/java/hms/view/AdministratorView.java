@@ -451,7 +451,7 @@ public class AdministratorView {
             return;
         }
 
-        ReplenishmentRequest request = requests.get(requestId);
+        ReplenishmentRequest request = requests.get(requestId - 1);
         Medication medication = request.getMedication();
         ac.addMedicationStock(medication, request.getRequestedQuantity());
 
