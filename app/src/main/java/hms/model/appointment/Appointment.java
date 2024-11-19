@@ -59,7 +59,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Returns a string representation of the appointment details.
+     * Retrieves a string representation of the appointment details.
      *
      * @return A string representation of the appointment.
      */
@@ -94,7 +94,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Returns a concise string representation of the appointment details.
+     * Retrieves a concise string representation of the appointment details.
      *
      * @return A concise string representation of the appointment.
      */
@@ -182,7 +182,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Returns the current status of the appointment.
+     * Gets the current status of the appointment.
      *
      * @return The current status of the appointment.
      */
@@ -191,7 +191,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Returns the current state of the appointment.
+     * Gets the current state of the appointment.
      *
      * @return The current state of the appointment.
      */
@@ -209,7 +209,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Returns the outcome of the appointment.
+     * Gets the outcome of the appointment.
      *
      * @return The outcome of the appointment.
      */
@@ -227,7 +227,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Returns the unique identifier for the appointment.
+     * Gets the unique identifier for the appointment.
      *
      * @return The unique identifier for the appointment.
      */
@@ -245,7 +245,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Returns the patient associated with the appointment.
+     * Gets the patient associated with the appointment.
      *
      * @return The patient associated with the appointment.
      */
@@ -263,7 +263,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Returns the doctor associated with the appointment.
+     * Gets the doctor associated with the appointment.
      *
      * @return The doctor associated with the appointment.
      */
@@ -281,7 +281,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Returns the start time of the appointment.
+     * Gets the start time of the appointment.
      *
      * @return The start time of the appointment.
      */
@@ -299,7 +299,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Returns the end time of the appointment.
+     * Gets the end time of the appointment.
      *
      * @return The end time of the appointment.
      */
