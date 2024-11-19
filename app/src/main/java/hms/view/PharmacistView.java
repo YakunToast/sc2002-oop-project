@@ -84,7 +84,7 @@ public class PharmacistView {
                                 + " to "
                                 + outcome.getAppointment().getEnd().format(formatter));
                 System.out.println("Prescriptions:\n==============");
-                
+
                 if (outcome.getPrescription().get().getMedications() != null) {
                     int i = 1;
                     for (Medication m : outcome.getPrescription().get().getMedications().keySet()) {
@@ -105,9 +105,10 @@ public class PharmacistView {
                                         + outcome.getPrescription().get().getMedications().get(m)
                                         + "\n---------");
                     }
-                    System.out.println("Status: " + outcome.getPrescription().get().getPrescriptionStatus());
+                    System.out.println(
+                            "Status: " + outcome.getPrescription().get().getPrescriptionStatus());
                 }
-                
+
                 System.out.println("------------------------");
             }
         }
