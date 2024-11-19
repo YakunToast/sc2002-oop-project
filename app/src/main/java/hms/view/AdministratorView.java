@@ -452,8 +452,7 @@ public class AdministratorView {
         }
 
         ReplenishmentRequest request = requests.get(requestId - 1);
-        Medication medication = request.getMedication();
-        ac.addMedicationStock(medication, request.getRequestedQuantity());
+        ac.approveReplenishmentRequest(request);
 
         System.out.println("Request approved successfully! Stock level updated.");
     }
