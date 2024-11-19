@@ -27,7 +27,7 @@ import hms.repository.RepositoryManager;
 import hms.view.MainView;
 
 /**
- * Hospital Management System (HMS) main application class. This class serves as the entry point for
+ * Hospital Management System main application class. This class serves as the entry point for
  * the HMS application and manages the overall system flow.
  *
  * @author AMOS NG ZHENG JIE
@@ -106,7 +106,7 @@ public class App {
     }
 
     /**
-     * The methods to load patients data from excel
+     * Loads patients data from excel
      *
      * @param filePath
      */
@@ -164,7 +164,7 @@ public class App {
     }
 
     /**
-     * The methods to load medicines data from excel
+     * Loads medicines data from excel
      *
      * @param filePath
      */
@@ -212,7 +212,7 @@ public class App {
     }
 
     /**
-     * The methods to load staffs data from excel
+     * Loads staffs data from excel
      *
      * @param filePath
      */
