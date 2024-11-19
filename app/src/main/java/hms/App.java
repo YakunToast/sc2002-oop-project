@@ -52,9 +52,12 @@ public class App {
         RepositoryManager.load();
         rm = RepositoryManager.getInstance();
 
-        loadPatientsFromExcel("Patient_List.xlsx");
-        loadMedicinesFromExcel("Medicine_List.xlsx");
-        loadStaffsFromExcel("Staff_List.xlsx");
+        try {
+            loadPatientsFromExcel("assets/Patient_List.xlsx");
+            loadMedicinesFromExcel("assets/Medicine_List.xlsx");
+            loadStaffsFromExcel("assets/Staff_List.xlsx");
+        } catch (Exception e) {
+        }
 
         Runtime.getRuntime()
                 .addShutdownHook(
