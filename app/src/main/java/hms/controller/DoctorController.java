@@ -108,7 +108,10 @@ public class DoctorController implements AppointmentDoctor {
      * @return MedicalRecord
      */
     public MedicalRecord getPatientMedicalRecord(Patient patient) {
-        // TODO: Check if patient is a patient of doctor
+        // TODO: Allow doctors to get patient records they are not apart of?
+        // if (patient.getAppointments().stream().allMatch(ap -> ap.getDoctor() != this.doctor)) {
+        //     throw new IllegalArgumentException("Patient is not associated with this doctor.");
+        // }
         return patient.getMedicalRecord();
     }
 
