@@ -37,7 +37,7 @@ Clone the repository and run the pre-compiled JAR file located in the `bin/` dir
 ```
 git clone https://github.com/YakunToast/sc2002-oop-project
 cd sc2002-oop-project
-java -jar ./app/build/libs/app.jar
+java -jar app/HMS.jar
 ```
 
 ### Build with Gradle
@@ -56,7 +56,7 @@ cd sc2002-oop-project/app
 Clean the previous build artifacts (if any) and package the project into a JAR file using Maven. The generated build files will be located in the `target/` directory.
 
 ```
-./gradlew build
+./gradlew buildJar
 ```
 
 **3. Run the Application**
@@ -64,7 +64,7 @@ Clean the previous build artifacts (if any) and package the project into a JAR f
 After successfully building the project, execute the JAR file to run the Hospital Management System.
 
 ```
-java -jar ./app/build/libs/app.jar
+java -jar app/HMS.jar
 ```
 
 ## Development Options:

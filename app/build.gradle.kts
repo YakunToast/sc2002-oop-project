@@ -62,17 +62,28 @@ application {
     mainClass = "hms.App"
 }
 
-tasks.withType<Jar>() {
+tasks.register<Jar>("buildJar") {
+    archiveFileName.set("HMS.jar")
+    destinationDirectory.set(layout.projectDirectory)  // It's neater to use 'set()' here
 
     manifest {
         attributes["Main-Class"] = "hms.App"
     }
     
+    // To avoid the duplicate handling strategy error
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
-    configurations["compileClasspath"].forEach { file: File ->
-        from(zipTree(file.absoluteFile))
-    }
+    // To add all of the dependencies otherwise a "NoClassDefFoundError" error
+    from(sourceSets["main"].output)
+
+    // Add dependencies
+    dependsOn(configurations.runtimeClasspath)
+    from({
+        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
+    })
+
+    // Ensure Java compilation is done before building the JAR
+    dependsOn("classes")
 }
 
 tasks.named<Test>("test") {
