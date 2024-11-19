@@ -2,6 +2,7 @@ package hms.model.appointment;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import hms.model.appointment.state.CancelledState;
 import hms.model.appointment.state.CompletedState;
@@ -16,6 +17,7 @@ import hms.model.appointment.state.IPendableAppointment;
 import hms.model.appointment.state.PendingState;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
+
 
 // Appointment class to manage doctor appointments
 public class Appointment implements Serializable {
@@ -47,6 +49,7 @@ public class Appointment implements Serializable {
      */
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         StringBuilder sb = new StringBuilder();
         sb.append("Appointment Details\n")
                 .append("-------------------\n")
@@ -60,10 +63,10 @@ public class Appointment implements Serializable {
                 .append(doctor != null ? doctor.getName() : "None")
                 .append("\n")
                 .append("Start Time: ")
-                .append(start != null ? start.toString() : "Not Scheduled")
+                .append(start != null ? start.format(formatter) : "Not Scheduled")
                 .append("\n")
                 .append("End Time: ")
-                .append(end != null ? end.toString() : "Not Scheduled")
+                .append(end != null ? end.format(formatter) : "Not Scheduled")
                 .append("\n")
                 .append("Status: ")
                 .append(state != null ? state.toString() : "Unknown")
@@ -78,13 +81,14 @@ public class Appointment implements Serializable {
      * @return String
      */
     public String toTerse() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return String.format(
                 "Appointment [%s] - Patient: %s, Doctor: %s, DateTime: %s, Status: %s, Outcome: %s",
                 id,
                 patient != null ? patient.getName() : "None",
                 doctor != null ? doctor.getName() : "None",
-                start != null ? start.toString() : "Not Scheduled",
-                end != null ? end.toString() : "Not Scheduled",
+                start != null ? start.format(formatter) : "Not Scheduled",
+                end != null ? end.format(formatter) : "Not Scheduled",
                 state,
                 outcome != null ? outcome : "Not Determined");
     }

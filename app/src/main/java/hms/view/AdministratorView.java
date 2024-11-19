@@ -1,5 +1,6 @@
 package hms.view;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,7 @@ public class AdministratorView {
             try {
                 switch (option) {
                     case 1 -> viewAndManageHospitalStaff(sc);
-                    case 2 -> viewAppointmentDetails(sc);
+                    case 2 -> viewAppointmentDetails();
                     case 3 -> viewAndManageMedicationInventory(sc);
                     case 4 -> approveReplenishmentRequests(sc);
                     case 0 -> {
@@ -283,7 +284,8 @@ public class AdministratorView {
     /**
      * @param sc
      */
-    private void viewAppointmentDetails(Scanner sc) {
+    private void viewAppointmentDetails() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         System.out.println("\n=== Appointment Details ===");
         List<Appointment> appointments = ac.getAllAppointments();
 
@@ -301,8 +303,8 @@ public class AdministratorView {
                     "%s\t\t%s\t\t%s\t%s\t%s%n",
                     appointment.getPatient().getId(),
                     appointment.getDoctor().getId(),
-                    appointment.getStart(),
-                    appointment.getEnd(),
+                    appointment.getStart().format(formatter),
+                    appointment.getEnd().format(formatter),
                     appointment.getState());
             }
         }
