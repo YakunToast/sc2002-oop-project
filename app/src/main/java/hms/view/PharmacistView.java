@@ -72,10 +72,16 @@ public class PharmacistView {
             if (outcome.getPrescription() != null && !outcome.getPrescription().isEmpty()) {
                 System.out.println("\nAppointment ID: " + outcome.getAppointment().getId());
                 System.out.println("Date: " + outcome.getAppointment().getStart());
-                System.out.println("Prescriptions:");
+                System.out.println("Prescriptions:\n==============");
                 for (Prescription prescription : pharmacistController.getPendingPrescriptions()) {
+                    int i = 1;
                     for (Medication m : prescription.getMedications().keySet()) {
-                        System.out.println("- Medication: " + m);
+                        System.out.println("Medication " + (i++) + ":" 
+                                            + "\nID: " + m.getId() + "\n"
+                                            + "Name: " + m.getName() + "\n"
+                                            + "Reason: " + m.getDescription() + "\n"
+                                            + "Quantity: " + prescription.getMedications().get(m)
+                                            + "\n---------");
                     }
                     System.out.println("Status: " + prescription.getPrescriptionStatus());
                 }
@@ -94,7 +100,7 @@ public class PharmacistView {
         List<AppointmentOutcome> outcomes = pharmacistController.getAppointmentOutcomes();
         boolean hasPendingPrescriptions = false;
 
-        System.out.println("Pending Prescriptions:");
+        System.out.println("Pending Prescriptions\n===============");
         for (AppointmentOutcome outcome : outcomes) {
             if (outcome.getPrescription() != null) {
                 Optional<Prescription> prescriptionOpt = outcome.getPrescription();
@@ -106,8 +112,14 @@ public class PharmacistView {
                 if (prescription.getPrescriptionStatus() == PrescriptionStatus.PENDING) {
                     hasPendingPrescriptions = true;
                     System.out.println("Appointment ID: " + outcome.getAppointment().getId());
+                    int i = 1;
                     for (Medication m : prescription.getMedications().keySet()) {
-                        System.out.println("- Medication: " + m);
+                        System.out.println("Medication " + (i++) + ":" 
+                                            + "\nID: " + m.getId() + "\n"
+                                            + "Name: " + m.getName() + "\n"
+                                            + "Reason: " + m.getDescription() + "\n"
+                                            + "Quantity: " + prescription.getMedications().get(m)
+                                            + "\n---------");
                     }
                     System.out.println("Current Status: " + prescription.getPrescriptionStatus());
                     System.out.println("------------------------");
@@ -122,6 +134,7 @@ public class PharmacistView {
 
         System.out.print("Enter Appointment ID to update: ");
         int appointmentId = sc.nextInt();
+        sc.nextLine();
 
         Optional<AppointmentOutcome> outcomeOpt =
                 outcomes.stream()
@@ -138,8 +151,14 @@ public class PharmacistView {
 
             Prescription prescription = prescriptionOpt.get();
             if (prescription.getPrescriptionStatus() == PrescriptionStatus.PENDING) {
+                int i = 1;
                 for (Medication m : prescription.getMedications().keySet()) {
-                    System.out.println("- Medication: " + m);
+                    System.out.println("Medication " + (i++) + ":" 
+                                            + "\nID: " + m.getId() + "\n"
+                                            + "Name: " + m.getName() + "\n"
+                                            + "Reason: " + m.getDescription() + "\n"
+                                            + "Quantity: " + prescription.getMedications().get(m)
+                                            + "\n---------");
                 }
                 System.out.println("1. Mark as Dispensed");
                 System.out.println("2. Skip");
