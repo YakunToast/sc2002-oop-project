@@ -15,7 +15,7 @@ public class Schedule implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final Doctor doctor;
-    private List<Appointment> appointments;
+    private final List<Appointment> appointments;
 
     /**
      * Creates a new schedule for the specified doctor.
@@ -55,7 +55,7 @@ public class Schedule implements Serializable {
      * @return a list of appointments
      */
     public List<Appointment> getAppointments() {
-        return appointments;
+        return new ArrayList<>(appointments);
     }
 
     /**
@@ -67,6 +67,9 @@ public class Schedule implements Serializable {
      * @throws IllegalArgumentException if the start time is after the end time
      */
     public Appointment addAppointment(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        if (startDateTime.isAfter(endDateTime)) {
+            throw new IllegalArgumentException("Start time must be before end time");
+        }
         Appointment appointment = new Appointment(this.doctor, startDateTime, endDateTime);
         appointments.add(appointment);
         RepositoryManager.getInstance().getAppointmentRepository().addAppointment(appointment);
@@ -84,14 +87,23 @@ public class Schedule implements Serializable {
     // addAppointments add appointments in one hour windows
     public List<Appointment> addAppointmentHourly(
             LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        List<Appointment> appointments = new ArrayList<>();
-        while (startDateTime.isBefore(endDateTime)) {
+        if (startDateTime.isAfter(endDateTime)) {
+            throw new IllegalArgumentException("Start time must be before end time");
+        }
+
+        List<Appointment> hourlyAppointments = new ArrayList<>();
+        while (startDateTime.plusHours(1).isBefore(endDateTime)) {
             LocalDateTime nextHour = startDateTime.plusHours(1);
-            Appointment appointment = addAppointment(startDateTime, endDateTime);
-            appointments.add(appointment);
+            Appointment appointment = addAppointment(startDateTime, nextHour);
+            hourlyAppointments.add(appointment);
             startDateTime = nextHour;
         }
-        return appointments;
+        // Add the last appointment to cover the remaining time
+        if (startDateTime.isBefore(endDateTime)) {
+            Appointment appointment = addAppointment(startDateTime, endDateTime);
+            hourlyAppointments.add(appointment);
+        }
+        return hourlyAppointments;
     }
 
     /**
@@ -111,15 +123,15 @@ public class Schedule implements Serializable {
             throw new IllegalArgumentException("Start time must be before end time");
         }
 
+        List<Appointment> availabilitySlots = new ArrayList<>();
         LocalDate currentDate = startDate;
-        List<Appointment> appointments = new ArrayList<>();
         while (!currentDate.isAfter(endDate)) {
             LocalDateTime startDateTime = LocalDateTime.of(currentDate, startTime);
             LocalDateTime endDateTime = LocalDateTime.of(currentDate, endTime);
-            appointments.addAll(addAppointmentHourly(startDateTime, endDateTime));
+            availabilitySlots.addAll(addAppointmentHourly(startDateTime, endDateTime));
             currentDate = currentDate.plusDays(1);
         }
-        return appointments;
+        return availabilitySlots;
     }
 
     /**

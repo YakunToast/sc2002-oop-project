@@ -51,6 +51,6 @@ public class AppointmentOutcome implements Serializable {
      *     provided
      */
     public Optional<Prescription> getPrescription() {
-        return Optional.of(this.prescription);
+        return Optional.ofNullable(this.prescription);
     }
 }

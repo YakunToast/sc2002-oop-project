@@ -109,7 +109,7 @@ public class Inventory implements Serializable {
 
         // Make sure we cannot remove more than what's left
         int currentStock = stock.get(medication.getName());
-        int delta = Integer.min(currentStock, qty);
+        int delta = Integer.min(currentStock, Math.abs(qty));
 
         stock.merge(medication.getName(), -delta, Integer::sum);
         return true;
@@ -168,7 +168,7 @@ public class Inventory implements Serializable {
      * @return an Optional containing the medication if found, or an empty Optional if not found
      */
     public Optional<Medication> getMedicationByUUID(UUID id) {
-        return this.medications.values().stream().filter(m -> m.getId() == id).findFirst();
+        return this.medications.values().stream().filter(m -> m.getId().equals(id)).findFirst();
     }
 
     /**

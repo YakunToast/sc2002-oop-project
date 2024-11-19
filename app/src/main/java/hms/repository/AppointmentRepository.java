@@ -36,7 +36,7 @@ public class AppointmentRepository extends BaseRepository {
     public void addAppointment(Appointment appointment) {
         int idx = getNextId();
         appointment.setId(idx);
-        appointments.put(getNextId(), appointment);
+        appointments.put(idx, appointment);
     }
 
     /**
