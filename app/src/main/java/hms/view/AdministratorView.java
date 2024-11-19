@@ -109,11 +109,11 @@ public class AdministratorView {
         }
 
         System.out.println("\nStaff List:");
-        System.out.println("ID\tRole\tName");
+        System.out.println("ID\tRole\t\tName");
         System.out.println("----------------------------------------");
         for (Staff staff : staffList) {
             System.out.printf(
-                    "%s\t%s\t%s %s\t%s",
+                    "%-7s %-15s %s %s%n",
                     staff.getId(), staff.getRole(), staff.getFirstName(), staff.getLastName());
         }
     }
