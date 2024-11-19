@@ -1,9 +1,10 @@
 package hms.model.user;
 
 import hms.model.appointment.Schedule;
+
 /**
- * Represents a doctor user within the system, extending the Staff class. Doctor
- * have specific roles and permissions that differentiate them from other user types.
+ * Represents a doctor user within the system, extending the Staff class. Doctor have specific roles
+ * and permissions that differentiate them from other user types.
  */
 public class Doctor extends Staff {
     /** Represents the schedule associated with the doctor. */

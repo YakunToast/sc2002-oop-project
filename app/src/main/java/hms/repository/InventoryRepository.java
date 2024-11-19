@@ -39,7 +39,7 @@ public class InventoryRepository extends BaseRepository {
     /**
      * Retrieves a list of all replenishment requests.
      *
-     * The list is a copy of the internal set of replenishment requests.
+     * <p>The list is a copy of the internal set of replenishment requests.
      *
      * @return a list of all replenishment requests
      */
