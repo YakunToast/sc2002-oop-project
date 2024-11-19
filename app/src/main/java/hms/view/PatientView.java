@@ -79,11 +79,11 @@ public class PatientView {
         System.out.printf(" Email: %s%n", pc.getPatient().getEmail());
         System.out.printf("Blood Type: %s%n", pc.getPatient().getBloodType());
         System.out.println("Past Diagnoses and Treatments:");
-        
+
         for (int i = 0; i < mr.getPastDiagnoses().size(); i++) {
-        System.out.printf(" %d. Diagnosis: %s - Treatment Plan: %s%n", (i + 1),
-        mr.getPastDiagnoses().get(i),
-        mr.getTreatments().get(i));
+            System.out.printf(
+                    " %d. Diagnosis: %s - Treatment Plan: %s%n",
+                    (i + 1), mr.getPastDiagnoses().get(i), mr.getTreatments().get(i));
         }
         System.out.println("---------------------------");
     }
@@ -259,7 +259,7 @@ public class PatientView {
         for (int i = 0; i < apptOutcomes.size(); i++) {
             desc = apptOutcomes.get(i).getDescription();
             medications = apptOutcomes.get(i).getPrescription().get().getMedications();
-            System.out.println("Appointment Outcome " + (i+1) + ": ");
+            System.out.println("Appointment Outcome " + (i + 1) + ": ");
             System.out.println("Description: " + desc);
             System.out.println("Prescription:");
             for (Map.Entry<Medication, Integer> e : medications.entrySet()) {

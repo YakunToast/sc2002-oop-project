@@ -27,7 +27,6 @@ public class AdministratorView {
     public AdministratorView(Administrator administrator) {
         this.administrator = administrator;
         this.ac = new AdministratorController(administrator);
-       
     }
 
     /**
@@ -294,7 +293,8 @@ public class AdministratorView {
         }
 
         System.out.println("Patient ID\tDoctor ID\tStart\t\t\tEnd\t\t\tStatus");
-        System.out.println("------------------------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "------------------------------------------------------------------------------------------------------------------");
         for (int i = 0; i < appointments.size(); i++) {
             // TODO: How get a single timeslot in each appointment
             System.out.printf(
@@ -351,9 +351,7 @@ public class AdministratorView {
         for (Medication med : medications) {
             System.out.printf(
                     "%-23s %-15d %d%n",
-                    med.getName(),
-                    ac.getMedicationStock(med),
-                    ac.getMedicationStockAlert(med));
+                    med.getName(), ac.getMedicationStock(med), ac.getMedicationStockAlert(med));
         }
     }
 
@@ -438,8 +436,7 @@ public class AdministratorView {
      * @param sc
      */
     private void approveReplenishmentRequests(Scanner sc) {
-        List<ReplenishmentRequest> requests =
-                ac.getPendingReplenishmentRequests();
+        List<ReplenishmentRequest> requests = ac.getPendingReplenishmentRequests();
 
         if (requests.isEmpty()) {
             System.out.println("No pending replenishment requests.");

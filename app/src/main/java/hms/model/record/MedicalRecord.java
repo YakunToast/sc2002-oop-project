@@ -54,13 +54,14 @@ public class MedicalRecord implements Serializable {
         sb.append("Doctor: ").append(doctor != null ? doctor.getName() : "None").append("\n");
         sb.append("Past Diagnoses and Treatments:\n");
         for (int i = 0; i < pastDiagnoses.size(); i++) {
-            sb.append(String.format("%d. Diagnosis: %s - Treatment Plan: %s%n",
-                                (i+1), 
-                                pastDiagnoses.isEmpty() ? "None" : pastDiagnoses.get(i), 
-                                treatments.isEmpty() ? "None" : treatments.get(i)));
-            
+            sb.append(
+                    String.format(
+                            "%d. Diagnosis: %s - Treatment Plan: %s%n",
+                            (i + 1),
+                            pastDiagnoses.isEmpty() ? "None" : pastDiagnoses.get(i),
+                            treatments.isEmpty() ? "None" : treatments.get(i)));
         }
-        
+
         return sb.toString();
     }
 
