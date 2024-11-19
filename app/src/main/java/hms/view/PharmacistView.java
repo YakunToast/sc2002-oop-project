@@ -76,7 +76,9 @@ public class PharmacistView {
         for (AppointmentOutcome outcome : outcomes) {
             if (outcome.getPrescription() != null && !outcome.getPrescription().isEmpty()) {
                 System.out.println("\nAppointment ID: " + outcome.getAppointment().getId());
-                System.out.println("Date: " + outcome.getAppointment().getStart().format(formatter));
+                System.out.println("Date: " + outcome.getAppointment().getStart().format(formatter)
+                                            + " to "
+                                            + outcome.getAppointment().getEnd().format(formatter));
                 System.out.println("Prescriptions:\n==============");
                 for (Prescription prescription : pharmacistController.getPendingPrescriptions()) {
                     if (prescription.getMedications() != null) {
