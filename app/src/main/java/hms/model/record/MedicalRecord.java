@@ -52,7 +52,7 @@ public class MedicalRecord implements Serializable {
     }
 
     /**
-     * Returns a string representation of the medical record.
+     * Retrieves a string representation of the medical record.
      *
      * @return a string representation of the medical record
      */
@@ -79,7 +79,7 @@ public class MedicalRecord implements Serializable {
     }
 
     /**
-     * Returns the patient associated with this medical record.
+     * Retrieves the patient associated with this medical record.
      *
      * @return the patient
      */
@@ -88,7 +88,7 @@ public class MedicalRecord implements Serializable {
     }
 
     /**
-     * Returns the contact phone number of the patient.
+     * Retrieves the contact phone number of the patient.
      *
      * @return the contact phone number
      */
@@ -106,7 +106,7 @@ public class MedicalRecord implements Serializable {
     }
 
     /**
-     * Returns the email address of the patient.
+     * Retrieves the email address of the patient.
      *
      * @return the email address
      */
@@ -124,7 +124,7 @@ public class MedicalRecord implements Serializable {
     }
 
     /**
-     * Returns an unmodifiable list of past diagnoses recorded in the medical record.
+     * Retrieves an unmodifiable list of past diagnoses recorded in the medical record.
      *
      * @return an unmodifiable list of past diagnoses
      */
@@ -142,7 +142,7 @@ public class MedicalRecord implements Serializable {
     }
 
     /**
-     * Returns an unmodifiable list of treatments recorded in the medical record.
+     * Retrieves an unmodifiable list of treatments recorded in the medical record.
      *
      * @return an unmodifiable list of treatments
      */
@@ -160,7 +160,7 @@ public class MedicalRecord implements Serializable {
     }
 
     /**
-     * Returns the doctor responsible for this medical record.
+     * Retrieves the doctor responsible for this medical record.
      *
      * @return the doctor
      */
