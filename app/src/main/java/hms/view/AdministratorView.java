@@ -295,15 +295,16 @@ public class AdministratorView {
         System.out.println("Patient ID\tDoctor ID\tStart\t\t\tEnd\t\t\tStatus");
         System.out.println(
                 "------------------------------------------------------------------------------------------------------------------");
-        for (int i = 0; i < appointments.size(); i++) {
-            // TODO: How get a single timeslot in each appointment
-            System.out.printf(
+        for (Appointment appointment : appointments) {
+            if (!appointment.isFree()) {
+                System.out.printf(
                     "%s\t\t%s\t\t%s\t%s\t%s%n",
-                    appointments.get(i).getPatient().getId(),
-                    appointments.get(i).getDoctor().getId(),
-                    appointments.get(i).getStart(),
-                    appointments.get(i).getEnd(),
-                    appointments.get(i).getState());
+                    appointment.getPatient().getId(),
+                    appointment.getDoctor().getId(),
+                    appointment.getStart(),
+                    appointment.getEnd(),
+                    appointment.getState());
+            }
         }
     }
 
