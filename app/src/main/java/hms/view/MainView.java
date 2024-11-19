@@ -22,19 +22,30 @@ public class MainView {
         while (true) {
             displayWelcomeBanner();
 
-            // Handle login
-            User user = handleLogin(sc);
-            if (user == null) {
-                continue;
-            }
+            // Handle user choice (login or register)
+            int choice = handleUserChoice(sc);
+            switch (choice) {
+                case 1 -> {
+                    // Handle login
+                    User user = handleLogin(sc);
+                    if (user == null) {
+                        continue;
+                    }
 
-            // Handle first-time login password change
-            if (user.verifyPassword(DEFAULT_PASSWORD)) {
-                handlePasswordChange(sc, user);
-            }
+                    // Handle first-time login password change
+                    if (user.verifyPassword(DEFAULT_PASSWORD)) {
+                        handlePasswordChange(sc, user);
+                    }
 
-            // Display role-specific menu
-            handleUserMenu(sc, user);
+                    // Display role-specific menu
+                    handleUserMenu(sc, user);
+                }
+                case 2 -> {
+                    // Handle patient registration
+                    registerPatient(sc);
+                }
+                default -> System.out.println("Invalid choice. Please try again.\n");
+            }
         }
     }
 
@@ -42,7 +53,14 @@ public class MainView {
         System.out.println("\n========================================");
         System.out.println("   Hospital Management System (HMS)");
         System.out.println("========================================");
-        System.out.println("Please log in to continue\n");
+        System.out.println("Please choose an option:\n");
+    }
+
+    private int handleUserChoice(Scanner sc) {
+        System.out.println("1. Log in");
+        System.out.println("2. Register as a patient");
+        System.out.print("Enter your choice (1 or 2): ");
+        return sc.nextInt();
     }
 
     /**
@@ -50,6 +68,8 @@ public class MainView {
      * @return User
      */
     private User handleLogin(Scanner sc) {
+        sc.nextLine(); // Consume newline character left by nextInt()
+
         int attempts = 0;
         while (attempts < MAX_LOGIN_ATTEMPTS) {
             System.out.print("Username: ");
@@ -173,6 +193,62 @@ public class MainView {
         } catch (ClassCastException e) {
             System.out.println("Error: User role does not match the expected type.");
             System.out.println("Please contact system administrator for assistance.");
+        }
+    }
+
+    private void registerPatient(Scanner sc) {
+        System.out.println("\nRegister as a new patient:");
+
+        System.out.print("Enter your first name: ");
+        String firstName = sc.nextLine().trim();
+        System.out.print("Enter your last name: ");
+        String lastName = sc.nextLine().trim();
+        System.out.print("Enter a username: ");
+        String username = sc.nextLine().trim();
+        System.out.print("Enter your email address: ");
+        String email = sc.nextLine().trim();
+        System.out.print("Enter your phone number: ");
+        String phoneNumber = sc.nextLine().trim();
+
+        // Check if username already exists
+        if (RepositoryManager.getInstance()
+                .getUserRepository()
+                .getUserByUsername(username)
+                .isPresent()) {
+            System.out.println("\nUsername already exists. Please try a different username.");
+            return;
+        }
+
+        while (true) {
+            System.out.print("Enter a password: ");
+            String password = sc.nextLine().trim();
+            System.out.print("Confirm password: ");
+            String confirmPassword = sc.nextLine().trim();
+
+            if (password.equals(confirmPassword)) {
+                if (isValidPassword(password)) {
+                    User newPatient =
+                            new Patient(
+                                    username,
+                                    username,
+                                    firstName,
+                                    lastName,
+                                    password,
+                                    email,
+                                    phoneNumber);
+                    RepositoryManager.getInstance().getUserRepository().addUser(newPatient);
+                    System.out.println("Registration successful. Please log in to continue.\n");
+                    RepositoryManager.getInstance().save();
+                    return;
+                } else {
+                    System.out.println(
+                            "\n"
+                                + "Password must be at least 8 characters long and contain at least"
+                                + " one uppercase letter, one lowercase letter, and one number.");
+                }
+            } else {
+                System.out.println("\nPasswords do not match. Please try again.");
+            }
         }
     }
 }
