@@ -35,6 +35,7 @@ public class PharmacistView {
             System.out.println("2. Update Prescription Status");
             System.out.println("3. View Medication Inventory");
             System.out.println("4. Submit Replenishment Request");
+            System.out.println("5. View Replenishment Requests");
             System.out.println("0. Logout");
             System.out.print("Choose an option: ");
 
@@ -45,6 +46,7 @@ public class PharmacistView {
                     case 2 -> updatePrescriptionStatus(sc);
                     case 3 -> viewMedicationInventory(sc);
                     case 4 -> submitReplenishmentRequest(sc);
+                    case 5 -> viewReplenishmentRequests(sc);
                     case 0 -> {
                         System.out.println("Logging out...");
                         return;
@@ -224,7 +226,6 @@ public class PharmacistView {
     /**
      * @param sc
      */
-    // TODO: add stock level in medication
     void viewMedicationInventory(Scanner sc) {
         System.out.println("\n=== Medication Inventory ===");
         List<Medication> medications = pharmacistController.getMedications();
@@ -297,6 +298,27 @@ public class PharmacistView {
             }
         } catch (NumberFormatException e) {
             System.out.println("Please enter a valid number.");
+        }
+    }
+
+    /**
+     * @param sc
+     */
+    void viewReplenishmentRequests(Scanner sc) {
+        System.out.println("\n=== Replenishment Requests ===");
+        List<ReplenishmentRequest> requests =
+                repositoryManager.getInventoryRepository().getReplenishmentRequests();
+
+        if (requests.isEmpty()) {
+            System.out.println("No replenishment requests found.");
+            return;
+        }
+
+        for (ReplenishmentRequest request : requests) {
+            System.out.println("\nMedication: " + request.getMedication().getName());
+            System.out.println("Requested Quantity: " + request.getRequestedQuantity());
+            System.out.println("Status: " + request.getStatus());
+            System.out.println("------------------------");
         }
     }
 }

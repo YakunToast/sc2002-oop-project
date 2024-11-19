@@ -75,6 +75,15 @@ public class ReplenishmentRequest implements Serializable {
     }
 
     /**
+     * Returns the current status of the replenishment request.
+     *
+     * @return the current status of the request
+     */
+    public ReplenishmentRequestStatus getStatus() {
+        return this.status;
+    }
+
+    /**
      * Returns the medication for which the replenishment request was made.
      *
      * @return the medication for which the request was made
