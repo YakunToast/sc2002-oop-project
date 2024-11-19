@@ -13,7 +13,7 @@ import hms.model.user.Pharmacist;
 import hms.model.user.User;
 import hms.model.user.UserRole;
 
-/** Repository class for managing user data. */
+/** This class extends the {@link BaseRepository} and manages user data. */
 public class UserRepository extends BaseRepository {
 
     private final Map<String, User> users;

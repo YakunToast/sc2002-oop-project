@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
- * Singleton class that manages the repositories for the HMS (Hospital Management System). It
+ * This class manages the repositories for the Hospital Management System. It
  * handles the serialization and deserialization of the repositories to and from a file.
  */
 public class RepositoryManager implements Serializable {
@@ -27,7 +27,7 @@ public class RepositoryManager implements Serializable {
     }
 
     /**
-     * Returns the singleton instance of RepositoryManager.
+     * Retrieves the singleton instance of RepositoryManager.
      *
      * @return The singleton instance of RepositoryManager.
      */
@@ -121,7 +121,7 @@ public class RepositoryManager implements Serializable {
     }
 
     /**
-     * Returns the UserRepository managed by this RepositoryManager.
+     * Retrieves the UserRepository managed by this RepositoryManager.
      *
      * @return The UserRepository managed by this RepositoryManager.
      */
@@ -130,7 +130,7 @@ public class RepositoryManager implements Serializable {
     }
 
     /**
-     * Returns the AppointmentRepository managed by this RepositoryManager.
+     * Retrieves the AppointmentRepository managed by this RepositoryManager.
      *
      * @return The AppointmentRepository managed by this RepositoryManager.
      */
@@ -139,7 +139,7 @@ public class RepositoryManager implements Serializable {
     }
 
     /**
-     * Returns the InventoryRepository managed by this RepositoryManager.
+     * Retrieves the InventoryRepository managed by this RepositoryManager.
      *
      * @return The InventoryRepository managed by this RepositoryManager.
      */

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import hms.model.appointment.Appointment;
 
-/** Repository class for managing appointments. */
+/** This class extends the {@link BaseRepository} and manages appointments. */
 public class AppointmentRepository extends BaseRepository {
     private Map<Integer, Appointment> appointments;
 
@@ -18,7 +18,7 @@ public class AppointmentRepository extends BaseRepository {
     }
 
     /**
-     * Returns the next ID to be used for a new appointment.
+     * Retrieves the next unique identifier to be used for a new appointment.
      *
      * @return The next ID.
      */
@@ -50,7 +50,7 @@ public class AppointmentRepository extends BaseRepository {
     }
 
     /**
-     * Returns a list of all appointments.
+     * Retrieves a list of all appointments.
      *
      * @return A list of all appointments.
      */
@@ -59,7 +59,7 @@ public class AppointmentRepository extends BaseRepository {
     }
 
     /**
-     * Retrieves an appointment by its ID.
+     * Retrieves an appointment by its unique identifier.
      *
      * @param id The ID of the appointment to retrieve.
      * @return An Optional containing the appointment if found, or an empty Optional if not found.

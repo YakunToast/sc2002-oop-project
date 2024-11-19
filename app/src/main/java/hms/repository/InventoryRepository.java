@@ -28,7 +28,7 @@ public class InventoryRepository extends BaseRepository {
     }
 
     /**
-     * Returns the current inventory of medications.
+     * Retrieves the current inventory of medications.
      *
      * @return the current inventory of medications
      */
@@ -37,9 +37,9 @@ public class InventoryRepository extends BaseRepository {
     }
 
     /**
-     * Returns a list of all replenishment requests.
+     * Retrieves a list of all replenishment requests.
      *
-     * <p>The list is a copy of the internal set of replenishment requests.
+     * The list is a copy of the internal set of replenishment requests.
      *
      * @return a list of all replenishment requests
      */
