@@ -12,7 +12,6 @@ import java.util.Scanner;
 import hms.controller.DoctorController;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentOutcome;
-import hms.model.appointment.AppointmentStatus;
 import hms.model.medication.Medication;
 import hms.model.medication.Prescription;
 import hms.model.user.Doctor;
@@ -291,10 +290,10 @@ public class DoctorView {
                 System.out.print("Accept (A) or Decline (D): ");
                 String decision = sc.nextLine();
                 if (decision.equalsIgnoreCase("A")) {
-                    request.setStatus(AppointmentStatus.CONFIRMED);
+                    request.confirm();
                     System.out.println("Appointment accepted.");
                 } else if (decision.equalsIgnoreCase("D")) {
-                    request.setStatus(AppointmentStatus.CANCELLED);
+                    request.cancel();
                     System.out.println("Appointment declined.");
                 } else {
                     System.out.println("Invalid choice. Please try again.");

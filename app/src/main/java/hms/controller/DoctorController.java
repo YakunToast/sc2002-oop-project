@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import hms.controller.appointment.AppointmentDoctor;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentOutcome;
-import hms.model.appointment.AppointmentStatus;
 import hms.model.appointment.Schedule;
 import hms.model.medication.Prescription;
 import hms.model.record.MedicalRecord;
@@ -185,7 +184,7 @@ public class DoctorController implements AppointmentDoctor {
         // Save appointment outcome
         AppointmentOutcome ao = new AppointmentOutcome(ap, description, pr);
         ap.setOutcome(ao);
-        ap.setStatus(AppointmentStatus.COMPLETED);
+        ap.complete();
         return true;
     }
 

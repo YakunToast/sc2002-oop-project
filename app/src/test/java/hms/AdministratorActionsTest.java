@@ -19,6 +19,7 @@ import hms.controller.PatientController;
 import hms.controller.PharmacistController;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentStatus;
+import hms.model.appointment.state.ConfirmedState;
 import hms.model.medication.Medication;
 import hms.model.medication.MedicationSideEffect;
 import hms.model.medication.ReplenishmentRequest;
@@ -97,11 +98,11 @@ class AdministratorActionsTest {
 
         // Test filtering appointments by status
         var confirmedAppointments =
-                adminController.getAppointmentsByStatus(AppointmentStatus.CONFIRMED);
+                adminController.getAllAppointmentsByStatus(AppointmentStatus.CONFIRMED);
         assertNotNull(confirmedAppointments);
         assertTrue(
                 confirmedAppointments.stream()
-                        .allMatch(appt -> appt.getStatus() == AppointmentStatus.CONFIRMED));
+                        .allMatch(appt -> appt.getState() instanceof ConfirmedState));
 
         // Test getting appointment details
         Appointment appointment = allAppointments.get(0);

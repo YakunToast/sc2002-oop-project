@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import hms.controller.appointment.AppointmentUser;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentOutcome;
-import hms.model.appointment.AppointmentStatus;
 import hms.model.record.MedicalRecord;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
@@ -94,10 +93,7 @@ public class PatientController implements AppointmentUser {
                                 doctor -> doctor,
                                 doctor ->
                                         doctor.getSchedule().getAppointments().stream()
-                                                .filter(
-                                                        appointment ->
-                                                                appointment.getStatus()
-                                                                        == AppointmentStatus.FREE)
+                                                .filter(appointment -> appointment.isFree())
                                                 .collect(Collectors.toList()),
                                 (prev, next) -> next,
                                 HashMap::new));
@@ -124,7 +120,7 @@ public class PatientController implements AppointmentUser {
         }
 
         ap.setPatient(this.patient);
-        ap.setStatus(AppointmentStatus.PENDING);
+        ap.pending();
         return true;
     }
 
@@ -144,7 +140,7 @@ public class PatientController implements AppointmentUser {
         }
 
         oldAp.setPatient(null);
-        oldAp.setStatus(AppointmentStatus.FREE);
+        oldAp.free();
 
         this.scheduleAppointment(newAp);
 

@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentOutcome;
-import hms.model.appointment.AppointmentStatus;
 import hms.repository.AppointmentRepository;
 import hms.repository.RepositoryManager;
 
@@ -34,7 +33,7 @@ public class AppointmentController {
     /** The methods to cancel an appointment Mark an appointment as cancelled */
     public void cancelAppointment() {
         // Mark as cancelled
-        appointment.setStatus(AppointmentStatus.CANCELLED);
+        appointment.cancel();
     }
 
     /**
@@ -43,7 +42,7 @@ public class AppointmentController {
      * @return boolean
      */
     public boolean accept() {
-        appointment.setStatus(AppointmentStatus.CONFIRMED);
+        appointment.confirm();
         return true;
     }
 
@@ -53,7 +52,7 @@ public class AppointmentController {
      * @return boolean
      */
     public boolean decline() {
-        appointment.setStatus(AppointmentStatus.CANCELLED);
+        appointment.cancel();
         return true;
     }
 

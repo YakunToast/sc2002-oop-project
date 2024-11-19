@@ -226,9 +226,9 @@ public class AdministratorController implements InventoryManager, AppointmentMan
      * @return List<Appointment>
      */
     @Override
-    public List<Appointment> getAppointmentsByStatus(AppointmentStatus as) {
-        return this.getAllAppointments().stream()
-                .filter(ap -> ap.getStatus() == as)
+    public List<Appointment> getAllAppointmentsByStatus(AppointmentStatus as) {
+        return this.ar.getAllAppointments().stream()
+                .filter(ap -> ap.getState().getStatus() == as)
                 .collect(Collectors.toList());
     }
 

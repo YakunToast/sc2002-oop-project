@@ -4,7 +4,14 @@ import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentStatus;
 
 public class PendingState
-        implements IAppointmentState, IConfirmableAppointment, ICancellableAppointment {
+        implements IAppointmentState,
+                IConfirmableAppointment,
+                ICancellableAppointment,
+                IFreeableAppointment {
+    @Override
+    public String toString() {
+        return "Pending";
+    }
 
     /**
      * @param appointment
@@ -20,6 +27,14 @@ public class PendingState
     @Override
     public void cancel(Appointment appointment) {
         appointment.setState(new CancelledState());
+    }
+
+    /**
+     * @param appointment
+     */
+    @Override
+    public void free(Appointment appointment) {
+        appointment.setState(new FreeState());
     }
 
     /**

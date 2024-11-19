@@ -303,7 +303,7 @@ public class AdministratorView {
                     appointments.get(i).getDoctor().getId(),
                     appointments.get(i).getStart(),
                     appointments.get(i).getEnd(),
-                    appointments.get(i).getStatus());
+                    appointments.get(i).getState());
         }
     }
 

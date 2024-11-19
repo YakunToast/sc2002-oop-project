@@ -2,6 +2,7 @@ package hms;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -14,7 +15,8 @@ import org.junit.jupiter.api.TestInstance;
 
 import hms.controller.DoctorController;
 import hms.controller.PatientController;
-import hms.model.appointment.AppointmentStatus;
+import hms.model.appointment.state.ConfirmedState;
+import hms.model.appointment.state.PendingState;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 
@@ -83,7 +85,9 @@ class PatientActionsTest {
         patientController.scheduleAppointment(appointment);
 
         assertNotNull(appointment);
-        assertEquals(AppointmentStatus.PENDING, appointment.getStatus());
+
+        assertTrue(appointment.isPending());
+        assertInstanceOf(PendingState.class, appointment.getState());
         assertEquals(testPatient, appointment.getPatient());
         assertEquals(testDoctor, appointment.getDoctor());
     }
@@ -97,10 +101,11 @@ class PatientActionsTest {
 
         var newAppointment = patientController.getAvailableAppointmentSlots().get(0);
         assertNotNull(newAppointment);
-        patientController.rescheduleAppointment(appointment, newAppointment);
+        var success = patientController.rescheduleAppointment(appointment, newAppointment);
+        assertTrue(success);
 
-        assertEquals(appointment.getStatus(), AppointmentStatus.FREE);
-        assertEquals(newAppointment.getStatus(), AppointmentStatus.PENDING);
+        assertTrue(appointment.isFree());
+        assertTrue(newAppointment.isPending());
     }
 
     @Test
@@ -114,7 +119,7 @@ class PatientActionsTest {
         patientController.cancelAppointment(appointment);
 
         // var cancelledAppointment = patientController.getAppointment(appointment);
-        assertEquals(AppointmentStatus.CANCELLED, appointment.getStatus());
+        assertTrue(appointment.isCancelled());
     }
 
     @Test
@@ -146,7 +151,7 @@ class PatientActionsTest {
                 outcomes.stream()
                         .allMatch(
                                 outcome ->
-                                        outcome.getAppointment().getStatus()
-                                                == AppointmentStatus.COMPLETED));
+                                        outcome.getAppointment().getState()
+                                                instanceof ConfirmedState));
     }
 }

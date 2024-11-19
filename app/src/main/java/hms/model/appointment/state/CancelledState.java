@@ -5,6 +5,10 @@ import hms.model.appointment.AppointmentStatus;
 
 public class CancelledState
         implements IAppointmentState, IFreeableAppointment, IPendableAppointment {
+    @Override
+    public String toString() {
+        return "Cancelled";
+    }
 
     /**
      * @param appointment

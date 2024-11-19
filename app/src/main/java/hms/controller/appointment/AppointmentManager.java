@@ -7,9 +7,9 @@ import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentStatus;
 
 public interface AppointmentManager extends AppointmentBase {
-    List<Appointment> getAppointmentsByStatus(AppointmentStatus status);
+    List<Appointment> getAllAppointments();
+
+    List<Appointment> getAllAppointmentsByStatus(AppointmentStatus as);
 
     Optional<Appointment> getAppointmentById(int id);
-
-    List<Appointment> getAllAppointments();
 }

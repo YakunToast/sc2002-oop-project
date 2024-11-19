@@ -5,6 +5,10 @@ import hms.model.appointment.AppointmentStatus;
 
 public class CompletedState
         implements IAppointmentState, IFreeableAppointment, IPendableAppointment {
+    @Override
+    public String toString() {
+        return "Completed";
+    }
 
     /**
      * @param appointment

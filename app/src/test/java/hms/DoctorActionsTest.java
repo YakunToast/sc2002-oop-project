@@ -14,7 +14,6 @@ import org.junit.jupiter.api.TestInstance;
 
 import hms.controller.DoctorController;
 import hms.controller.PatientController;
-import hms.model.appointment.AppointmentStatus;
 import hms.model.medication.Medication;
 import hms.model.medication.Prescription;
 import hms.model.user.Doctor;
@@ -93,12 +92,13 @@ class DoctorActionsTest {
 
         boolean accepted = doctorController.acceptAppointment(appointment);
         assertTrue(accepted);
-        assertEquals(AppointmentStatus.CONFIRMED, appointment.getStatus());
+        assertTrue(appointment.isConfirmed());
 
         appointment = TestUtils.createTestAppointment(testDoctor);
+        patientController.scheduleAppointment(appointment);
         boolean declined = doctorController.declineAppointment(appointment);
         assertTrue(declined);
-        assertEquals(AppointmentStatus.CANCELLED, appointment.getStatus());
+        assertTrue(appointment.isCancelled());
     }
 
     @Test
@@ -123,7 +123,8 @@ class DoctorActionsTest {
     @DisplayName("Test Case 15: Record Appointment Outcome")
     void testRecordAppointmentOutcome() {
         var appointment = TestUtils.createTestAppointment(testDoctor);
-        appointment.setStatus(AppointmentStatus.COMPLETED);
+        patientController.scheduleAppointment(appointment);
+        doctorController.acceptAppointment(appointment);
 
         boolean recorded =
                 doctorController.addAppointmentOutcome(

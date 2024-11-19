@@ -3,12 +3,16 @@ package hms.model.appointment.state;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentStatus;
 
-class ConfirmedState
+public class ConfirmedState
         implements IAppointmentState,
                 ICancellableAppointment,
                 ICompletableAppointment,
                 IFreeableAppointment,
                 IPendableAppointment {
+    @Override
+    public String toString() {
+        return "Confirmed";
+    }
 
     /**
      * @param appointment

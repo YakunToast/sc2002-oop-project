@@ -3,6 +3,9 @@ package hms.model.appointment;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import hms.model.appointment.state.CancelledState;
+import hms.model.appointment.state.CompletedState;
+import hms.model.appointment.state.ConfirmedState;
 import hms.model.appointment.state.FreeState;
 import hms.model.appointment.state.IAppointmentState;
 import hms.model.appointment.state.ICancellableAppointment;
@@ -10,6 +13,7 @@ import hms.model.appointment.state.ICompletableAppointment;
 import hms.model.appointment.state.IConfirmableAppointment;
 import hms.model.appointment.state.IFreeableAppointment;
 import hms.model.appointment.state.IPendableAppointment;
+import hms.model.appointment.state.PendingState;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 
@@ -22,7 +26,6 @@ public class Appointment implements Serializable {
     private LocalDateTime start;
     private LocalDateTime end;
     private Patient patient;
-    private AppointmentStatus status; // confirmed, canceled, completed
     private AppointmentOutcome outcome;
     private IAppointmentState state;
 
@@ -30,14 +33,13 @@ public class Appointment implements Serializable {
         this.doctor = doctor;
         this.start = start;
         this.end = end;
-        this.status = AppointmentStatus.FREE;
         this.state = new FreeState();
     }
 
     public Appointment(Doctor doctor, LocalDateTime start, LocalDateTime end, Patient patient) {
         this(doctor, start, end);
         this.patient = patient;
-        this.status = AppointmentStatus.PENDING;
+        this.state = new PendingState();
     }
 
     /**
@@ -64,7 +66,7 @@ public class Appointment implements Serializable {
                 .append(end != null ? end.toString() : "Not Scheduled")
                 .append("\n")
                 .append("Status: ")
-                .append(status != null ? status.toString() : "Unknown")
+                .append(state != null ? state.toString() : "Unknown")
                 .append("\n")
                 .append("Outcome: ")
                 .append(outcome != null ? outcome.getDescription() : "Not Determined")
@@ -83,7 +85,7 @@ public class Appointment implements Serializable {
                 doctor != null ? doctor.getName() : "None",
                 start != null ? start.toString() : "Not Scheduled",
                 end != null ? end.toString() : "Not Scheduled",
-                status != null ? status.toString() : "Unknown",
+                state,
                 outcome != null ? outcome : "Not Determined");
     }
 
@@ -133,17 +135,10 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * @param newStatus
+     * @return IAppointmentState
      */
-    public void setStatus(AppointmentStatus newStatus) {
-        this.status = newStatus;
-    }
-
-    /**
-     * @return AppointmentStatus
-     */
-    public AppointmentStatus getStatus() {
-        return status;
+    public IAppointmentState getState() {
+        return this.state;
     }
 
     /**
@@ -234,35 +229,35 @@ public class Appointment implements Serializable {
      * @return boolean
      */
     public boolean isFree() {
-        return this.status == AppointmentStatus.FREE;
+        return this.state instanceof FreeState;
     }
 
     /**
      * @return boolean
      */
     public boolean isPending() {
-        return this.status == AppointmentStatus.PENDING;
+        return this.state instanceof PendingState;
     }
 
     /**
      * @return boolean
      */
     public boolean isConfirmed() {
-        return this.status == AppointmentStatus.CONFIRMED;
+        return this.state instanceof ConfirmedState;
     }
 
     /**
      * @return boolean
      */
     public boolean isCancelled() {
-        return this.status == AppointmentStatus.CANCELLED;
+        return this.state instanceof CancelledState;
     }
 
     /**
      * @return boolean
      */
     public boolean isCompleted() {
-        return this.status == AppointmentStatus.COMPLETED;
+        return this.state instanceof CompletedState;
     }
 
     /**
