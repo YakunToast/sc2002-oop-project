@@ -10,10 +10,18 @@ import hms.model.user.User;
 import hms.model.user.UserRole;
 import hms.repository.RepositoryManager;
 
+/**
+ * The MainView class provides the main user interface for the Hospital Management System (HMS). It
+ * handles user authentication, password management, and role-specific menu navigation.
+ */
 public class MainView {
     private static final String DEFAULT_PASSWORD = "password";
     private static final int MAX_LOGIN_ATTEMPTS = 3;
 
+    /**
+     * Starts the main user interface loop. It displays a welcome banner, handles user choice,
+     * processes login and registration, and navigates to the appropriate role-specific menu.
+     */
     public void start() {
         // Create a Scanner to read user input
         Scanner sc = new Scanner(System.in);
@@ -49,6 +57,7 @@ public class MainView {
         }
     }
 
+    /** Displays the welcome banner for the Hospital Management System. */
     private void displayWelcomeBanner() {
         System.out.println("\n========================================");
         System.out.println("   Hospital Management System (HMS)");
@@ -56,6 +65,12 @@ public class MainView {
         System.out.println("Please choose an option:\n");
     }
 
+    /**
+     * Handles user choice between login and registration.
+     *
+     * @param sc the Scanner object for reading user input
+     * @return the user's choice (1 for login, 2 for registration)
+     */
     private int handleUserChoice(Scanner sc) {
         System.out.println("1. Log in");
         System.out.println("2. Register as a patient");
@@ -64,8 +79,10 @@ public class MainView {
     }
 
     /**
-     * @param sc
-     * @return User
+     * Handles the user login process.
+     *
+     * @param sc the Scanner object for reading user input
+     * @return the authenticated User object, or null if login fails
      */
     private User handleLogin(Scanner sc) {
         sc.nextLine(); // Consume newline character left by nextInt()
@@ -112,8 +129,10 @@ public class MainView {
     }
 
     /**
-     * @param sc
-     * @param user
+     * Handles the password change for a user on their first login.
+     *
+     * @param sc the Scanner object for reading user input
+     * @param user the User object for whom the password change is being handled
      */
     private void handlePasswordChange(Scanner sc, User user) {
         System.out.println("\nThis appears to be your first login. You must change your password.");
@@ -145,8 +164,10 @@ public class MainView {
     }
 
     /**
-     * @param password
-     * @return boolean
+     * Validates the provided password to ensure it meets the system requirements.
+     *
+     * @param password the password string to validate
+     * @return true if the password is valid, false otherwise
      */
     private boolean isValidPassword(String password) {
         // Password must be at least 8 characters long and contain at least
@@ -158,8 +179,10 @@ public class MainView {
     }
 
     /**
-     * @param sc
-     * @param user
+     * Displays the role-specific menu for the authenticated user.
+     *
+     * @param sc the Scanner object for reading user input
+     * @param user the authenticated User object
      */
     private void handleUserMenu(Scanner sc, User user) {
         UserRole role = user.getRole();
@@ -196,6 +219,11 @@ public class MainView {
         }
     }
 
+    /**
+     * Handles the patient registration process.
+     *
+     * @param sc the Scanner object for reading user input
+     */
     private void registerPatient(Scanner sc) {
         System.out.println("\nRegister as a new patient:");
 
