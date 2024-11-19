@@ -9,6 +9,9 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
 
+    // Java plugin
+    java
+
     // Apply the Java Library plugin to build a JAR file (replaces 'application' plugin).
     `java-library`
 }
@@ -75,4 +78,14 @@ tasks.withType<Jar>() {
 tasks.named<Test>("test") {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+
+    // Ensure that the test task uses the correct classpath
+    classpath = sourceSets["test"].runtimeClasspath
+}
+
+// Task to generate Javadocs
+tasks.register<Javadoc>("generateDocs") {
+    source = sourceSets["main"].allJava
+    classpath = sourceSets["main"].runtimeClasspath
+    destinationDir = file("${layout.buildDirectory.get()}/docs/javadoc")
 }
