@@ -131,7 +131,7 @@ public class Prescription implements Serializable {
      *
      * @param medications map containing Medication objects and their respective quantities.
      */
-    public void setMedications(Map<Medication, Integer> medication) {
-        this.medications = medication;
+    public void setMedications(Map<Medication, Integer> medications) {
+        this.medications = medications;
     }
 }

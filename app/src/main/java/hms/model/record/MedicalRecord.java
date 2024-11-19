@@ -88,14 +88,9 @@ public class MedicalRecord implements Serializable {
     }
 
     /**
-     * @param patient
-     */
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    /**
-     * @return String
+     * Returns the contact phone number of the patient.
+     *
+     * @return the contact phone number
      */
     public String getContactPhone() {
         return contactPhone;
