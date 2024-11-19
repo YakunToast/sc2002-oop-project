@@ -79,12 +79,22 @@ public class PharmacistView {
                 for (Prescription prescription : pharmacistController.getPendingPrescriptions()) {
                     int i = 1;
                     for (Medication m : prescription.getMedications().keySet()) {
-                        System.out.println("Medication " + (i++) + ":" 
-                                            + "\nID: " + m.getId() + "\n"
-                                            + "Name: " + m.getName() + "\n"
-                                            + "Reason: " + m.getDescription() + "\n"
-                                            + "Quantity: " + prescription.getMedications().get(m)
-                                            + "\n---------");
+                        System.out.println(
+                                "Medication "
+                                        + (i++)
+                                        + ":"
+                                        + "\nID: "
+                                        + m.getId()
+                                        + "\n"
+                                        + "Name: "
+                                        + m.getName()
+                                        + "\n"
+                                        + "Reason: "
+                                        + m.getDescription()
+                                        + "\n"
+                                        + "Quantity: "
+                                        + prescription.getMedications().get(m)
+                                        + "\n---------");
                     }
                     System.out.println("Status: " + prescription.getPrescriptionStatus());
                 }
@@ -117,12 +127,22 @@ public class PharmacistView {
                     System.out.println("Appointment ID: " + outcome.getAppointment().getId());
                     int i = 1;
                     for (Medication m : prescription.getMedications().keySet()) {
-                        System.out.println("Medication " + (i++) + ":" 
-                                            + "\nID: " + m.getId() + "\n"
-                                            + "Name: " + m.getName() + "\n"
-                                            + "Reason: " + m.getDescription() + "\n"
-                                            + "Quantity: " + prescription.getMedications().get(m)
-                                            + "\n---------");
+                        System.out.println(
+                                "Medication "
+                                        + (i++)
+                                        + ":"
+                                        + "\nID: "
+                                        + m.getId()
+                                        + "\n"
+                                        + "Name: "
+                                        + m.getName()
+                                        + "\n"
+                                        + "Reason: "
+                                        + m.getDescription()
+                                        + "\n"
+                                        + "Quantity: "
+                                        + prescription.getMedications().get(m)
+                                        + "\n---------");
                     }
                     System.out.println("Current Status: " + prescription.getPrescriptionStatus());
                     System.out.println("------------------------");
@@ -156,12 +176,22 @@ public class PharmacistView {
             if (prescription.getPrescriptionStatus() == PrescriptionStatus.PENDING) {
                 int i = 1;
                 for (Medication m : prescription.getMedications().keySet()) {
-                    System.out.println("Medication " + (i++) + ":" 
-                                            + "\nID: " + m.getId() + "\n"
-                                            + "Name: " + m.getName() + "\n"
-                                            + "Reason: " + m.getDescription() + "\n"
-                                            + "Quantity: " + prescription.getMedications().get(m)
-                                            + "\n---------");
+                    System.out.println(
+                            "Medication "
+                                    + (i++)
+                                    + ":"
+                                    + "\nID: "
+                                    + m.getId()
+                                    + "\n"
+                                    + "Name: "
+                                    + m.getName()
+                                    + "\n"
+                                    + "Reason: "
+                                    + m.getDescription()
+                                    + "\n"
+                                    + "Quantity: "
+                                    + prescription.getMedications().get(m)
+                                    + "\n---------");
                 }
                 System.out.println("1. Mark as Dispensed");
                 System.out.println("2. Skip");

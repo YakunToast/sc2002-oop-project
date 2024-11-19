@@ -152,9 +152,13 @@ public class DoctorView {
                     patient.setBloodType(newBloodType);
                 }
                 case 4 -> {
-                    System.out.println("Retrieving " + patient.getFirstName() + " " 
-                                                + patient.getLastName() + "'s medical record...");
-                    
+                    System.out.println(
+                            "Retrieving "
+                                    + patient.getFirstName()
+                                    + " "
+                                    + patient.getLastName()
+                                    + "'s medical record...");
+
                     System.out.println("Add diagnosis:");
                     String diagnosis = sc.nextLine();
                     patient.getMedicalRecord().addDiagnosis(diagnosis);
@@ -162,7 +166,6 @@ public class DoctorView {
                     System.out.println("Add treatment plan:");
                     String treatment = sc.nextLine();
                     patient.getMedicalRecord().addTreatment(treatment);
-
                 }
                 case 0 -> {
                     return;
@@ -345,7 +348,7 @@ public class DoctorView {
 
                     System.out.println(
                             "Enter 0 if no medication required, otherwise press any key to"
-                                + " continue.");
+                                    + " continue.");
                     String needMedication = sc.nextLine();
 
                     Map<Medication, Integer> medications = new HashMap<>();

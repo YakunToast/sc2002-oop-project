@@ -8,10 +8,11 @@ import hms.model.appointment.AppointmentOutcome;
 import hms.model.appointment.AppointmentStatus;
 import hms.repository.AppointmentRepository;
 import hms.repository.RepositoryManager;
+
 /**
- * Manages patient appointments, including scheduling, rescheduling, and cancellation.
- * Implements appointment status tracking and validation of scheduling constraints.
- * 
+ * Manages patient appointments, including scheduling, rescheduling, and cancellation. Implements
+ * appointment status tracking and validation of scheduling constraints.
+ *
  * @author AMOS NG ZHENG JIE
  * @author GILBERT ADRIEL TANTOSO
  * @author KUO EUGENE
@@ -29,10 +30,8 @@ public class AppointmentController {
         this.appointment = appointment;
         appointmentRepository = RepositoryManager.getInstance().getAppointmentRepository();
     }
-    /**
-     * The methods to cancel an appointment
-     * Mark an appointment as cancelled
-     */
+
+    /** The methods to cancel an appointment Mark an appointment as cancelled */
     public void cancelAppointment() {
         // Mark as cancelled
         appointment.setStatus(AppointmentStatus.CANCELLED);
@@ -40,6 +39,7 @@ public class AppointmentController {
 
     /**
      * The methods to accept an appointment
+     *
      * @return boolean
      */
     public boolean accept() {
@@ -47,9 +47,9 @@ public class AppointmentController {
         return true;
     }
 
-    
-    /** 
+    /**
      * The methods to decline an appointment
+     *
      * @return boolean
      */
     public boolean decline() {
@@ -57,9 +57,9 @@ public class AppointmentController {
         return true;
     }
 
-    
-    /** 
+    /**
      * The methods to get appointment outcomes
+     *
      * @return List<AppointmentOutcome>
      */
     public static List<AppointmentOutcome> getAppointmentOutcomes() {
