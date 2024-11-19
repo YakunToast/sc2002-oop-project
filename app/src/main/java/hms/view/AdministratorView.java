@@ -18,17 +18,15 @@ import hms.model.user.Pharmacist;
 import hms.model.user.Staff;
 import hms.model.user.User;
 import hms.model.user.UserRole;
-import hms.repository.RepositoryManager;
 
 public class AdministratorView {
     private Administrator administrator;
-    private AdministratorController administratorController;
-    private final RepositoryManager repositoryManager;
+    private AdministratorController ac;
 
     public AdministratorView(Administrator administrator) {
         this.administrator = administrator;
-        this.administratorController = new AdministratorController(administrator);
-        this.repositoryManager = RepositoryManager.getInstance();
+        this.ac = new AdministratorController(administrator);
+       
     }
 
     /**
@@ -102,7 +100,7 @@ public class AdministratorView {
 
     private void viewStaffList() {
         // TODO: find a way to get all staff
-        List<Staff> staffList = administratorController.getStaffs();
+        List<Staff> staffList = ac.getStaffs();
         if (staffList.isEmpty()) {
             System.out.println("No staff members found.");
             return;
@@ -164,7 +162,7 @@ public class AdministratorView {
                             email,
                             number);
         }
-        repositoryManager.getUserRepository().addUser(newStaff);
+        ac.addUser(newStaff);
         System.out.println("Staff member added successfully! ID: " + newStaff.getId());
     }
 
@@ -176,7 +174,7 @@ public class AdministratorView {
         String staffUsername = sc.nextLine();
 
         // TODO: find a way to get staff by username
-        Optional<Staff> staffOpt = administratorController.getStaffByUsername(staffUsername);
+        Optional<Staff> staffOpt = ac.getStaffByUsername(staffUsername);
         if (staffOpt.isEmpty()) {
             System.out.println("Staff member not found!");
             return;
@@ -210,7 +208,7 @@ public class AdministratorView {
         System.out.print("Enter staff username to remove: ");
         String staffUsername = sc.nextLine();
 
-        Optional<Staff> staffOpt = administratorController.getStaffByUsername(staffUsername);
+        Optional<Staff> staffOpt = ac.getStaffByUsername(staffUsername);
         if (staffOpt.isEmpty()) {
             System.out.println("Staff member not found!");
             return;
@@ -218,7 +216,7 @@ public class AdministratorView {
 
         System.out.print("Are you sure you want to remove this staff member? (y/n): ");
         if (sc.nextLine().toLowerCase().startsWith("y")) {
-            administratorController.removeUser((User) staffOpt.get());
+            ac.removeUser((User) staffOpt.get());
             System.out.println("Staff member removed successfully!");
         } else {
             System.out.println("Operation cancelled.");
@@ -245,8 +243,8 @@ public class AdministratorView {
                 UserRole role = UserRole.valueOf(sc.nextLine().toUpperCase());
                 filteredList =
                         switch (role) {
-                            case UserRole.DOCTOR -> administratorController.getDoctors();
-                            case UserRole.PHARMACIST -> administratorController.getPharmacists();
+                            case UserRole.DOCTOR -> ac.getDoctors();
+                            case UserRole.PHARMACIST -> ac.getPharmacists();
                             default -> new ArrayList<>();
                         };
             }
@@ -254,7 +252,7 @@ public class AdministratorView {
                 System.out.print("Enter name to search: ");
                 String name = sc.nextLine();
                 filteredList =
-                        administratorController.getStaffs().stream()
+                        ac.getStaffs().stream()
                                 .filter(s -> s.getName().contains(name))
                                 .collect(Collectors.toList());
             }
@@ -284,25 +282,24 @@ public class AdministratorView {
      */
     private void viewAppointmentDetails(Scanner sc) {
         System.out.println("\n=== Appointment Details ===");
-        List<Appointment> appointments =
-                repositoryManager.getAppointmentRepository().getAllAppointments();
+        List<Appointment> appointments = ac.getAllAppointments();
 
         if (appointments.isEmpty()) {
             System.out.println("No appointments found.");
             return;
         }
 
-        System.out.println("Patient ID\tDoctor ID\tStart\t\tEnd\tStatus");
-        System.out.println("--------------------------------------------------------");
-        for (Appointment appointment : appointments) {
+        System.out.println("Patient ID\tDoctor ID\tStart\t\t\tEnd\t\t\tStatus");
+        System.out.println("------------------------------------------------------------------------------------------------------------------");
+        for (int i = 0; i < appointments.size(); i++) {
             // TODO: How get a single timeslot in each appointment
             System.out.printf(
                     "%s\t\t%s\t\t%s\t%s\t%s%n",
-                    appointment.getPatient().getId(),
-                    appointment.getDoctor().getId(),
-                    appointment.getStart(),
-                    appointment.getEnd(),
-                    appointment.getStatus());
+                    appointments.get(i).getPatient().getId(),
+                    appointments.get(i).getDoctor().getId(),
+                    appointments.get(i).getStart(),
+                    appointments.get(i).getEnd(),
+                    appointments.get(i).getStatus());
         }
     }
 
@@ -336,7 +333,7 @@ public class AdministratorView {
     }
 
     private void viewInventory() {
-        Inventory inventory = repositoryManager.getInventoryRepository().getInventory();
+        Inventory inventory = ac.getInventory();
         List<Medication> medications = inventory.getMedications();
 
         if (medications.isEmpty()) {
@@ -351,8 +348,8 @@ public class AdministratorView {
             System.out.printf(
                     "%s\t%d\t\t%d%n",
                     med.getName(),
-                    administratorController.getMedicationStock(med),
-                    administratorController.getMedicationStockAlert(med));
+                    ac.getMedicationStock(med),
+                    ac.getMedicationStockAlert(med));
         }
     }
 
@@ -379,9 +376,9 @@ public class AdministratorView {
 
         // is medication sideEffects really needed?
         Medication newMed = new Medication(name, description, dosageInstructions);
-        administratorController.addMedication(newMed);
-        administratorController.addMedicationStock(newMed, stockLevel);
-        administratorController.setMedicationStockAlert(newMed, alertLevel);
+        ac.addMedication(newMed);
+        ac.addMedicationStock(newMed, stockLevel);
+        ac.setMedicationStockAlert(newMed, alertLevel);
         System.out.println("Medication added successfully!");
     }
 
@@ -393,7 +390,7 @@ public class AdministratorView {
         System.out.print("Enter medication name: ");
         String name = sc.nextLine();
 
-        Optional<Medication> medOpt = administratorController.getMedicationByName(name);
+        Optional<Medication> medOpt = ac.getMedicationByName(name);
 
         if (medOpt.isEmpty()) {
             System.out.println("Medication not found!");
@@ -405,7 +402,7 @@ public class AdministratorView {
         sc.nextLine(); // Consume newline
 
         Medication med = medOpt.get();
-        administratorController.setMedicationStock(med, newLevel);
+        ac.setMedicationStock(med, newLevel);
         System.out.println("Stock level updated successfully!");
     }
 
@@ -417,7 +414,7 @@ public class AdministratorView {
         System.out.print("Enter medication name: ");
         String name = sc.nextLine();
 
-        Optional<Medication> medOpt = administratorController.getMedicationByName(name);
+        Optional<Medication> medOpt = ac.getMedicationByName(name);
 
         if (medOpt.isEmpty()) {
             System.out.println("Medication not found!");
@@ -429,7 +426,7 @@ public class AdministratorView {
         sc.nextLine(); // Consume newline
 
         Medication med = medOpt.get();
-        administratorController.setMedicationStockAlert(med, newLevel);
+        ac.setMedicationStockAlert(med, newLevel);
         System.out.println("Low stock alert level updated successfully!");
     }
 
@@ -438,7 +435,7 @@ public class AdministratorView {
      */
     private void approveReplenishmentRequests(Scanner sc) {
         List<ReplenishmentRequest> requests =
-                administratorController.getPendingReplenishmentRequests();
+                ac.getPendingReplenishmentRequests();
 
         if (requests.isEmpty()) {
             System.out.println("No pending replenishment requests.");
@@ -465,7 +462,7 @@ public class AdministratorView {
 
         ReplenishmentRequest request = requests.get(requestId);
         Medication medication = request.getMedication();
-        administratorController.addMedicationStock(medication, request.getRequestedQuantity());
+        ac.addMedicationStock(medication, request.getRequestedQuantity());
 
         System.out.println("Request approved successfully! Stock level updated.");
     }
