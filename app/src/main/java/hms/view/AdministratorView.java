@@ -342,11 +342,11 @@ public class AdministratorView {
         }
         // TODO: How can we get the medication details?
         System.out.println("\nCurrent Inventory:");
-        System.out.println("Name\tStock Level\tLow Stock Alert Level");
-        System.out.println("----------------------------------------");
+        System.out.println("Name\t\t\tStock Level\tLow Stock Alert Level");
+        System.out.println("----------------------------------------------------------------");
         for (Medication med : medications) {
             System.out.printf(
-                    "%s\t%d\t\t%d%n",
+                    "%-23s %-15d %d%n",
                     med.getName(),
                     ac.getMedicationStock(med),
                     ac.getMedicationStockAlert(med));
