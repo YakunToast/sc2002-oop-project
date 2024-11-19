@@ -303,11 +303,11 @@ public class AdministratorView {
         }
 
         System.out.println("\nFiltered Staff List:");
-        System.out.println("ID\tRole\tName");
+        System.out.println("ID\tRole\t\tName");
         System.out.println("----------------------------------------");
         for (Staff staff : filteredList) {
             System.out.printf(
-                    "%s\t%s\t%s %s\t%n",
+                    "%-7s %-15s %s %s%n",
                     staff.getId(), staff.getRole(), staff.getFirstName(), staff.getLastName());
         }
     }
