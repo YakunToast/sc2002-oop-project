@@ -9,13 +9,8 @@ import java.util.Map;
  * prescription status.
  */
 public class Prescription implements Serializable {
-    /** Unique identifier for Serializable class. */
     private static final long serialVersionUID = 1L;
-
-    /** Status of the prescription. */
     private PrescriptionStatus status;
-
-    /** Map containing medications and their respective quantities. */
     private Map<Medication, Integer> medications;
 
     /**
@@ -67,7 +62,7 @@ public class Prescription implements Serializable {
     }
 
     /**
-     * Returns the current status of the prescription.
+     * Retrieves the current status of the prescription.
      *
      * @return PrescriptionStatus representing the current status of the prescription.
      */
@@ -118,7 +113,7 @@ public class Prescription implements Serializable {
     }
 
     /**
-     * Returns the map of medications and their respective quantities.
+     * Retrieves the map of medications and their respective quantities.
      *
      * @return Map containing Medication objects and their respective quantities.
      */

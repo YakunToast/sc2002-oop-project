@@ -38,7 +38,7 @@ public class ReplenishmentRequest implements Serializable {
     }
 
     /**
-     * Returns the pharmacist who created the replenishment request.
+     * Retrieves the pharmacist who created the replenishment request.
      *
      * @return the pharmacist who created the request
      */
@@ -75,7 +75,7 @@ public class ReplenishmentRequest implements Serializable {
     }
 
     /**
-     * Returns the current status of the replenishment request.
+     * Retrieves the current status of the replenishment request.
      *
      * @return the current status of the request
      */
@@ -84,7 +84,7 @@ public class ReplenishmentRequest implements Serializable {
     }
 
     /**
-     * Returns the medication for which the replenishment request was made.
+     * Retrieves the medication for which the replenishment request was made.
      *
      * @return the medication for which the request was made
      */
@@ -93,7 +93,7 @@ public class ReplenishmentRequest implements Serializable {
     }
 
     /**
-     * Returns the quantity of medication requested in the replenishment request.
+     * Retrieves the quantity of medication requested in the replenishment request.
      *
      * @return the quantity of medication requested
      */

@@ -1,7 +1,7 @@
 package hms.model.medication;
 
 /**
- * Represents the status of a prescription within a healthcare management system. The status
+ * Represents the status of a prescription within a hospital management system. The status
  * indicates the current state of the prescription in the workflow, such as whether it is pending,
  * dispensed, or cancelled.
  */

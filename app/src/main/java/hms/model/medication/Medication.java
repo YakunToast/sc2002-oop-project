@@ -92,9 +92,9 @@ public class Medication implements Serializable {
     }
 
     /**
-     * Returns the unique identifier for the medication.
+     * Retrieves the unique identifier for the medication.
      *
-     * @return The UUID of the medication.
+     * @return The unique identifier of the medication.
      */
     public UUID getId() {
         return id;
@@ -110,7 +110,7 @@ public class Medication implements Serializable {
     }
 
     /**
-     * Returns the name of the medication.
+     * Retrieves the name of the medication.
      *
      * @return The name of the medication.
      */
@@ -128,7 +128,7 @@ public class Medication implements Serializable {
     }
 
     /**
-     * Returns the description of the medication.
+     * Retrieves the description of the medication.
      *
      * @return The description of the medication.
      */
@@ -146,7 +146,7 @@ public class Medication implements Serializable {
     }
 
     /**
-     * Returns the dosage instructions for the medication.
+     * Retrieves the dosage instructions for the medication.
      *
      * @return The dosage instructions for the medication.
      */
@@ -164,7 +164,7 @@ public class Medication implements Serializable {
     }
 
     /**
-     * Returns the list of possible side effects for the medication.
+     * Retrieves the list of possible side effects for the medication.
      *
      * @return The list of side effects for the medication.
      */
@@ -182,7 +182,7 @@ public class Medication implements Serializable {
     }
 
     /**
-     * Returns the current status of the medication.
+     * Retrieves the current status of the medication.
      *
      * @return The current status of the medication.
      */
@@ -200,7 +200,7 @@ public class Medication implements Serializable {
     }
 
     /**
-     * Returns a string representation of the medication.
+     * Retrieves a string representation of the medication.
      *
      * @return A string representation of the medication.
      */

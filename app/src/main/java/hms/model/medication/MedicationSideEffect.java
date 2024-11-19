@@ -75,7 +75,7 @@ public enum MedicationSideEffect {
     }
 
     /**
-     * Returns the description of the side effect.
+     * Retrieves the description of the side effect.
      *
      * @return the description of the side effect
      */

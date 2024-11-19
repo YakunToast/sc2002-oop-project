@@ -162,9 +162,9 @@ public class Inventory implements Serializable {
     }
 
     /**
-     * Retrieves a medication by its UUID.
+     * Retrieves a medication by its unique identifier.
      *
-     * @param id the UUID of the medication to retrieve
+     * @param id the unique identifier of the medication to retrieve
      * @return an Optional containing the medication if found, or an empty Optional if not found
      */
     public Optional<Medication> getMedicationByUUID(UUID id) {
