@@ -203,8 +203,24 @@ public class DoctorController implements AppointmentDoctor {
         if (ap.getDoctor() != doctor) {
             return false;
         }
-        // Cancel appointment
+        // Decline appointment
         return new AppointmentController(ap).decline();
+    }
+
+    /**
+     * Frees an appointment on behalf of the doctor.
+     *
+     * @param ap The appointment to be freed.
+     * @return true if the appointment was freed successfully, false otherwise.
+     */
+    @Override
+    public boolean freeAppointment(Appointment ap) {
+        // Check doctor is appointment doctor
+        if (ap.getDoctor() != doctor) {
+            return false;
+        }
+        // Free appointment
+        return new AppointmentController(ap).free();
     }
 
     /**

@@ -47,6 +47,16 @@ public class AppointmentController {
     }
 
     /**
+     * Frees an appointment.
+     *
+     * @return {@code true} if the appointment is successfully freed, {@code false} otherwise.
+     */
+    public boolean free() {
+        appointment.free();
+        return true;
+    }
+
+    /**
      * Retrieves a list of outcomes from all completed appointments.
      *
      * @return A list of {@code AppointmentOutcome} objects representing the outcomes of completed

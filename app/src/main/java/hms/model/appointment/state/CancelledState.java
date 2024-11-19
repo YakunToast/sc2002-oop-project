@@ -3,8 +3,7 @@ package hms.model.appointment.state;
 import hms.model.appointment.Appointment;
 import hms.model.appointment.AppointmentStatus;
 
-public class CancelledState
-        implements IAppointmentState, IFreeableAppointment, IPendableAppointment {
+public class CancelledState implements IAppointmentState, IFreeableAppointment {
     @Override
     public String toString() {
         return "Cancelled";
@@ -16,14 +15,6 @@ public class CancelledState
     @Override
     public void free(Appointment appointment) {
         appointment.setState(new FreeState());
-    }
-
-    /**
-     * @param appointment
-     */
-    @Override
-    public void pending(Appointment appointment) {
-        appointment.setState(new PendingState());
     }
 
     /**

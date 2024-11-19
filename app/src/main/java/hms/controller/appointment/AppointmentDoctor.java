@@ -9,6 +9,8 @@ public interface AppointmentDoctor {
 
     boolean declineAppointment(Appointment ap);
 
+    public boolean freeAppointment(Appointment ap);
+
     boolean addAppointmentOutcome(Appointment ap, String description, Prescription pr);
 
     AppointmentOutcome getAppointmentOutcome(Appointment ap);
