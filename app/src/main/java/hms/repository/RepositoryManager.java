@@ -75,11 +75,17 @@ public class RepositoryManager implements Serializable {
     }
 
     public static void load() {
+        java.io.File file = new java.io.File("database.bin");
+        if (!file.exists()) {
+            System.err.println("no database found!");
+            return;
+        }
+
         try {
             deserialize("database.bin");
             System.out.println("loaded database!");
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("failed to deserialise database");
+            System.out.println("failed to deserialise database: incompatible database format");
         }
     }
 
