@@ -8,6 +8,10 @@ import java.util.List;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 
+/**
+ * Represents a medical record for a patient, containing personal contact information, past
+ * diagnoses, treatments, and the responsible doctor.
+ */
 public class MedicalRecord implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -19,12 +23,18 @@ public class MedicalRecord implements Serializable {
 
     private Doctor doctor;
 
+    /** Enum representing the possible genders of a patient. */
     public enum Gender {
         MALE,
         FEMALE,
         OTHER
     }
 
+    /**
+     * Constructs a new medical record for the specified patient.
+     *
+     * @param patient the patient for whom the medical record is created
+     */
     public MedicalRecord(Patient patient) {
         this.patient = patient;
         this.pastDiagnoses = new ArrayList<>();
@@ -32,8 +42,10 @@ public class MedicalRecord implements Serializable {
     }
 
     /**
-     * @param phone
-     * @param email
+     * Updates the patient's contact information with the specified phone number and email address.
+     *
+     * @param phone the new contact phone number
+     * @param email the new email address
      */
     // Only allow updating contact information
     public void updateContactInformation(String phone, String email) {
@@ -42,7 +54,9 @@ public class MedicalRecord implements Serializable {
     }
 
     /**
-     * @return String
+     * Returns a string representation of the medical record.
+     *
+     * @return a string representation of the medical record
      */
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -66,7 +80,9 @@ public class MedicalRecord implements Serializable {
     }
 
     /**
-     * @return Patient
+     * Returns the patient associated with this medical record.
+     *
+     * @return the patient
      */
     // Getters for all fields (medical information is read-only)
     public Patient getPatient() {
@@ -88,63 +104,81 @@ public class MedicalRecord implements Serializable {
     }
 
     /**
-     * @param contactPhone
+     * Sets the contact phone number of the patient.
+     *
+     * @param contactPhone the contact phone number to be set
      */
     public void setContactPhone(String contactPhone) {
         this.contactPhone = contactPhone;
     }
 
     /**
-     * @return String
+     * Returns the email address of the patient.
+     *
+     * @return the email address
      */
     public String getEmailAddress() {
         return emailAddress;
     }
 
     /**
-     * @param emailAddress
+     * Sets the email address of the patient.
+     *
+     * @param emailAddress the email address to be set
      */
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
 
     /**
-     * @return List<String>
+     * Returns an unmodifiable list of past diagnoses recorded in the medical record.
+     *
+     * @return an unmodifiable list of past diagnoses
      */
     public List<String> getPastDiagnoses() {
         return Collections.unmodifiableList(pastDiagnoses);
     }
 
     /**
-     * @param diagnosis
+     * Adds a new diagnosis to the medical record.
+     *
+     * @param diagnosis the diagnosis to be added
      */
     public void addDiagnosis(String diagnosis) {
         this.pastDiagnoses.add(diagnosis);
     }
 
     /**
-     * @return List<String>
+     * Returns an unmodifiable list of treatments recorded in the medical record.
+     *
+     * @return an unmodifiable list of treatments
      */
     public List<String> getTreatments() {
         return Collections.unmodifiableList(treatments);
     }
 
     /**
-     * @param treatment
+     * Adds a new treatment to the medical record.
+     *
+     * @param treatment the treatment to be added
      */
     public void addTreatment(String treatment) {
         this.treatments.add(treatment);
     }
 
     /**
-     * @return Doctor
+     * Returns the doctor responsible for this medical record.
+     *
+     * @return the doctor
      */
     public Doctor getDoctor() {
         return doctor;
     }
 
     /**
-     * @param doctor
+     * Sets the doctor responsible for this medical record.
+     *
+     * @param doctor the doctor to be set
      */
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;

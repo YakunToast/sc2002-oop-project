@@ -18,7 +18,7 @@ public class Medication implements Serializable {
     // Status (e.g., active, discontinued, recalled)
     private MedicationStatus status;
 
-    /** Enum for medication status */
+    /** Enum for medication status. */
     public enum MedicationStatus {
         ACTIVE,
         DISCONTINUED,
@@ -26,11 +26,11 @@ public class Medication implements Serializable {
     }
 
     /**
-     * Constructor for creating a new Medication instance
+     * Constructor for creating a new Medication instance.
      *
-     * @param medicationName Name of the medication
-     * @param description Description of the medication
-     * @param dosageInstructions Dosage instructions
+     * @param medicationName Name of the medication.
+     * @param description Description of the medication.
+     * @param dosageInstructions Dosage instructions for the medication.
      */
     public Medication(String medicationName, String description, String dosageInstructions) {
         this.name = medicationName;
@@ -39,12 +39,12 @@ public class Medication implements Serializable {
     }
 
     /**
-     * Constructor for creating a new Medication instance
+     * Constructor for creating a new Medication instance.
      *
-     * @param medicationName Name of the medication
-     * @param description Description of the medication
-     * @param dosageInstructions Dosage instructions
-     * @param sideEffects Possible side effects
+     * @param medicationName Name of the medication.
+     * @param description Description of the medication.
+     * @param dosageInstructions Dosage instructions for the medication.
+     * @param sideEffects Possible side effects of the medication.
      */
     public Medication(
             String medicationName,
@@ -58,12 +58,12 @@ public class Medication implements Serializable {
     }
 
     /**
-     * Constructor for creating a new Medication instance
+     * Constructor for creating a new Medication instance.
      *
-     * @param medicationName Name of the medication
-     * @param description Description of the medication
-     * @param dosageInstructions Dosage instructions
-     * @param sideEffects Possible side effects
+     * @param medicationName Name of the medication.
+     * @param description Description of the medication.
+     * @param dosageInstructions Dosage instructions for the medication.
+     * @param sideEffects Possible side effects of the medication.
      */
     public Medication(
             String medicationName,
@@ -74,13 +74,13 @@ public class Medication implements Serializable {
     }
 
     /**
-     * Constructor for creating a new Medication instance
+     * Constructor for creating a new Medication instance.
      *
-     * @param medicationName Name of the medication
-     * @param description Description of the medication
-     * @param dosageInstructions Dosage instructions
-     * @param sideEffects Possible side effects
-     * @param status Initial status of the medication
+     * @param medicationName Name of the medication.
+     * @param description Description of the medication.
+     * @param dosageInstructions Dosage instructions for the medication.
+     * @param sideEffects Possible side effects of the medication.
+     * @param status Initial status of the medication.
      */
     public Medication(
             String medicationName,
@@ -92,90 +92,118 @@ public class Medication implements Serializable {
         this.status = status;
     }
 
-    /** Getters and Setters for Medication properties */
+    /**
+     * Returns the unique identifier for the medication.
+     *
+     * @return The UUID of the medication.
+     */
     public UUID getId() {
         return id;
     }
 
     /**
-     * @param medicationId
+     * Sets the unique identifier for the medication.
+     *
+     * @param medicationId The UUID to set for the medication.
      */
     public void setId(UUID medicationId) {
         this.id = medicationId;
     }
 
     /**
-     * @return String
+     * Returns the name of the medication.
+     *
+     * @return The name of the medication.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @param medicationName
+     * Sets the name of the medication.
+     *
+     * @param medicationName The name to set for the medication.
      */
     public void setName(String medicationName) {
         this.name = medicationName;
     }
 
     /**
-     * @return String
+     * Returns the description of the medication.
+     *
+     * @return The description of the medication.
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * @param description
+     * Sets the description of the medication.
+     *
+     * @param description The description to set for the medication.
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * @return String
+     * Returns the dosage instructions for the medication.
+     *
+     * @return The dosage instructions for the medication.
      */
     public String getDosageInstructions() {
         return dosageInstructions;
     }
 
     /**
-     * @param dosageInstructions
+     * Sets the dosage instructions for the medication.
+     *
+     * @param dosageInstructions The dosage instructions to set for the medication.
      */
     public void setDosageInstructions(String dosageInstructions) {
         this.dosageInstructions = dosageInstructions;
     }
 
     /**
-     * @return List<MedicationSideEffect>
+     * Returns the list of possible side effects for the medication.
+     *
+     * @return The list of side effects for the medication.
      */
     public List<MedicationSideEffect> getSideEffects() {
         return sideEffects;
     }
 
     /**
-     * @param sideEffects
+     * Sets the list of possible side effects for the medication.
+     *
+     * @param sideEffects The list of side effects to set for the medication.
      */
     public void setSideEffects(List<MedicationSideEffect> sideEffects) {
         this.sideEffects = sideEffects;
     }
 
     /**
-     * @return MedicationStatus
+     * Returns the current status of the medication.
+     *
+     * @return The current status of the medication.
      */
     public MedicationStatus getStatus() {
         return status;
     }
 
     /**
-     * @param status
+     * Sets the current status of the medication.
+     *
+     * @param status The status to set for the medication.
      */
     public void setStatus(MedicationStatus status) {
         this.status = status;
     }
 
     /**
-     * @return String
+     * Returns a string representation of the medication.
+     *
+     * @return A string representation of the medication.
      */
     @Override
     public String toString() {

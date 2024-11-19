@@ -18,8 +18,7 @@ import hms.model.appointment.state.PendingState;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
 
-
-// Appointment class to manage doctor appointments
+/** Class to manage doctor appointments. */
 public class Appointment implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -31,6 +30,13 @@ public class Appointment implements Serializable {
     private AppointmentOutcome outcome;
     private IAppointmentState state;
 
+    /**
+     * Constructs an appointment with a doctor, start time, and end time.
+     *
+     * @param doctor The doctor associated with the appointment.
+     * @param start The start time of the appointment.
+     * @param end The end time of the appointment.
+     */
     public Appointment(Doctor doctor, LocalDateTime start, LocalDateTime end) {
         this.doctor = doctor;
         this.start = start;
@@ -38,6 +44,14 @@ public class Appointment implements Serializable {
         this.state = new FreeState();
     }
 
+    /**
+     * Constructs an appointment with a doctor, start time, end time, and patient.
+     *
+     * @param doctor The doctor associated with the appointment.
+     * @param start The start time of the appointment.
+     * @param end The end time of the appointment.
+     * @param patient The patient associated with the appointment.
+     */
     public Appointment(Doctor doctor, LocalDateTime start, LocalDateTime end, Patient patient) {
         this(doctor, start, end);
         this.patient = patient;
@@ -45,7 +59,9 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * @return String
+     * Returns a string representation of the appointment details.
+     *
+     * @return A string representation of the appointment.
      */
     @Override
     public String toString() {
@@ -78,7 +94,9 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * @return String
+     * Returns a concise string representation of the appointment details.
+     *
+     * @return A concise string representation of the appointment.
      */
     public String toTerse() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -93,6 +111,11 @@ public class Appointment implements Serializable {
                 outcome != null ? outcome : "Not Determined");
     }
 
+    /**
+     * Confirms the appointment if it is in a confirmable state.
+     *
+     * @throws IllegalStateException if the appointment cannot be confirmed in the current state.
+     */
     public void confirm() {
         if (state instanceof IConfirmableAppointment) {
             ((IConfirmableAppointment) state).confirm(this);
@@ -102,6 +125,11 @@ public class Appointment implements Serializable {
         }
     }
 
+    /**
+     * Cancels the appointment if it is in a cancellable state.
+     *
+     * @throws IllegalStateException if the appointment cannot be cancelled in the current state.
+     */
     public void cancel() {
         if (state instanceof ICancellableAppointment) {
             ((ICancellableAppointment) state).cancel(this);
@@ -111,6 +139,11 @@ public class Appointment implements Serializable {
         }
     }
 
+    /**
+     * Completes the appointment if it is in a completable state.
+     *
+     * @throws IllegalStateException if the appointment cannot be completed in the current state.
+     */
     public void complete() {
         if (state instanceof ICompletableAppointment) {
             ((ICompletableAppointment) state).complete(this);
@@ -120,6 +153,11 @@ public class Appointment implements Serializable {
         }
     }
 
+    /**
+     * Frees the appointment if it is in a freeable state.
+     *
+     * @throws IllegalStateException if the appointment cannot be freed in the current state.
+     */
     public void free() {
         if (state instanceof IFreeableAppointment) {
             ((IFreeableAppointment) state).free(this);
@@ -129,6 +167,11 @@ public class Appointment implements Serializable {
         }
     }
 
+    /**
+     * Puts the appointment in a pending state if it is in a pendable state.
+     *
+     * @throws IllegalStateException if the appointment cannot be pending in the current state.
+     */
     public void pending() {
         if (state instanceof IPendableAppointment) {
             ((IPendableAppointment) state).pending(this);
@@ -139,133 +182,171 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * @return IAppointmentState
+     * Returns the current state of the appointment.
+     *
+     * @return The current state of the appointment.
      */
     public IAppointmentState getState() {
         return this.state;
     }
 
     /**
-     * @param outcome
+     * Sets the outcome of the appointment.
+     *
+     * @param outcome The outcome of the appointment.
      */
     public void setOutcome(AppointmentOutcome outcome) {
         this.outcome = outcome;
     }
 
     /**
-     * @return AppointmentOutcome
+     * Returns the outcome of the appointment.
+     *
+     * @return The outcome of the appointment.
      */
     public AppointmentOutcome getOutcome() {
         return outcome;
     }
 
     /**
-     * @return void
+     * Sets the unique identifier for the appointment.
+     *
+     * @param id The unique identifier for the appointment.
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * @return int
+     * Returns the unique identifier for the appointment.
+     *
+     * @return The unique identifier for the appointment.
      */
     public int getId() {
         return id;
     }
 
     /**
-     * @param patient
+     * Sets the patient associated with the appointment.
+     *
+     * @param patient The patient associated with the appointment.
      */
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
 
     /**
-     * @return Patient
+     * Returns the patient associated with the appointment.
+     *
+     * @return The patient associated with the appointment.
      */
     public Patient getPatient() {
         return patient;
     }
 
     /**
-     * @param doctor
+     * Sets the doctor associated with the appointment.
+     *
+     * @param doctor The doctor associated with the appointment.
      */
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
 
     /**
-     * @return Doctor
+     * Returns the doctor associated with the appointment.
+     *
+     * @return The doctor associated with the appointment.
      */
     public Doctor getDoctor() {
         return doctor;
     }
 
     /**
-     * @param start
+     * Sets the start time of the appointment.
+     *
+     * @param start The start time of the appointment.
      */
     public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
     /**
-     * @return LocalDateTime
+     * Returns the start time of the appointment.
+     *
+     * @return The start time of the appointment.
      */
     public LocalDateTime getStart() {
         return start;
     }
 
     /**
-     * @param end
+     * Sets the end time of the appointment.
+     *
+     * @param end The end time of the appointment.
      */
     public void setEnd(LocalDateTime end) {
         this.end = end;
     }
 
     /**
-     * @return LocalDateTime
+     * Returns the end time of the appointment.
+     *
+     * @return The end time of the appointment.
      */
     public LocalDateTime getEnd() {
         return end;
     }
 
     /**
-     * @return boolean
+     * Checks if the appointment is in a free state.
+     *
+     * @return True if the appointment is in a free state, false otherwise.
      */
     public boolean isFree() {
         return this.state instanceof FreeState;
     }
 
     /**
-     * @return boolean
+     * Checks if the appointment is in a pending state.
+     *
+     * @return True if the appointment is in a pending state, false otherwise.
      */
     public boolean isPending() {
         return this.state instanceof PendingState;
     }
 
     /**
-     * @return boolean
+     * Checks if the appointment is in a confirmed state.
+     *
+     * @return True if the appointment is in a confirmed state, false otherwise.
      */
     public boolean isConfirmed() {
         return this.state instanceof ConfirmedState;
     }
 
     /**
-     * @return boolean
+     * Checks if the appointment is in a cancelled state.
+     *
+     * @return True if the appointment is in a cancelled state, false otherwise.
      */
     public boolean isCancelled() {
         return this.state instanceof CancelledState;
     }
 
     /**
-     * @return boolean
+     * Checks if the appointment is in a completed state.
+     *
+     * @return True if the appointment is in a completed state, false otherwise.
      */
     public boolean isCompleted() {
         return this.state instanceof CompletedState;
     }
 
     /**
-     * @param state
+     * Sets the state of the appointment.
+     *
+     * @param state The new state of the appointment.
      */
     public void setState(IAppointmentState state) {
         this.state = state;

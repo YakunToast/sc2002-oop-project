@@ -7,6 +7,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**
+ * Singleton class that manages the repositories for the HMS (Hospital Management System). It
+ * handles the serialization and deserialization of the repositories to and from a file.
+ */
 public class RepositoryManager implements Serializable {
     private static RepositoryManager instance;
 
@@ -14,6 +18,7 @@ public class RepositoryManager implements Serializable {
     private AppointmentRepository appointmentRepository;
     private InventoryRepository inventoryRepository;
 
+    /** Private constructor to prevent instantiation. Initializes the repositories. */
     private RepositoryManager() {
         // Dynamically initialize repositories
         this.userRepository = new UserRepository();
@@ -22,7 +27,9 @@ public class RepositoryManager implements Serializable {
     }
 
     /**
-     * @return RepositoryManager
+     * Returns the singleton instance of RepositoryManager.
+     *
+     * @return The singleton instance of RepositoryManager.
      */
     public static RepositoryManager getInstance() {
         if (instance == null) {
@@ -35,6 +42,7 @@ public class RepositoryManager implements Serializable {
         return instance;
     }
 
+    /** Destroys the singleton instance of RepositoryManager. */
     public static void destroyInstance() {
         if (instance != null) {
             synchronized (RepositoryManager.class) {
@@ -44,8 +52,10 @@ public class RepositoryManager implements Serializable {
     }
 
     /**
-     * @param filePath
-     * @throws IOException
+     * Serializes the RepositoryManager instance to a file.
+     *
+     * @param filePath The path to the file where the RepositoryManager instance will be serialized.
+     * @throws IOException If an I/O error occurs during serialization.
      */
     public void serialize(String filePath) throws IOException {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
@@ -53,6 +63,11 @@ public class RepositoryManager implements Serializable {
         }
     }
 
+    /**
+     * Saves the current state of the RepositoryManager to a file named "database.bin".
+     *
+     * @return true if the operation was successful, false otherwise.
+     */
     public boolean save() {
         try {
             this.serialize("database.bin");
@@ -63,6 +78,7 @@ public class RepositoryManager implements Serializable {
         }
     }
 
+    /** Saves the current state of the RepositoryManager to a file and logs the result. */
     public void saveAndLog() {
         if (this.save()) {
             System.out.println("saved database!");
@@ -72,9 +88,12 @@ public class RepositoryManager implements Serializable {
     }
 
     /**
-     * @param filePath
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * Deserializes the RepositoryManager instance from a file.
+     *
+     * @param filePath The path to the file from which the RepositoryManager instance will be
+     *     deserialized.
+     * @throws IOException If an I/O error occurs during deserialization.
+     * @throws ClassNotFoundException If the class of the serialized object cannot be found.
      */
     public static void deserialize(String filePath) throws IOException, ClassNotFoundException {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
@@ -82,6 +101,10 @@ public class RepositoryManager implements Serializable {
         }
     }
 
+    /**
+     * Loads the RepositoryManager instance from a file named "database.bin". Logs an error message
+     * if the file does not exist or if an error occurs during deserialization.
+     */
     public static void load() {
         java.io.File file = new java.io.File("database.bin");
         if (!file.exists()) {
@@ -98,21 +121,27 @@ public class RepositoryManager implements Serializable {
     }
 
     /**
-     * @return UserRepository
+     * Returns the UserRepository managed by this RepositoryManager.
+     *
+     * @return The UserRepository managed by this RepositoryManager.
      */
     public UserRepository getUserRepository() {
         return userRepository;
     }
 
     /**
-     * @return AppointmentRepository
+     * Returns the AppointmentRepository managed by this RepositoryManager.
+     *
+     * @return The AppointmentRepository managed by this RepositoryManager.
      */
     public AppointmentRepository getAppointmentRepository() {
         return appointmentRepository;
     }
 
     /**
-     * @return InventoryRepository
+     * Returns the InventoryRepository managed by this RepositoryManager.
+     *
+     * @return The InventoryRepository managed by this RepositoryManager.
      */
     public InventoryRepository getInventoryRepository() {
         return inventoryRepository;

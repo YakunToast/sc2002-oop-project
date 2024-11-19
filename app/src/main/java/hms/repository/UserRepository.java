@@ -13,31 +13,39 @@ import hms.model.user.Pharmacist;
 import hms.model.user.User;
 import hms.model.user.UserRole;
 
+/** Repository class for managing user data. */
 public class UserRepository extends BaseRepository {
 
     private Map<String, User> users;
 
+    /** Constructs a new UserRepository instance. */
     public UserRepository() {
         users = new HashMap<>();
     }
 
     /**
-     * @param User
+     * Adds a user to the repository.
+     *
+     * @param user the user to be added
      */
     public void addUser(User User) {
         users.put(User.getId(), User);
     }
 
     /**
-     * @param user
-     * @return boolean
+     * Removes a user from the repository.
+     *
+     * @param user the user to be removed
+     * @return true if the user was successfully removed, false otherwise
      */
     public boolean removeUser(User user) {
         return users.remove(user.getId(), user);
     }
 
     /**
-     * @return List<User>
+     * Retrieves all users from the repository.
+     *
+     * @return a list of all users in the repository
      */
     public List<User> getAllUsers() {
         List<User> result = new ArrayList<>();
@@ -48,16 +56,20 @@ public class UserRepository extends BaseRepository {
     }
 
     /**
-     * @param id
-     * @return Optional<User>
+     * Retrieves a user by their ID.
+     *
+     * @param id the ID of the user to be retrieved
+     * @return an optional containing the user if found, or an empty optional if not found
      */
     public Optional<User> getUserById(String id) {
         return Optional.ofNullable(castToAppropriateType(users.get(id)));
     }
 
     /**
-     * @param username
-     * @return Optional<User>
+     * Retrieves a user by their username.
+     *
+     * @param username the username of the user to be retrieved
+     * @return an optional containing the user if found, or an empty optional if not found
      */
     public Optional<User> getUserByUsername(String username) {
         return users.values().stream()
@@ -67,8 +79,10 @@ public class UserRepository extends BaseRepository {
     }
 
     /**
-     * @param user
-     * @return User
+     * Casts a user to the appropriate type based on their role.
+     *
+     * @param user the user to be cast
+     * @return the user cast to the appropriate type
      */
     private static User castToAppropriateType(User user) {
         if (user == null) {

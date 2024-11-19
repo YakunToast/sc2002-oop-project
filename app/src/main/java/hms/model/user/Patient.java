@@ -9,7 +9,10 @@ import java.util.stream.Collectors;
 import hms.model.appointment.Appointment;
 import hms.model.record.MedicalRecord;
 
-// Patient class to manage patient operations
+/**
+ * Represents a patient in the hospital management system. Manages patient operations, appointments,
+ * and medical records.
+ */
 public class Patient extends User {
     private MedicalRecord medicalRecord;
     private List<Appointment> appointments;
@@ -18,12 +21,24 @@ public class Patient extends User {
     private Gender gender;
     private String bloodType;
 
+    /** Enumeration representing the gender of the patient. */
     public enum Gender {
         MALE,
         FEMALE,
         OTHER
     }
 
+    /**
+     * Constructs a new Patient object.
+     *
+     * @param id the unique identifier of the patient
+     * @param username the username of the patient
+     * @param firstName the first name of the patient
+     * @param lastName the last name of the patient
+     * @param password the password of the patient
+     * @param email the email address of the patient
+     * @param phoneNumber the phone number of the patient
+     */
     public Patient(
             String id,
             String username,
@@ -38,6 +53,20 @@ public class Patient extends User {
         this.appointments = new ArrayList<>();
     }
 
+    /**
+     * Constructs a new Patient object with additional personal information.
+     *
+     * @param id the unique identifier of the patient
+     * @param username the username of the patient
+     * @param firstName the first name of the patient
+     * @param lastName the last name of the patient
+     * @param password the password of the patient
+     * @param email the email address of the patient
+     * @param phoneNumber the phone number of the patient
+     * @param dateOfBirth the date of birth of the patient
+     * @param gender the gender of the patient (M, F, or other)
+     * @param bloodType the blood type of the patient
+     */
     public Patient(
             String id,
             String username,
@@ -57,57 +86,73 @@ public class Patient extends User {
     }
 
     /**
-     * @return MedicalRecord
+     * Retrieves the medical record of the patient.
+     *
+     * @return the medical record of the patient
      */
     public MedicalRecord getMedicalRecord() {
         return medicalRecord;
     }
 
     /**
-     * @param phone
-     * @param email
+     * Updates the contact information of the patient.
+     *
+     * @param phone the new phone number of the patient
+     * @param email the new email address of the patient
      */
     public void updateContactInformation(String phone, String email) {
         medicalRecord.updateContactInformation(phone, email);
     }
 
     /**
-     * @return List<Appointment>
+     * Retrieves the list of appointments of the patient.
+     *
+     * @return an unmodifiable list of appointments of the patient
      */
     public List<Appointment> getAppointments() {
         return Collections.unmodifiableList(appointments);
     }
 
     /**
-     * @param appointment
+     * Adds a new appointment for the patient.
+     *
+     * @param appointment the appointment to be added
      */
     public void addAppointment(Appointment appointment) {
         appointments.add(appointment);
     }
 
     /**
-     * @return String
+     * Retrieves the date of birth of the patient.
+     *
+     * @return the date of birth of the patient
      */
     public String getDateOfBirth() {
         return this.dateOfBirth;
     }
 
     /**
-     * @param dateOfBirth
+     * Sets the date of birth of the patient.
+     *
+     * @param dateOfBirth the new date of birth of the patient
      */
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
     /**
-     * @return Gender
+     * Retrieves the gender of the patient.
+     *
+     * @return the gender of the patient
      */
     public Gender getGender() {
         return this.gender;
     }
 
     /**
-     * @param gender
+     * Sets the gender of the patient.
+     *
+     * @param gender the new gender of the patient (M, F, or other)
      */
     public void setGender(String gender) {
         if ("M".equals(gender)) {
@@ -120,21 +165,27 @@ public class Patient extends User {
     }
 
     /**
-     * @return String
+     * Retrieves the blood type of the patient.
+     *
+     * @return the blood type of the patient
      */
     public String getBloodType() {
         return this.bloodType;
     }
 
     /**
-     * @param bloodType
+     * Sets the blood type of the patient.
+     *
+     * @param bloodType the new blood type of the patient
      */
     public void setBloodType(String bloodType) {
         this.bloodType = bloodType;
     }
 
     /**
-     * @return List<Appointment>
+     * Retrieves the list of past appointments of the patient.
+     *
+     * @return a list of past appointments of the patient
      */
     public List<Appointment> getPastAppointments() {
         return appointments.stream()
