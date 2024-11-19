@@ -176,20 +176,6 @@ public class DoctorController implements AppointmentDoctor {
     }
 
     /**
-     * Sets the doctor's availability by adding a new appointment to the schedule.
-     *
-     * @param start The start date and time of the availability.
-     * @param end The end date and time of the availability.
-     * @return true if the availability was set successfully, false otherwise.
-     */
-    public boolean setAvailability(LocalDateTime start, LocalDateTime end) {
-        Schedule sc = this.getPersonalSchedule();
-        sc.addAppointment(start, end);
-        // TODO: Need to better check success of this
-        return true;
-    }
-
-    /**
      * Accepts an appointment on behalf of the doctor.
      *
      * @param ap The appointment to be accepted.
