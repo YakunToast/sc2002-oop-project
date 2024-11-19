@@ -182,6 +182,7 @@ public class MainView {
      *
      * @param sc the Scanner object for reading user input
      * @param user the authenticated User object
+     * @throws IllegalStateException if an unknown user role is encountered
      */
     private void handleUserMenu(Scanner sc, User user) {
         UserRole role = user.getRole();

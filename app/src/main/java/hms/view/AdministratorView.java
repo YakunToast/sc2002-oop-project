@@ -20,17 +20,30 @@ import hms.model.user.User;
 import hms.model.user.UserRole;
 import hms.repository.RepositoryManager;
 
+/**
+ * Represents the view for an administrator in the hospital management system. It displays various
+ * options for managing hospital staff, viewing appointment details, and managing medication
+ * inventory.
+ */
 public class AdministratorView {
     private Administrator administrator;
     private AdministratorController ac;
 
+    /**
+     * Initializes a new instance of the AdministratorView class.
+     *
+     * @param administrator the administrator instance associated with this view
+     */
     public AdministratorView(Administrator administrator) {
         this.administrator = administrator;
         this.ac = new AdministratorController(administrator);
     }
 
     /**
-     * @param sc
+     * Starts the administrator view, displaying a menu and handling user input.
+     *
+     * @param sc a Scanner object for reading user input
+     * @throws RuntimeException if an error occurs during any operation
      */
     void start(Scanner sc) {
         while (true) {
@@ -61,6 +74,7 @@ public class AdministratorView {
         }
     }
 
+    /** Displays the main menu for administrators, listing available options. */
     private void displayMenu() {
         System.out.println("\n=== Administrator Menu ===");
         System.out.println("1. View and Manage Hospital Staff");
@@ -71,7 +85,10 @@ public class AdministratorView {
     }
 
     /**
-     * @param sc
+     * Displays the staff management menu, allowing the user to view, add, update, or remove staff.
+     *
+     * @param sc a Scanner object for reading user input
+     * @throws IllegalArgumentException if an invalid option is selected
      */
     private void viewAndManageHospitalStaff(Scanner sc) {
         while (true) {
@@ -101,14 +118,23 @@ public class AdministratorView {
         }
     }
 
+    /**
+     * Displays a list of all hospital staff members. Retrieves the staff list from the
+     * administrator controller and formats the output in a tabular form.
+     *
+     * @throws RuntimeException if the staff retrieval encounters an error.
+     */
     private void viewStaffList() {
-        // TODO: find a way to get all staff
+        // Fetch the list of all staff members.
         List<Staff> staffList = ac.getStaffs();
+
+        // Check if the list is empty and handle accordingly.
         if (staffList.isEmpty()) {
             System.out.println("No staff members found.");
             return;
         }
 
+        // Print the staff list in a structured format.
         System.out.println("\nStaff List:");
         System.out.println("ID\tRole\t\tName");
         System.out.println("----------------------------------------");
@@ -120,7 +146,13 @@ public class AdministratorView {
     }
 
     /**
-     * @param sc
+     * Adds a new staff member to the system.
+     *
+     * <p>This method prompts the user to input the details of a new staff member, such as role,
+     * username, first name, last name, email, and phone number. Based on the user input, it creates
+     * a new Doctor or Pharmacist instance and adds it to the system.
+     *
+     * @param sc A Scanner object for reading user input.
      */
     private void addStaffMember(Scanner sc) {
         System.out.println("\nAdd New Staff Member");
@@ -157,13 +189,17 @@ public class AdministratorView {
     }
 
     /**
-     * @param sc
+     * Updates the information of an existing staff member.
+     *
+     * <p>This method allows updating the first name and last name of an existing staff member. It
+     * uses a username to identify the staff member and implements name changes based on user input.
+     *
+     * @param sc A Scanner object for reading user input.
      */
     private void updateStaffMember(Scanner sc) {
         System.out.print("Enter staff username to update: ");
         String staffUsername = sc.nextLine();
 
-        // TODO: find a way to get staff by username
         Optional<Staff> staffOpt = ac.getStaffByUsername(staffUsername);
         if (staffOpt.isEmpty()) {
             System.out.println("Staff member not found!");
@@ -192,7 +228,12 @@ public class AdministratorView {
     }
 
     /**
-     * @param sc
+     * Removes a staff member from the system.
+     *
+     * <p>This method prompts the user to confirm the removal of a staff member identified by their
+     * username. It ensures staff removal upon confirmation.
+     *
+     * @param sc A Scanner object for reading user input.
      */
     private void removeStaffMember(Scanner sc) {
         System.out.print("Enter staff username to remove: ");
@@ -214,9 +255,13 @@ public class AdministratorView {
     }
 
     /**
-     * @param sc
+     * Filters the staff list based on user-selected criteria.
+     *
+     * <p>This method provides options to filter the staff list either by role or by name, and then
+     * displays the filtered results.
+     *
+     * @param sc A Scanner object for reading user input.
      */
-    // not sure this is needed, just for additional feature
     private void filterStaffList(Scanner sc) {
         System.out.println("\nFilter by:");
         System.out.println("1. Role");
@@ -268,7 +313,10 @@ public class AdministratorView {
     }
 
     /**
-     * @param sc
+     * Displays appointment details for all scheduled appointments.
+     *
+     * <p>Shows details such as Patient ID, Doctor ID, appointment start time, end time, and status.
+     * Only non-free appointments are displayed.
      */
     private void viewAppointmentDetails() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -297,7 +345,12 @@ public class AdministratorView {
     }
 
     /**
-     * @param sc
+     * Manages the medication inventory, allowing for viewing and updating.
+     *
+     * <p>Provides options to view inventory, add new medications, and update stock levels or alert
+     * levels. Users can choose these options via prompted commands.
+     *
+     * @param sc A Scanner object for reading user input.
      */
     private void viewAndManageMedicationInventory(Scanner sc) {
         while (true) {
@@ -325,6 +378,11 @@ public class AdministratorView {
         }
     }
 
+    /**
+     * Displays the current medication inventory.
+     *
+     * <p>Lists all medications with their stock levels and low stock alert settings.
+     */
     private void viewInventory() {
         Inventory inventory = ac.getInventory();
         List<Medication> medications = inventory.getMedications();
@@ -333,7 +391,6 @@ public class AdministratorView {
             System.out.println("No medications in inventory.");
             return;
         }
-        // TODO: How can we get the medication details?
         System.out.println("\nCurrent Inventory:");
         System.out.println("Name\t\t\tStock Level\tLow Stock Alert Level");
         System.out.println("----------------------------------------------------------------");
@@ -345,7 +402,12 @@ public class AdministratorView {
     }
 
     /**
-     * @param sc
+     * Adds a new medication to the inventory.
+     *
+     * <p>Prompts the user for medication details such as name, description, dosage instructions,
+     * initial stock level, and low stock alert level.
+     *
+     * @param sc A Scanner object for reading user input.
      */
     private void addNewMedication(Scanner sc) {
         System.out.print("Enter medication name: ");
@@ -357,7 +419,6 @@ public class AdministratorView {
         System.out.print("Enter dosage instruction : ");
         String dosageInstructions = sc.nextLine();
 
-        // I think we need this
         System.out.print("Enter initial stock level: ");
         int stockLevel = sc.nextInt();
 
@@ -365,7 +426,6 @@ public class AdministratorView {
         int alertLevel = sc.nextInt();
         sc.nextLine(); // Consume newline
 
-        // is medication sideEffects really needed?
         Medication newMed = new Medication(name, description, dosageInstructions);
         ac.addMedication(newMed);
         ac.addMedicationStock(newMed, stockLevel);
@@ -374,9 +434,12 @@ public class AdministratorView {
     }
 
     /**
-     * @param sc
+     * Updates the stock level of a specified medication.
+     *
+     * <p>Prompts the user to input the medication name and the new stock level to be set.
+     *
+     * @param sc A Scanner object for reading user input.
      */
-    // TODO: we should have a stock level right?
     private void updateStockLevel(Scanner sc) {
         System.out.print("Enter medication name: ");
         String name = sc.nextLine();
@@ -398,9 +461,12 @@ public class AdministratorView {
     }
 
     /**
-     * @param sc
+     * Updates the low stock alert level for a specified medication.
+     *
+     * <p>Prompts the user to specify the medication and the new alert level.
+     *
+     * @param sc A Scanner object for reading user input.
      */
-    // TODO: we should have an alert for stock level right?
     private void updateLowStockAlertLevel(Scanner sc) {
         System.out.print("Enter medication name: ");
         String name = sc.nextLine();
@@ -422,7 +488,12 @@ public class AdministratorView {
     }
 
     /**
-     * @param sc
+     * Approves pending replenishment requests.
+     *
+     * <p>Displays pending requests and allows the user to approve them, which updates the stock
+     * levels accordingly.
+     *
+     * @param sc A Scanner object for reading user input.
      */
     private void approveReplenishmentRequests(Scanner sc) {
         List<ReplenishmentRequest> requests = ac.getPendingReplenishmentRequests();

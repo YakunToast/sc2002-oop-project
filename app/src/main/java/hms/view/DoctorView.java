@@ -17,15 +17,26 @@ import hms.model.user.Doctor;
 import hms.model.user.Patient;
 import hms.repository.RepositoryManager;
 
+/**
+ * Handles the interactions between user inputs and the doctor model in the hospital management
+ * system.
+ */
 public class DoctorView {
     private final DoctorController dc;
 
+    /**
+     * Constructs a DoctorView with the specified doctor model.
+     *
+     * @param doctor The Doctor instance associated with this view.
+     */
     public DoctorView(Doctor doctor) {
         this.dc = new DoctorController(doctor);
     }
 
     /**
-     * @param sc
+     * Starts the main interface for doctor functionalities.
+     *
+     * @param sc The Scanner instance for capturing user input.
      */
     void start(Scanner sc) {
         while (true) {
@@ -73,6 +84,7 @@ public class DoctorView {
         }
     }
 
+    /** Prints the list of patients associated with the doctor. */
     void printPatients() {
         List<Patient> patients = dc.getPatients();
         System.out.println("Patients");
@@ -90,8 +102,10 @@ public class DoctorView {
     }
 
     /**
-     * @param sc
-     * @return Patient
+     * Retrieves a patient choice based on the user input.
+     *
+     * @param sc The Scanner instance for capturing user input.
+     * @return The Patient identified by the user or null if not found.
      */
     Patient getPatientChoice(Scanner sc) {
         printPatients();
@@ -110,16 +124,20 @@ public class DoctorView {
     }
 
     /**
-     * @param sc
-     * @param patient
+     * Displays the medical record of a specified patient.
+     *
+     * @param sc The Scanner instance for capturing user input.
+     * @param patient The Patient whose medical record is to be viewed.
      */
     void viewPatientMedicalRecord(Scanner sc, Patient patient) {
         System.out.println(patient.getMedicalRecord().toString());
     }
 
     /**
-     * @param sc
-     * @param patient
+     * Updates the medical record of a specified patient.
+     *
+     * @param sc The Scanner instance for capturing user input.
+     * @param patient The Patient whose medical record is to be updated.
      */
     void updatePatientMedicalRecord(Scanner sc, Patient patient) {
         while (true) {
@@ -174,7 +192,9 @@ public class DoctorView {
     }
 
     /**
-     * @param sc
+     * Displays the doctor's personal appointment schedule.
+     *
+     * @param sc The Scanner instance for capturing user input.
      */
     void viewSchedule(Scanner sc) {
         System.out.println("Doctor's Schedule:");
@@ -185,7 +205,12 @@ public class DoctorView {
     }
 
     /**
-     * @param sc
+     * Sets the availability for doctor appointments by entering date ranges and times.
+     *
+     * @param sc The Scanner instance for capturing user input.
+     * @throws DateTimeParseException when input date or time is not in a valid format.
+     * @throws IllegalArgumentException when start date is not before end date, or start time is not
+     *     before end time.
      */
     void setAppointmentAvailability(Scanner sc) {
         System.out.println("Enter available date ranges and times in the format: ");
@@ -262,7 +287,9 @@ public class DoctorView {
     }
 
     /**
-     * @param sc
+     * Manages pending appointment requests, allowing acceptance or declination.
+     *
+     * @param sc The Scanner instance for capturing user input.
      */
     void acceptOrDeclineAppointments(Scanner sc) {
         List<Appointment> requests = dc.getPendingAppointments();
@@ -304,7 +331,9 @@ public class DoctorView {
     }
 
     /**
-     * @param sc
+     * Displays upcoming confirmed appointments.
+     *
+     * @param sc The Scanner instance for capturing user input.
      */
     void viewUpcomingAppointments(Scanner sc) {
         List<Appointment> appointments = dc.getConfirmedAppointments();
@@ -315,7 +344,9 @@ public class DoctorView {
     }
 
     /**
-     * @param sc
+     * Records the outcome of confirmed appointments.
+     *
+     * @param sc The Scanner instance for capturing user input.
      */
     void recordAppointmentOutcome(Scanner sc) {
         List<Appointment> pastAppointments = dc.getConfirmedAppointments();

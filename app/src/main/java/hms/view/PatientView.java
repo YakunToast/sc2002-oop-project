@@ -15,15 +15,27 @@ import hms.model.user.Doctor;
 import hms.model.user.Patient;
 import hms.repository.RepositoryManager;
 
+/**
+ * The PatientView class interacts with the user interface for a patient, providing methods to
+ * perform operations such as viewing medical records, scheduling appointments, etc., using the
+ * PatientController.
+ */
 public class PatientView {
     private final PatientController pc;
 
+    /**
+     * Initializes a new instance of the PatientView class for the specified patient.
+     *
+     * @param patient the specified patient to view
+     */
     public PatientView(Patient patient) {
         this.pc = new PatientController(patient);
     }
 
     /**
-     * @param sc
+     * Starts the view for a patient, providing a menu for user interactions.
+     *
+     * @param sc the scanner object for user input
      */
     void start(Scanner sc) {
         while (true) {
@@ -62,6 +74,7 @@ public class PatientView {
         }
     }
 
+    /** Displays the patient's medical record including personal details and past diagnoses. */
     void viewMedicalRecord() {
         // Retrieve the patient's medical record
         MedicalRecord mr = pc.getMedicalRecord();
@@ -89,7 +102,9 @@ public class PatientView {
     }
 
     /**
-     * @param sc
+     * Updates the personal information of the patient such as email or phone number.
+     *
+     * @param sc the scanner object for user input
      */
     void updatePersonalInformation(Scanner sc) {
         while (true) {
@@ -121,9 +136,10 @@ public class PatientView {
     }
 
     /**
-     * @param sc
+     * Displays the available appointment slots for the patient by doctor.
+     *
+     * @param sc the scanner object for user input
      */
-    // Unnecessary function?
     void viewAvailableSlots(Scanner sc) {
         // Build indexed list of available appointments
         HashMap<Doctor, List<Appointment>> availableSlotsByDoctor =
@@ -141,8 +157,10 @@ public class PatientView {
     }
 
     /**
-     * @param sc
-     * @return Appointment
+     * Allows the patient to select an appointment slot from the available ones.
+     *
+     * @param sc the scanner object for user input
+     * @return the selected appointment
      */
     Appointment chooseAppointment(Scanner sc) {
         int index = 1;
@@ -183,7 +201,9 @@ public class PatientView {
     }
 
     /**
-     * @param sc
+     * Schedules an appointment for the patient.
+     *
+     * @param sc the scanner object for user input
      */
     void scheduleAppointment(Scanner sc) {
         Appointment selectedAppointment = chooseAppointment(sc);
@@ -192,7 +212,9 @@ public class PatientView {
     }
 
     /**
-     * @param sc
+     * Reschedules an existing appointment for the patient.
+     *
+     * @param sc the scanner object for user input
      */
     void rescheduleAppointment(Scanner sc) {
         List<Appointment> appts = pc.getPersonalAppointments();
@@ -216,7 +238,9 @@ public class PatientView {
     }
 
     /**
-     * @param sc
+     * Cancels an existing appointment for the patient.
+     *
+     * @param sc the scanner object for user input
      */
     void cancelAppointment(Scanner sc) {
         List<Appointment> appts = pc.getPersonalAppointments();
@@ -239,7 +263,9 @@ public class PatientView {
     }
 
     /**
-     * @param sc
+     * Displays the scheduled appointments for the patient.
+     *
+     * @param sc the scanner object for user input
      */
     void viewScheduledAppointments(Scanner sc) {
         List<Appointment> appts = pc.getPersonalAppointments();
@@ -250,7 +276,10 @@ public class PatientView {
     }
 
     /**
-     * @param sc
+     * Displays the past appointment outcomes for the patient, including descriptions and
+     * prescriptions.
+     *
+     * @param sc the scanner object for user input
      */
     void viewPastAppointmentOutcomes(Scanner sc) {
         List<AppointmentOutcome> apptOutcomes = pc.getPastAppointmentOutcomes();
