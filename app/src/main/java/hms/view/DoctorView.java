@@ -377,9 +377,7 @@ public class DoctorView {
 
                         Prescription pres = new Prescription(medications);
                         dc.addAppointmentOutcome(appointment, desc, pres);
-                    } 
-                    
-                    else {
+                    } else {
                         Prescription pres = new Prescription();
                         dc.addAppointmentOutcome(appointment, desc, pres);
                     }

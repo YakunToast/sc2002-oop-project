@@ -240,6 +240,7 @@ public class DoctorController implements AppointmentDoctor {
         AppointmentOutcome ao = new AppointmentOutcome(ap, description, pr);
         ap.setOutcome(ao);
         ap.complete();
+        ap.getPatient().getMedicalRecord().setDoctor(doctor);
         return true;
     }
 

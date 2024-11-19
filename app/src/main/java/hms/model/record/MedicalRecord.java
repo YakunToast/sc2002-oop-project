@@ -62,9 +62,9 @@ public class MedicalRecord implements Serializable {
         sb.append("Medical Record\n");
         sb.append("---------------\n");
         sb.append("Patient Name: ").append(patient.getName()).append("\n");
-        sb.append("Contact Phone: ").append(contactPhone).append("\n");
-        sb.append("Email Address: ").append(emailAddress).append("\n");
-        sb.append("Doctor: ").append(doctor != null ? doctor.getName() : "None").append("\n");
+        sb.append("Contact Phone: ").append(patient.getPhoneNumber()).append("\n");
+        sb.append("Email Address: ").append(patient.getEmail()).append("\n");
+        sb.append("Last Doctor: ").append(doctor).append("\n");
         sb.append("Past Diagnoses and Treatments:\n");
         for (int i = 0; i < pastDiagnoses.size(); i++) {
             sb.append(
