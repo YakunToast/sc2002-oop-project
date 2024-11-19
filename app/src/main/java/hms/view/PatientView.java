@@ -294,16 +294,16 @@ public class PatientView {
                 System.out.println("Prescription:");
                 for (Map.Entry<Medication, Integer> e : medications.entrySet()) {
                     System.out.println(
-                                e.getKey().getName()
-                                + ", "
-                                + e.getKey().getDescription()
-                                + ", "
-                                + e.getKey().getDosageInstructions()
-                                + ", "
-                                + "Amount given: "
-                                + e.getValue());
+                            e.getKey().getName()
+                                    + ", "
+                                    + e.getKey().getDescription()
+                                    + ", "
+                                    + e.getKey().getDosageInstructions()
+                                    + ", "
+                                    + "Amount given: "
+                                    + e.getValue());
                 }
-            } 
+            }
         }
     }
 }

@@ -8,8 +8,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
- * This class manages the repositories for the Hospital Management System. It
- * handles the serialization and deserialization of the repositories to and from a file.
+ * This class manages the repositories for the Hospital Management System. It handles the
+ * serialization and deserialization of the repositories to and from a file.
  */
 public class RepositoryManager implements Serializable {
     private static RepositoryManager instance;
