@@ -271,7 +271,7 @@ public class PatientView {
         List<Appointment> appts = pc.getPersonalAppointments();
 
         for (int i = 0; i < appts.size(); i++) {
-            if (appts.get(i).isConfirmed()) {
+            if (appts.get(i).isConfirmed() || appts.get(i).isCancelled()) {
                 System.out.println(i + 1 + ". " + appts.get(i).toString());
             }
         }
