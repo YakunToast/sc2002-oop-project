@@ -3,9 +3,6 @@ package hms.model.user;
 /**
  * Represents a pharmacist in the hospital management system. Inherits from the Staff class and sets
  * the UserRole to PHARMACIST.
- *
- * @see Staff
- * @see UserRole
  */
 public class Pharmacist extends Staff {
     /**
