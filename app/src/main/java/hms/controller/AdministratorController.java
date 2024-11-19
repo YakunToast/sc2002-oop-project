@@ -23,6 +23,19 @@ import hms.repository.AppointmentRepository;
 import hms.repository.RepositoryManager;
 import hms.repository.UserRepository;
 
+/**
+ * Manages and display hospital staff by adding, updating, or removing staff members.
+ * Manages appointment by accessing real-time updates of scheduled appointments.
+ * Manages inventory of medication by adding, removing or updating stock levels, update the low stock level alert line of each medicine, and approve replenishment requests from pharmacists. 
+ * 
+ * @author AMOS NG ZHENG JIE
+ * @author GILBERT ADRIEL TANTOSO
+ * @author KUO EUGENE
+ * @author RESWARA ANARGYA DZAKIRULLAH
+ * @author THEODORE AMADEO ARGASETYA ATMADJA
+ * @version 1.0
+ * @since 2024-11-19
+ */
 public class AdministratorController implements InventoryManager, AppointmentManager {
     private final Administrator administrator;
 
@@ -41,6 +54,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to add a new user
      * @param user
      * @return boolean
      */
@@ -58,6 +72,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to remove an existing user
      * @param user
      * @return boolean
      */
@@ -66,6 +81,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get all users from user repository
      * @return List<User>
      */
     public List<User> getUsers() {
@@ -73,6 +89,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get staff by ID from user repository
      * @param id
      * @return Optional<Staff>
      */
@@ -81,6 +98,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get staff by username from user repository
      * @param username
      * @return Optional<Staff>
      */
@@ -92,6 +110,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get patient by ID from user repository
      * @param id
      * @return Optional<Patient>
      */
@@ -100,6 +119,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get patient by username from user repository
      * @param username
      * @return Optional<Patient>
      */
@@ -111,6 +131,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get doctor by ID from user repository
      * @param id
      * @return Optional<Doctor>
      */
@@ -119,6 +140,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get doctor by username from user repository
      * @param username
      * @return Optional<Doctor>
      */
@@ -130,6 +152,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get all staffs from user repository
      * @return List<Staff>
      */
     public List<Staff> getStaffs() {
@@ -140,6 +163,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get all patient from user repository
      * @return List<Patient>
      */
     public List<Patient> getPatients() {
@@ -150,6 +174,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get all doctor from user repository
      * @return List<Doctor>
      */
     public List<Doctor> getDoctors() {
@@ -160,6 +185,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get all pharmacist from user repository
      * @return List<Pharmacist>
      */
     public List<Pharmacist> getPharmacists() {
@@ -170,6 +196,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get all appointments from appointment repository
      * @return List<Appointment>
      */
     @Override
@@ -178,6 +205,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get appointments by its status from appointment repository
      * @param as
      * @return List<Appointment>
      */
@@ -189,6 +217,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get appointments by ID from appointment repository
      * @param id
      * @return Optional<Appointment>
      */
@@ -198,6 +227,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get appointment outcome
      * @param ap
      * @return AppointmentOutcome
      */
@@ -207,6 +237,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get inventory repository
      * @return Inventory
      */
     @Override
@@ -215,6 +246,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get medication from inventory repository
      * @return List<Medication>
      */
     @Override
@@ -223,6 +255,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get medication by its name from inventory repository
      * @param name
      * @return Optional<Medication>
      */
@@ -232,6 +265,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get medication by ID from inventory repository
      * @param uuid
      * @return Optional<Medication>
      */
@@ -240,7 +274,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
         return this.inventoryController.getMedicationByUUID(uuid);
     }
 
-    /**
+    /** The methods to get medication by ID from inventory repository
      * @param uuid
      * @return Optional<Medication>
      */
@@ -250,6 +284,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to approve replenishment request from pharmacists
      * @param rr
      * @return boolean
      */
@@ -264,6 +299,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get all replenishment requests that are pending
      * @return List<ReplenishmentRequest>
      */
     @Override
@@ -277,6 +313,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get medication stock from inventory repository
      * @param medication
      * @return int
      */
@@ -286,6 +323,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to add a new medication
      * @param medication
      * @return boolean
      */
@@ -295,6 +333,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to add new medication stock
      * @param medication
      * @param qty
      * @return boolean
@@ -305,6 +344,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to set medication stock
      * @param medication
      * @param qty
      * @return boolean
@@ -315,6 +355,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to remove medication 
      * @param medication
      * @return boolean
      */
@@ -324,6 +365,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to remove medication stock
      * @param medication
      * @param qty
      * @return boolean
@@ -334,6 +376,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to set medication stock alert
      * @param medication
      * @param alertQty
      * @return boolean
@@ -344,6 +387,7 @@ public class AdministratorController implements InventoryManager, AppointmentMan
     }
 
     /**
+     * The methods to get medication stock allert
      * @param medication
      * @return int
      */
