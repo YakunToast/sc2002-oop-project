@@ -84,30 +84,30 @@ public class PharmacistView {
                                 + " to "
                                 + outcome.getAppointment().getEnd().format(formatter));
                 System.out.println("Prescriptions:\n==============");
-                for (Prescription prescription : pharmacistController.getAllPrescriptions()) {
-                    if (prescription.getMedications() != null) {
-                        int i = 1;
-                        for (Medication m : prescription.getMedications().keySet()) {
-                            System.out.println(
-                                    "Medication "
-                                            + (i++)
-                                            + ":"
-                                            + "\nID: "
-                                            + m.getId()
-                                            + "\n"
-                                            + "Name: "
-                                            + m.getName()
-                                            + "\n"
-                                            + "Reason: "
-                                            + m.getDescription()
-                                            + "\n"
-                                            + "Quantity: "
-                                            + prescription.getMedications().get(m)
-                                            + "\n---------");
-                        }
-                        System.out.println("Status: " + prescription.getPrescriptionStatus());
+                
+                if (outcome.getPrescription().get().getMedications() != null) {
+                    int i = 1;
+                    for (Medication m : outcome.getPrescription().get().getMedications().keySet()) {
+                        System.out.println(
+                                "Medication "
+                                        + (i++)
+                                        + ":"
+                                        + "\nID: "
+                                        + m.getId()
+                                        + "\n"
+                                        + "Name: "
+                                        + m.getName()
+                                        + "\n"
+                                        + "Reason: "
+                                        + m.getDescription()
+                                        + "\n"
+                                        + "Quantity: "
+                                        + outcome.getPrescription().get().getMedications().get(m)
+                                        + "\n---------");
                     }
+                    System.out.println("Status: " + outcome.getPrescription().get().getPrescriptionStatus());
                 }
+                
                 System.out.println("------------------------");
             }
         }
