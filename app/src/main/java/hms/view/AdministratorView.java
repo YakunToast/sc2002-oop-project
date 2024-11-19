@@ -447,11 +447,11 @@ public class AdministratorView {
         }
 
         System.out.println("\nPending Replenishment Requests:");
-        System.out.println("ID\tMedication\tRequested Amount\tRequested By");
-        System.out.println("--------------------------------------------------");
+        System.out.println("ID\tMedication\t\tRequested Amount\tRequested By");
+        System.out.println("-----------------------------------------------------------------------------");
         for (ReplenishmentRequest request : requests) {
             System.out.printf(
-                    "%d\t%s\t%d\t\t%s%n",
+                    "%d\t%-23s %-23d %s%n",
                     requests.indexOf(request) + 1,
                     request.getMedication().getName(),
                     request.getRequestedQuantity(),
