@@ -12,36 +12,53 @@ import hms.model.user.Doctor;
 import hms.model.user.Patient;
 import hms.repository.RepositoryManager;
 
+/**
+ * This class provides the functionality for a patient to manage their medical appointments and
+ * medical records.
+ */
 public class PatientController implements AppointmentUser {
     private final Patient patient;
 
+    /**
+     * Constructs a new PatientController with the specified patient.
+     *
+     * @param patient the patient to be controlled
+     */
     public PatientController(Patient patient) {
         this.patient = patient;
     }
 
     /**
-     * @return Patient
+     * Returns the patient associated with this controller.
+     *
+     * @return the patient
      */
     public Patient getPatient() {
         return this.patient;
     }
 
     /**
-     * @param email
+     * Sets the email address of the patient.
+     *
+     * @param email the email address to be set
      */
     public void setEmail(String email) {
         this.patient.setEmail(email);
     }
 
     /**
-     * @param phoneNumber
+     * Sets the phone number of the patient.
+     *
+     * @param phoneNumber the phone number to be set
      */
     public void setPhoneNumber(String phoneNumber) {
         this.patient.setPhoneNumber(phoneNumber);
     }
 
     /**
-     * @return MedicalRecord
+     * Returns the medical record of the patient.
+     *
+     * @return the medical record
      */
     @Override
     public MedicalRecord getMedicalRecord() {
@@ -49,7 +66,9 @@ public class PatientController implements AppointmentUser {
     }
 
     /**
-     * @return List<Doctor>
+     * Returns a list of all doctors in the system.
+     *
+     * @return the list of all doctors
      */
     @Override
     public List<Doctor> getAllDoctors() {
@@ -60,7 +79,9 @@ public class PatientController implements AppointmentUser {
     }
 
     /**
-     * @return List<Doctor>
+     * Returns a list of doctors with whom the patient has personal appointments.
+     *
+     * @return the list of personal doctors
      */
     @Override
     public List<Doctor> getPersonalDoctors() {
@@ -70,7 +91,9 @@ public class PatientController implements AppointmentUser {
     }
 
     /**
-     * @return List<Appointment>
+     * Returns a list of all appointments for the patient.
+     *
+     * @return the list of personal appointments
      */
     @Override
     public List<Appointment> getPersonalAppointments() {
@@ -83,7 +106,9 @@ public class PatientController implements AppointmentUser {
     }
 
     /**
-     * @return HashMap<Doctor, List<Appointment>>
+     * Returns a map of doctors and their available appointment slots.
+     *
+     * @return the map of available appointment slots by doctor
      */
     @Override
     public HashMap<Doctor, List<Appointment>> getAvailableAppointmentSlotsByDoctors() {
@@ -100,7 +125,9 @@ public class PatientController implements AppointmentUser {
     }
 
     /**
-     * @return List<Appointment>
+     * Returns a list of all available appointment slots.
+     *
+     * @return the list of available appointment slots
      */
     @Override
     public List<Appointment> getAvailableAppointmentSlots() {
@@ -110,8 +137,10 @@ public class PatientController implements AppointmentUser {
     }
 
     /**
-     * @param ap
-     * @return boolean
+     * Schedules an appointment for the patient.
+     *
+     * @param ap the appointment to be scheduled
+     * @return true if the appointment was scheduled successfully, false otherwise
      */
     @Override
     public boolean scheduleAppointment(Appointment ap) {
@@ -125,9 +154,11 @@ public class PatientController implements AppointmentUser {
     }
 
     /**
-     * @param oldAp
-     * @param newAp
-     * @return boolean
+     * Reschedules an appointment for the patient.
+     *
+     * @param oldAp the current appointment
+     * @param newAp the new appointment to be scheduled
+     * @return true if the appointment was rescheduled successfully, false otherwise
      */
     @Override
     public boolean rescheduleAppointment(Appointment oldAp, Appointment newAp) {
@@ -148,25 +179,32 @@ public class PatientController implements AppointmentUser {
     }
 
     /**
-     * @param ap
+     * Cancels an appointment for the patient.
+     *
+     * @param ap the appointment to be canceled
      */
     @Override
     public void cancelAppointment(Appointment ap) {
         AppointmentController ac = new AppointmentController(ap);
-        ac.cancelAppointment();
+        ac.decline();
     }
 
     /**
-     * @return List<Appointment>
+     * Returns a list of all scheduled appointments for the patient.
+     *
+     * @return the list of scheduled appointments
      */
     @Override
     public List<Appointment> getScheduledAppointments() {
-        // TODO: Filter by date or status?
-        return this.getPersonalAppointments().stream().collect(Collectors.toList());
+        return this.getPersonalAppointments().stream()
+                .filter(ap -> ap.isPending() || ap.isConfirmed())
+                .collect(Collectors.toList());
     }
 
     /**
-     * @return List<AppointmentOutcome>
+     * Returns a list of past appointment outcomes for the patient.
+     *
+     * @return the list of past appointment outcomes
      */
     @Override
     public List<AppointmentOutcome> getPastAppointmentOutcomes() {
@@ -177,8 +215,10 @@ public class PatientController implements AppointmentUser {
     }
 
     /**
-     * @param ap
-     * @return AppointmentOutcome
+     * Returns the outcome of a specific appointment.
+     *
+     * @param ap the appointment
+     * @return the appointment outcome
      */
     @Override
     public AppointmentOutcome getAppointmentOutcome(Appointment ap) {

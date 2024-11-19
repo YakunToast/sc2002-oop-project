@@ -11,45 +11,25 @@ import hms.repository.RepositoryManager;
 /**
  * Manages patient appointments, including scheduling, rescheduling, and cancellation. Implements
  * appointment status tracking and validation of scheduling constraints.
- *
- * @author AMOS NG ZHENG JIE
- * @author GILBERT ADRIEL TANTOSO
- * @author KUO EUGENE
- * @author RESWARA ANARGYA DZAKIRULLAH
- * @author THEODORE AMADEO ARGASETYA ATMADJA
- * @version 1.0
- * @since 2024-11-19
  */
 public class AppointmentController {
     private final Appointment appointment;
-
     private final AppointmentRepository appointmentRepository;
 
+    /**
+     * Constructs an instance of the {@code AppointmentController} class.
+     *
+     * @param appointment The appointment to be managed.
+     */
     public AppointmentController(Appointment appointment) {
         this.appointment = appointment;
-        appointmentRepository = RepositoryManager.getInstance().getAppointmentRepository();
-    }
-
-    /** The methods to cancel an appointment Mark an appointment as cancelled */
-    public void cancelAppointment() {
-        // Mark as cancelled
-        appointment.cancel();
+        this.appointmentRepository = RepositoryManager.getInstance().getAppointmentRepository();
     }
 
     /**
-     * The methods to accept an appointment
+     * Cancels an appointment.
      *
-     * @return boolean
-     */
-    public boolean accept() {
-        appointment.confirm();
-        return true;
-    }
-
-    /**
-     * The methods to decline an appointment
-     *
-     * @return boolean
+     * @return {@code true} if the appointment is successfully cancelled, {@code false} otherwise.
      */
     public boolean decline() {
         appointment.cancel();
@@ -57,17 +37,28 @@ public class AppointmentController {
     }
 
     /**
-     * The methods to get appointment outcomes
+     * Confirms an appointment.
      *
-     * @return List<AppointmentOutcome>
+     * @return {@code true} if the appointment is successfully confirmed, {@code false} otherwise.
+     */
+    public boolean accept() {
+        appointment.confirm();
+        return true;
+    }
+
+    /**
+     * Retrieves a list of outcomes from all completed appointments.
+     *
+     * @return A list of {@code AppointmentOutcome} objects representing the outcomes of completed
+     *     appointments.
      */
     public static List<AppointmentOutcome> getAppointmentOutcomes() {
         return RepositoryManager.getInstance()
                 .getAppointmentRepository()
                 .getAllAppointments()
                 .stream()
-                .filter(ap -> ap.isCompleted())
-                .map(ap -> ap.getOutcome())
+                .filter(Appointment::isCompleted)
+                .map(Appointment::getOutcome)
                 .collect(Collectors.toList());
     }
 }
