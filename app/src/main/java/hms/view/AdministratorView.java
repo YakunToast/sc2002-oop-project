@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import hms.controller.AdministratorController;
@@ -147,24 +146,11 @@ public class AdministratorView {
         Staff newStaff;
         if (role == UserRole.DOCTOR) {
             newStaff =
-                    new Doctor(
-                            UUID.randomUUID().toString(),
-                            username,
-                            firstName,
-                            lastName,
-                            "password",
-                            email,
-                            number);
+                    new Doctor(username, username, firstName, lastName, "password", email, number);
         } else {
             newStaff =
                     new Pharmacist(
-                            UUID.randomUUID().toString(),
-                            username,
-                            firstName,
-                            lastName,
-                            "password",
-                            email,
-                            number);
+                            username, username, firstName, lastName, "password", email, number);
         }
         ac.addUser(newStaff);
         System.out.println("Staff member added successfully! ID: " + newStaff.getId());
@@ -300,12 +286,12 @@ public class AdministratorView {
         for (Appointment appointment : appointments) {
             if (!appointment.isFree()) {
                 System.out.printf(
-                    "%s\t\t%s\t\t%s\t%s\t%s%n",
-                    appointment.getPatient().getId(),
-                    appointment.getDoctor().getId(),
-                    appointment.getStart().format(formatter),
-                    appointment.getEnd().format(formatter),
-                    appointment.getState());
+                        "%s\t\t%s\t\t%s\t%s\t%s%n",
+                        appointment.getPatient().getId(),
+                        appointment.getDoctor().getId(),
+                        appointment.getStart().format(formatter),
+                        appointment.getEnd().format(formatter),
+                        appointment.getState());
             }
         }
     }
@@ -448,7 +434,8 @@ public class AdministratorView {
 
         System.out.println("\nPending Replenishment Requests:");
         System.out.println("ID\tMedication\t\tRequested Amount\tRequested By");
-        System.out.println("-----------------------------------------------------------------------------");
+        System.out.println(
+                "-----------------------------------------------------------------------------");
         for (ReplenishmentRequest request : requests) {
             System.out.printf(
                     "%d\t%-23s %-23d %s%n",
