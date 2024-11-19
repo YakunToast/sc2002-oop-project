@@ -26,11 +26,26 @@ import hms.model.user.Pharmacist;
 import hms.repository.RepositoryManager;
 import hms.view.MainView;
 
+/**
+ * Hospital Management System (HMS) main application class.
+ * This class serves as the entry point for the HMS application and manages the overall system flow.
+ * 
+ * @author AMOS NG ZHENG JIE
+ * @author GILBERT ADRIEL TANTOSO
+ * @author KUO EUGENE
+ * @author RESWARA ANARGYA DZAKIRULLAH
+ * @author THEODORE AMADEO ARGASETYA ATMADJA
+ * @version 1.0
+ * @since 2024-11-19
+ */
+
 public class App {
     public static RepositoryManager rm;
-
     /**
-     * @param args
+     * The main entry point for the HMS application.
+     * Initializes the system, loads necessary data, and starts the login interface.
+     *
+     * @param args Command line arguments (not used)
      */
     public static void main(String[] args) {
         // Prepare repositories
@@ -51,14 +66,12 @@ public class App {
                                 }));
 
         // Create sample users
-        Patient p1 =
-                new Patient("P1", "pat", "first", "patient", "password", "abc@xyz.com", "+1234");
+        Patient p1 = new Patient("P1", "pat", "first", "patient", "password", "abc@xyz.com", "+1234");
         Doctor d1 = new Doctor("D1", "doc", "first", "doctor", "password", "cba@xyz.com", "+1234");
         Pharmacist h1 =
                 new Pharmacist("H1", "pha", "pha", "doctor", "password", "cba@xyz.com", "+1234");
         Administrator a1 =
-                new Administrator(
-                        "A1", "adm", "first", "doctor", "password", "cba@xyz.com", "+1234");
+                new Administrator("A1", "adm", "first", "doctor", "password", "cba@xyz.com", "+1234");
 
         new DoctorController(d1)
                 .addAppointmentHourly(
@@ -88,7 +101,9 @@ public class App {
         mv.start();
     }
 
-    /**
+    
+    /** 
+     * The methods to load patients data from excel
      * @param filePath
      */
     public static void loadPatientsFromExcel(String filePath) {
@@ -144,7 +159,9 @@ public class App {
         }
     }
 
-    /**
+    
+    /** 
+     * The methods to load medicines data from excel
      * @param filePath
      */
     public static void loadMedicinesFromExcel(String filePath) {
@@ -190,7 +207,9 @@ public class App {
         }
     }
 
-    /**
+    
+    /** 
+     * The methods to load staffs data from excel
      * @param filePath
      */
     public static void loadStaffsFromExcel(String filePath) {

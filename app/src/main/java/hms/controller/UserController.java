@@ -5,7 +5,18 @@ import java.util.Optional;
 import hms.model.user.User;
 import hms.repository.RepositoryManager;
 import hms.repository.UserRepository;
-
+/**
+ * Manages user authentication and role-based access control in the HMS.
+ * Handles login validation, password management, and user session control.
+ * 
+ * @author AMOS NG ZHENG JIE
+ * @author GILBERT ADRIEL TANTOSO
+ * @author KUO EUGENE
+ * @author RESWARA ANARGYA DZAKIRULLAH
+ * @author THEODORE AMADEO ARGASETYA ATMADJA
+ * @version 1.0
+ * @since 2024-11-19
+ */
 public class UserController {
     private final UserRepository userRepository;
     private User user;
@@ -13,8 +24,10 @@ public class UserController {
     public UserController() {
         this.userRepository = RepositoryManager.getInstance().getUserRepository();
     }
-
     /**
+     * Authenticates a user with their hospital ID and password.
+     * For first-time login, users must use the default password "password".
+     *
      * @param idOrUsername
      * @param password
      * @return Optional<User>
@@ -38,7 +51,9 @@ public class UserController {
         return optUser;
     }
 
-    /**
+    
+    /** 
+     * The methods to set the user attiribute
      * @param user
      */
     public void setUser(User user) {
@@ -46,6 +61,8 @@ public class UserController {
     }
 
     /**
+     * Changes a user's password. Required after first login with default password.
+     *
      * @param oldPassword
      * @param newPassword
      * @return boolean
