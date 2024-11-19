@@ -182,7 +182,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Gets the current status of the appointment.
+     * Retrieves the current status of the appointment.
      *
      * @return The current status of the appointment.
      */
@@ -191,7 +191,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Gets the current state of the appointment.
+     * Retrieves the current state of the appointment.
      *
      * @return The current state of the appointment.
      */
@@ -209,7 +209,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Gets the outcome of the appointment.
+     * Retrieves the outcome of the appointment.
      *
      * @return The outcome of the appointment.
      */
@@ -227,7 +227,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Gets the unique identifier for the appointment.
+     * Retrieves the unique identifier for the appointment.
      *
      * @return The unique identifier for the appointment.
      */
@@ -245,7 +245,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Gets the patient associated with the appointment.
+     * Retrieves the patient associated with the appointment.
      *
      * @return The patient associated with the appointment.
      */
@@ -263,7 +263,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Gets the doctor associated with the appointment.
+     * Retrieves the doctor associated with the appointment.
      *
      * @return The doctor associated with the appointment.
      */
@@ -281,7 +281,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Gets the start time of the appointment.
+     * Retrieves the start time of the appointment.
      *
      * @return The start time of the appointment.
      */
@@ -299,7 +299,7 @@ public class Appointment implements Serializable {
     }
 
     /**
-     * Gets the end time of the appointment.
+     * Retrieves the end time of the appointment.
      *
      * @return The end time of the appointment.
      */

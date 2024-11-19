@@ -28,7 +28,7 @@ public class Schedule implements Serializable {
     }
 
     /**
-     * Returns the doctor for whom this schedule is created.
+     * Retrieves the doctor for whom this schedule is created.
      *
      * @return the doctor associated with this schedule
      */
@@ -37,7 +37,7 @@ public class Schedule implements Serializable {
     }
 
     /**
-     * Returns a string representation of the schedule, listing all appointments.
+     * Retrieves a string representation of the schedule, listing all appointments.
      *
      * @return a string representation of the schedule
      */
@@ -51,7 +51,7 @@ public class Schedule implements Serializable {
     }
 
     /**
-     * Returns the list of appointments scheduled for this doctor.
+     * Retrieves the list of appointments scheduled for this doctor.
      *
      * @return a list of appointments
      */
