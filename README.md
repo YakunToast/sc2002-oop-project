@@ -28,8 +28,6 @@ OpenJDK Runtime Environment Microsoft-9889606 (build 21.0.4+7-LTS)
 OpenJDK 64-Bit Server VM Microsoft-9889606 (build 21.0.4+7-LTS, mixed mode, sharing)
 ```
 
-If both commands return version details, your setup is correct and you're ready to proceed. Otherwise, you may need to configure your PATH environment variables to include the locations of your Java and Maven installations.
-
 ## Usage Options:
 
 ### Pre-compiled JAR
@@ -68,6 +66,10 @@ After successfully building the project, execute the JAR file to run the Hospita
 ```
 java -jar ./app/build/libs/app.jar
 ```
+
+## Development Options:
+
+This project has a [Development Container](https://containers.dev/) configured with the necessary prerequisites.
 
 ## Project Structure
 
