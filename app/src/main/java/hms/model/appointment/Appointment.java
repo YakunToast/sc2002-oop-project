@@ -182,6 +182,15 @@ public class Appointment implements Serializable {
     }
 
     /**
+     * Returns the current status of the appointment.
+     *
+     * @return The current status of the appointment.
+     */
+    public AppointmentStatus getStatus() {
+        return ((IAppointmentState) state).getStatus();
+    }
+
+    /**
      * Returns the current state of the appointment.
      *
      * @return The current state of the appointment.
