@@ -227,15 +227,15 @@ public class MainView {
     private void registerPatient(Scanner sc) {
         System.out.println("\nRegister as a new patient:");
 
-        System.out.print("Enter your first name: ");
+        System.out.println("Enter your first name: ");
         String firstName = sc.nextLine().trim();
-        System.out.print("Enter your last name: ");
+        System.out.println("Enter your last name: ");
         String lastName = sc.nextLine().trim();
-        System.out.print("Enter a username: ");
+        System.out.println("Enter a username: ");
         String username = sc.nextLine().trim();
-        System.out.print("Enter your email address: ");
+        System.out.println("Enter your email address: ");
         String email = sc.nextLine().trim();
-        System.out.print("Enter your phone number: ");
+        System.out.println("Enter your phone number: ");
         String phoneNumber = sc.nextLine().trim();
 
         // Check if username already exists
