@@ -65,7 +65,7 @@ class RepositoryTest {
         assertEquals(prescription, pharmacistController.getPendingPrescriptions().get(0));
 
         // Refresh repository
-        RepositoryManager.getInstance().save();
+        RepositoryManager.getInstance().saveAndLog();
         RepositoryManager.destroyInstance();
         RepositoryManager.load();
 

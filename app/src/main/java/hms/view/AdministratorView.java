@@ -18,6 +18,7 @@ import hms.model.user.Pharmacist;
 import hms.model.user.Staff;
 import hms.model.user.User;
 import hms.model.user.UserRole;
+import hms.repository.RepositoryManager;
 
 public class AdministratorView {
     private Administrator administrator;
@@ -55,6 +56,9 @@ public class AdministratorView {
                 System.out.println("An error occurred: " + e.getMessage());
                 System.out.println("Please try again.");
             }
+
+            // Save after every option return
+            RepositoryManager.getInstance().save();
         }
     }
 

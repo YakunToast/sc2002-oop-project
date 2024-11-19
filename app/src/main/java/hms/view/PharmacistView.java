@@ -53,6 +53,9 @@ public class PharmacistView {
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a valid number.");
             }
+
+            // Save after every option return
+            RepositoryManager.getInstance().save();
         }
     }
 

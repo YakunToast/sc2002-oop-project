@@ -53,13 +53,21 @@ public class RepositoryManager implements Serializable {
         }
     }
 
-    public void save() {
+    public boolean save() {
         try {
             this.serialize("database.bin");
-            System.out.println("saved database!");
+            return true;
         } catch (IOException e) {
-            System.out.println("failed to serialise database");
             e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void saveAndLog() {
+        if (this.save()) {
+            System.out.println("saved database!");
+        } else {
+            System.out.println("failed to serialise database");
         }
     }
 

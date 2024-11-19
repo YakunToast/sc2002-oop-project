@@ -13,6 +13,7 @@ import hms.model.medication.Medication;
 import hms.model.record.MedicalRecord;
 import hms.model.user.Doctor;
 import hms.model.user.Patient;
+import hms.repository.RepositoryManager;
 
 public class PatientView {
     private final PatientController pc;
@@ -55,6 +56,9 @@ public class PatientView {
                 }
                 default -> System.out.println("Invalid option. Please try again.");
             }
+
+            // Save after every option return
+            RepositoryManager.getInstance().save();
         }
     }
 

@@ -119,6 +119,9 @@ public class MainView {
                 System.out.println("\nPasswords do not match. Please try again.");
             }
         }
+
+        // Save after credential change
+        RepositoryManager.getInstance().save();
     }
 
     /**

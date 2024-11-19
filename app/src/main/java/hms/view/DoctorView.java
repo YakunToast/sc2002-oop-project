@@ -69,6 +69,9 @@ public class DoctorView {
                 }
                 default -> System.out.println("Invalid option! Please try again.");
             }
+
+            // Save after every option return
+            RepositoryManager.getInstance().save();
         }
     }
 
@@ -378,6 +381,7 @@ public class DoctorView {
                         dc.addAppointmentOutcome(appointment, desc, null);
                     }
 
+                    RepositoryManager.getInstance().save();
                     System.out.println("Outcome recorded successfully.");
                 } else {
                     System.out.println("Outcome for this appointment has already been recorded.");

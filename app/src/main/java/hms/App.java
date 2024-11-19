@@ -61,7 +61,7 @@ public class App {
                         new Thread(
                                 new Runnable() {
                                     public void run() {
-                                        rm.save();
+                                        rm.saveAndLog();
                                     }
                                 }));
 
