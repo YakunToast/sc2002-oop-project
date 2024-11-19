@@ -46,14 +46,25 @@ public class PharmacistController implements InventoryUser {
     }
 
     /**
+     * Retrieves a list of all prescriptions.
+     *
+     * @return A list of Prescription objects.
+     */
+    public List<Prescription> getAllPrescriptions() {
+        return getAppointmentOutcomes().stream()
+                .map(ao -> ao.getPrescription())
+                .flatMap(Optional::stream)
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Retrieves a list of all pending prescriptions.
      *
      * @return A list of Prescription objects that are pending.
      */
     public List<Prescription> getPendingPrescriptions() {
-        return getAppointmentOutcomes().stream()
-                .map(ao -> ao.getPrescription())
-                .flatMap(Optional::stream)
+        return getAllPrescriptions().stream()
+                .filter(ps -> ps.isPending())
                 .collect(Collectors.toList());
     }
 

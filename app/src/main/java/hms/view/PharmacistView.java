@@ -76,11 +76,13 @@ public class PharmacistView {
         for (AppointmentOutcome outcome : outcomes) {
             if (outcome.getPrescription() != null && !outcome.getPrescription().isEmpty()) {
                 System.out.println("\nAppointment ID: " + outcome.getAppointment().getId());
-                System.out.println("Date: " + outcome.getAppointment().getStart().format(formatter)
-                                            + " to "
-                                            + outcome.getAppointment().getEnd().format(formatter));
+                System.out.println(
+                        "Date: "
+                                + outcome.getAppointment().getStart().format(formatter)
+                                + " to "
+                                + outcome.getAppointment().getEnd().format(formatter));
                 System.out.println("Prescriptions:\n==============");
-                for (Prescription prescription : pharmacistController.getPendingPrescriptions()) {
+                for (Prescription prescription : pharmacistController.getAllPrescriptions()) {
                     if (prescription.getMedications() != null) {
                         int i = 1;
                         for (Medication m : prescription.getMedications().keySet()) {
@@ -103,7 +105,6 @@ public class PharmacistView {
                         }
                         System.out.println("Status: " + prescription.getPrescriptionStatus());
                     }
-                    
                 }
                 System.out.println("------------------------");
             }
@@ -129,7 +130,8 @@ public class PharmacistView {
                 }
 
                 Prescription prescription = prescriptionOpt.get();
-                if (prescription.getPrescriptionStatus() == PrescriptionStatus.PENDING && prescription.getMedications() != null) {
+                if (prescription.getPrescriptionStatus() == PrescriptionStatus.PENDING
+                        && prescription.getMedications() != null) {
                     hasPendingPrescriptions = true;
                     System.out.println("Appointment ID: " + outcome.getAppointment().getId());
                     int i = 1;
@@ -153,7 +155,6 @@ public class PharmacistView {
                     }
                     System.out.println("Current Status: " + prescription.getPrescriptionStatus());
                     System.out.println("------------------------");
-                   
                 }
             }
         }
