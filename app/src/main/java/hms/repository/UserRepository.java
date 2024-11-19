@@ -16,7 +16,7 @@ import hms.model.user.UserRole;
 /** Repository class for managing user data. */
 public class UserRepository extends BaseRepository {
 
-    private Map<String, User> users;
+    private final Map<String, User> users;
 
     /** Constructs a new UserRepository instance. */
     public UserRepository() {
@@ -28,8 +28,8 @@ public class UserRepository extends BaseRepository {
      *
      * @param user the user to be added
      */
-    public void addUser(User User) {
-        users.put(User.getId(), User);
+    public void addUser(User user) {
+        users.put(user.getId(), user);
     }
 
     /**

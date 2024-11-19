@@ -15,12 +15,11 @@ import hms.model.user.Patient;
 public class MedicalRecord implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Patient patient;
+    private final Patient patient;
     private String contactPhone;
     private String emailAddress;
-    private List<String> pastDiagnoses;
-    private List<String> treatments;
-
+    private final List<String> pastDiagnoses;
+    private final List<String> treatments;
     private Doctor doctor;
 
     /** Enum representing the possible genders of a patient. */
