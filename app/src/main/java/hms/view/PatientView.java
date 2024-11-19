@@ -75,12 +75,12 @@ public class PatientView {
         System.out.printf(" Email: %s%n", pc.getPatient().getEmail());
         System.out.printf("Blood Type: %s%n", pc.getPatient().getBloodType());
         System.out.println("Past Diagnoses and Treatments:");
-        // TODO:
-        // for (int i = 0; i < mr.getPastDiagnoses().size(); i++) {
-        // System.out.printf(" %d. %s - %s%n", (i + 1),
-        // mr.getPastDiagnoses().get(i).getDiagnosis(),
-        // mr.getPastDiagnoses().get(i).getTreatment());
-        // }
+        
+        for (int i = 0; i < mr.getPastDiagnoses().size(); i++) {
+        System.out.printf(" %d. Diagnosis: %s - Treatment Plan: %s%n", (i + 1),
+        mr.getPastDiagnoses().get(i),
+        mr.getTreatments().get(i));
+        }
         System.out.println("---------------------------");
     }
 

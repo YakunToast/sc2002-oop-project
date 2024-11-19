@@ -113,7 +113,7 @@ public class DoctorView {
      * @param patient
      */
     void viewPatientMedicalRecord(Scanner sc, Patient patient) {
-        System.out.println(patient.getMedicalRecord());
+        System.out.println(patient.getMedicalRecord().toString());
     }
 
     /**
@@ -126,6 +126,7 @@ public class DoctorView {
             System.out.println("1. Update date of birth");
             System.out.println("2. Update gender");
             System.out.println("3. Update blood type");
+            System.out.println("4. Update patient's medical record");
             System.out.println("0. Exit");
             System.out.print("Choose an option: ");
             int option = sc.nextInt();
@@ -146,6 +147,19 @@ public class DoctorView {
                     System.out.print("Enter new blood type: ");
                     String newBloodType = sc.nextLine();
                     patient.setBloodType(newBloodType);
+                }
+                case 4 -> {
+                    System.out.println("Retrieving " + patient.getFirstName() + " " 
+                                                + patient.getLastName() + "'s medical record...");
+                    
+                    System.out.println("Add diagnosis:");
+                    String diagnosis = sc.nextLine();
+                    patient.getMedicalRecord().addDiagnosis(diagnosis);
+
+                    System.out.println("Add treatment plan:");
+                    String treatment = sc.nextLine();
+                    patient.getMedicalRecord().addTreatment(treatment);
+
                 }
                 case 0 -> {
                     return;
