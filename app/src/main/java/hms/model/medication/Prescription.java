@@ -10,6 +10,11 @@ public class Prescription implements Serializable {
     private PrescriptionStatus status;
     private Map<Medication, Integer> medications;
 
+    public Prescription() {
+        this.medications = null;
+        this.status = PrescriptionStatus.PENDING;
+    }
+
     public Prescription(Medication... medications) {
         Map<Medication, Integer> medicationMap = new HashMap<>();
         for (Medication medication : medications) {

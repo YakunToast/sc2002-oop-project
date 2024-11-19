@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 import hms.controller.DoctorController;
 import hms.model.appointment.Appointment;
-import hms.model.appointment.AppointmentOutcome;
 import hms.model.medication.Medication;
 import hms.model.medication.Prescription;
 import hms.model.user.Doctor;
@@ -351,7 +350,6 @@ public class DoctorView {
                     String needMedication = sc.nextLine();
 
                     Map<Medication, Integer> medications = new HashMap<>();
-                    AppointmentOutcome outcome;
 
                     if (!needMedication.equals("0")) {
                         while (true) {
@@ -379,8 +377,11 @@ public class DoctorView {
 
                         Prescription pres = new Prescription(medications);
                         dc.addAppointmentOutcome(appointment, desc, pres);
-                    } else {
-                        dc.addAppointmentOutcome(appointment, desc, null);
+                    } 
+                    
+                    else {
+                        Prescription pres = new Prescription();
+                        dc.addAppointmentOutcome(appointment, desc, pres);
                     }
 
                     RepositoryManager.getInstance().save();

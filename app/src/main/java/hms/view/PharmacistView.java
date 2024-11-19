@@ -122,7 +122,7 @@ public class PharmacistView {
                 }
 
                 Prescription prescription = prescriptionOpt.get();
-                if (prescription.getPrescriptionStatus() == PrescriptionStatus.PENDING) {
+                if (prescription.getPrescriptionStatus() == PrescriptionStatus.PENDING && prescription.getMedications() != null) {
                     hasPendingPrescriptions = true;
                     System.out.println("Appointment ID: " + outcome.getAppointment().getId());
                     int i = 1;
@@ -146,6 +146,7 @@ public class PharmacistView {
                     }
                     System.out.println("Current Status: " + prescription.getPrescriptionStatus());
                     System.out.println("------------------------");
+                   
                 }
             }
         }

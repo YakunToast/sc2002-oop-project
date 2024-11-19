@@ -261,10 +261,11 @@ public class PatientView {
             medications = apptOutcomes.get(i).getPrescription().get().getMedications();
             System.out.println("Appointment Outcome " + (i + 1) + ": ");
             System.out.println("Description: " + desc);
-            System.out.println("Prescription:");
-            for (Map.Entry<Medication, Integer> e : medications.entrySet()) {
-                System.out.println(
-                        e.getKey().getName()
+            if (medications != null) {
+                System.out.println("Prescription:");
+                for (Map.Entry<Medication, Integer> e : medications.entrySet()) {
+                    System.out.println(
+                                e.getKey().getName()
                                 + ", "
                                 + e.getKey().getDescription()
                                 + ", "
@@ -272,7 +273,8 @@ public class PatientView {
                                 + ", "
                                 + "Amount given: "
                                 + e.getValue());
-            }
+                }
+            } 
         }
     }
 }
