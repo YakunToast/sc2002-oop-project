@@ -67,7 +67,7 @@ public class Appointment implements Serializable {
                 .append(status != null ? status.toString() : "Unknown")
                 .append("\n")
                 .append("Outcome: ")
-                .append(outcome != null ? outcome : "Not Determined")
+                .append(outcome != null ? outcome.getDescription() : "Not Determined")
                 .append("\n");
         return sb.toString();
     }
