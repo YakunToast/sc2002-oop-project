@@ -1,5 +1,6 @@
 package hms.view;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -63,6 +64,7 @@ public class PharmacistView {
      * @param sc
      */
     void viewAppointmentOutcomeRecords(Scanner sc) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         System.out.println("\n=== Appointment Outcome Records ===");
         List<AppointmentOutcome> outcomes = pharmacistController.getAppointmentOutcomes();
 
@@ -74,29 +76,32 @@ public class PharmacistView {
         for (AppointmentOutcome outcome : outcomes) {
             if (outcome.getPrescription() != null && !outcome.getPrescription().isEmpty()) {
                 System.out.println("\nAppointment ID: " + outcome.getAppointment().getId());
-                System.out.println("Date: " + outcome.getAppointment().getStart());
+                System.out.println("Date: " + outcome.getAppointment().getStart().format(formatter));
                 System.out.println("Prescriptions:\n==============");
                 for (Prescription prescription : pharmacistController.getPendingPrescriptions()) {
-                    int i = 1;
-                    for (Medication m : prescription.getMedications().keySet()) {
-                        System.out.println(
-                                "Medication "
-                                        + (i++)
-                                        + ":"
-                                        + "\nID: "
-                                        + m.getId()
-                                        + "\n"
-                                        + "Name: "
-                                        + m.getName()
-                                        + "\n"
-                                        + "Reason: "
-                                        + m.getDescription()
-                                        + "\n"
-                                        + "Quantity: "
-                                        + prescription.getMedications().get(m)
-                                        + "\n---------");
+                    if (prescription.getMedications() != null) {
+                        int i = 1;
+                        for (Medication m : prescription.getMedications().keySet()) {
+                            System.out.println(
+                                    "Medication "
+                                            + (i++)
+                                            + ":"
+                                            + "\nID: "
+                                            + m.getId()
+                                            + "\n"
+                                            + "Name: "
+                                            + m.getName()
+                                            + "\n"
+                                            + "Reason: "
+                                            + m.getDescription()
+                                            + "\n"
+                                            + "Quantity: "
+                                            + prescription.getMedications().get(m)
+                                            + "\n---------");
+                        }
+                        System.out.println("Status: " + prescription.getPrescriptionStatus());
                     }
-                    System.out.println("Status: " + prescription.getPrescriptionStatus());
+                    
                 }
                 System.out.println("------------------------");
             }
