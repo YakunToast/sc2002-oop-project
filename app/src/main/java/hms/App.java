@@ -75,11 +75,6 @@ public class App {
                 new Administrator(
                         "A1", "adm", "first", "doctor", "password", "cba@xyz.com", "+1234");
 
-        new DoctorController(d1)
-                .addAppointmentHourly(
-                        LocalDateTime.of(2024, 11, 19, 07, 00),
-                        LocalDateTime.of(2024, 11, 19, 19, 00));
-
         // Save sample users
         if (rm.getUserRepository().getUserById("P1").isEmpty()) {
             System.out.println("Creating Patient pat...");
@@ -96,6 +91,13 @@ public class App {
         if (rm.getUserRepository().getUserById("A1").isEmpty()) {
             System.out.println("Creating Admin adm...");
             rm.getUserRepository().addUser(a1);
+        }
+
+        // Add sample appointment
+        DoctorController dc = new DoctorController(d1);
+        if (dc.getAppointments().isEmpty()) {
+            dc.addAppointmentHourly(
+                    LocalDateTime.of(2024, 11, 19, 07, 00), LocalDateTime.of(2024, 11, 19, 19, 00));
         }
 
         // Initialise view
