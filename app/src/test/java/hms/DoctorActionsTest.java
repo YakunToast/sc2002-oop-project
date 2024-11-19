@@ -14,6 +14,7 @@ import org.junit.jupiter.api.TestInstance;
 
 import hms.controller.DoctorController;
 import hms.controller.PatientController;
+import hms.model.appointment.Appointment;
 import hms.model.medication.Medication;
 import hms.model.medication.Prescription;
 import hms.model.user.Doctor;
@@ -77,9 +78,9 @@ class DoctorActionsTest {
         LocalDateTime startTime = LocalDateTime.now().plusDays(1);
         LocalDateTime endTime = startTime.plusHours(8);
 
-        boolean availabilitySet = doctorController.setAvailability(startTime, endTime);
+        Appointment appointment = doctorController.addAppointment(startTime, endTime);
+        assertNotNull(appointment);
 
-        assertTrue(availabilitySet);
         var schedule = doctorController.getPersonalSchedule();
         assertFalse(schedule.getAppointments().isEmpty());
     }
@@ -136,5 +137,21 @@ class DoctorActionsTest {
         var savedOutcome = doctorController.getAppointmentOutcome(appointment);
         assertNotNull(savedOutcome);
         assertEquals("Regular checkup", savedOutcome.getDescription());
+    }
+
+    @Test
+    @DisplayName("Test: Set Hourly Availability for Appointments")
+    void testHourlyAvailaiblity() {
+        LocalDateTime startTime = LocalDateTime.now().plusDays(1);
+        LocalDateTime endTime = startTime.plusHours(8);
+
+        var appointments = doctorController.addAppointmentHourly(startTime, endTime);
+        assertFalse(appointments.isEmpty());
+
+        var schedule = doctorController.getPersonalSchedule();
+        assertFalse(schedule.getAppointments().isEmpty());
+
+        Appointment ap = schedule.getAppointments().get(0);
+        assertEquals(startTime.plusHours(1), ap.getEnd());
     }
 }
