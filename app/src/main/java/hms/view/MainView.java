@@ -72,10 +72,14 @@ public class MainView {
      * @return the user's choice (1 for login, 2 for registration)
      */
     private int handleUserChoice(Scanner sc) {
-        System.out.println("1. Log in");
-        System.out.println("2. Register as a patient");
-        System.out.print("Enter your choice (1 or 2): ");
-        return sc.nextInt();
+        while (true) {
+            System.out.println("1. Log in");
+            System.out.println("2. Register as a patient");
+            System.out.print("Enter your choice (1 or 2): ");
+            int choice = sc.nextInt();
+            
+            return choice;
+        }
     }
 
     /**
@@ -225,6 +229,8 @@ public class MainView {
      * @param sc the Scanner object for reading user input
      */
     private void registerPatient(Scanner sc) {
+        sc.nextLine();  // Consume newline character left by nextInt()
+
         System.out.println("\nRegister as a new patient:");
 
         System.out.println("Enter your first name: ");
