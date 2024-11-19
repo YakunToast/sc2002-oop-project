@@ -12,7 +12,6 @@ public class Medication implements Serializable {
     private String name;
     private String description;
     private String dosageInstructions;
-
     private List<MedicationSideEffect> sideEffects;
 
     // Status (e.g., active, discontinued, recalled)

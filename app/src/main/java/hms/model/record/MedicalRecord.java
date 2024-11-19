@@ -47,7 +47,6 @@ public class MedicalRecord implements Serializable {
      * @param phone the new contact phone number
      * @param email the new email address
      */
-    // Only allow updating contact information
     public void updateContactInformation(String phone, String email) {
         this.contactPhone = phone;
         this.emailAddress = email;
@@ -58,6 +57,7 @@ public class MedicalRecord implements Serializable {
      *
      * @return a string representation of the medical record
      */
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Medical Record\n");
@@ -84,7 +84,6 @@ public class MedicalRecord implements Serializable {
      *
      * @return the patient
      */
-    // Getters for all fields (medical information is read-only)
     public Patient getPatient() {
         return patient;
     }

@@ -100,7 +100,6 @@ public class MainView {
                             .getUserRepository()
                             .getUserById(username)
                             .orElse(null);
-
             if (user == null) {
                 user =
                         RepositoryManager.getInstance()

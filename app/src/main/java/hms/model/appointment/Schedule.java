@@ -41,6 +41,7 @@ public class Schedule implements Serializable {
      *
      * @return a string representation of the schedule
      */
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Appointment appointment : appointments) {
@@ -84,7 +85,6 @@ public class Schedule implements Serializable {
      * @return a list of newly created appointments
      * @throws IllegalArgumentException if the start time is after the end time
      */
-    // addAppointments add appointments in one hour windows
     public List<Appointment> addAppointmentHourly(
             LocalDateTime startDateTime, LocalDateTime endDateTime) {
         if (startDateTime.isAfter(endDateTime)) {
@@ -116,7 +116,6 @@ public class Schedule implements Serializable {
      * @return a list of newly created appointments representing the availability slots
      * @throws IllegalArgumentException if the start time is after the end time
      */
-    // Method to add availability timeslot in 1-hour windows over a date range
     public List<Appointment> addMultipleAppointmentDays(
             LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime) {
         if (startTime.isAfter(endTime)) {
